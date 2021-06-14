@@ -195,9 +195,9 @@
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(196, 2);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(24, 13);
+			this.label2.Size = new System.Drawing.Size(22, 13);
 			this.label2.TabIndex = 2;
-			this.label2.Text = "N =";
+			this.label2.Text = "n =";
 			this.toolTip1.SetToolTip(this.label2, "Число полей");
 			// 
 			// N

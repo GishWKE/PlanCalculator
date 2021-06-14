@@ -50,7 +50,6 @@
 			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -72,7 +71,6 @@
 			// 
 			// splitContainer1.Panel1
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.button1);
 			this.splitContainer1.Panel1.Controls.Add(this.panel2);
 			this.splitContainer1.Panel1.Controls.Add(this.panel1);
 			this.splitContainer1.Panel1.Controls.Add(this.Dose_panel);
@@ -334,15 +332,6 @@
 			// 
 			this.toolTip1.IsBalloon = true;
 			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(115, 251);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 4;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(1084, 461);
@@ -392,7 +381,6 @@
 		private NumericUpDown A;
 		private Label A_label;
 		private ToolTip toolTip1;
-		private Button button1;
 	}
 }
 

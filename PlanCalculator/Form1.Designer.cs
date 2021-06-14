@@ -50,6 +50,7 @@
 			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -71,6 +72,7 @@
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.Controls.Add(this.monthCalendar1);
 			this.splitContainer1.Panel1.Controls.Add(this.panel2);
 			this.splitContainer1.Panel1.Controls.Add(this.panel1);
 			this.splitContainer1.Panel1.Controls.Add(this.Dose_panel);
@@ -332,6 +334,12 @@
 			// 
 			this.toolTip1.IsBalloon = true;
 			// 
+			// monthCalendar1
+			// 
+			this.monthCalendar1.Location = new System.Drawing.Point(114, 159);
+			this.monthCalendar1.Name = "monthCalendar1";
+			this.monthCalendar1.TabIndex = 4;
+			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(1084, 461);
@@ -381,6 +389,7 @@
 		private NumericUpDown A;
 		private Label A_label;
 		private ToolTip toolTip1;
+		private MonthCalendar monthCalendar1;
 	}
 }
 

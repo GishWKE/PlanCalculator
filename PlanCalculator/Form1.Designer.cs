@@ -50,7 +50,6 @@
 			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -72,7 +71,6 @@
 			// 
 			// splitContainer1.Panel1
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.richTextBox1);
 			this.splitContainer1.Panel1.Controls.Add(this.panel2);
 			this.splitContainer1.Panel1.Controls.Add(this.panel1);
 			this.splitContainer1.Panel1.Controls.Add(this.Dose_panel);
@@ -334,14 +332,6 @@
 			// 
 			this.toolTip1.IsBalloon = true;
 			// 
-			// richTextBox1
-			// 
-			this.richTextBox1.Location = new System.Drawing.Point(118, 217);
-			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.Size = new System.Drawing.Size(100, 96);
-			this.richTextBox1.TabIndex = 4;
-			this.richTextBox1.Text = "";
-			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(1084, 461);
@@ -391,7 +381,6 @@
 		private NumericUpDown A;
 		private Label A_label;
 		private ToolTip toolTip1;
-		private RichTextBox richTextBox1;
 	}
 }
 

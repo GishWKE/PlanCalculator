@@ -55,7 +55,7 @@
 		{
 			get
 			{
-				return ( this.IsEmpty ( ) || regex.IsEmpty ( ) ) ? true : Checker.IsMatch ( Text );
+				return this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
 			}
 		}
 		private bool can_neg = false;
@@ -72,12 +72,12 @@
 				else
 				{
 					KeyPress += IntTextBox_KeyPress_NoMinus;
+					DeleteMinus ( );
 				}
-				DeleteMinus ( );
 			}
 		}
 		private Regex Checker = null;
-		public string regex
+		public string Regex
 		{
 			get => ( Checker == null ) ? string.Empty : Checker.ToString ( );
 			set
@@ -149,7 +149,8 @@
 			{
 				Value = null;
 			}
-			else Value = Value;
+			else
+				Value = Value;
 		}
 	}
 }

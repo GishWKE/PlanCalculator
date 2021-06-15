@@ -63,7 +63,7 @@
 			this.Time_value.Location = new System.Drawing.Point(33, 0);
 			this.Time_value.MaxLength = 8;
 			this.Time_value.Name = "Time_value";
-			this.Time_value.regex = "";
+			this.Time_value.Regex = "";
 			this.Time_value.Size = new System.Drawing.Size(100, 20);
 			this.Time_value.TabIndex = 2;
 			this.Time_value.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

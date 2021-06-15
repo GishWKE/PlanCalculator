@@ -59,7 +59,7 @@
 			this.Power.Location = new System.Drawing.Point(67, 56);
 			this.Power.MaxLength = 8;
 			this.Power.Name = "Power";
-			this.Power.regex = "";
+			this.Power.Regex = "";
 			this.Power.Size = new System.Drawing.Size(250, 20);
 			this.Power.TabIndex = 14;
 			this.Power.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -94,7 +94,7 @@
 			this.SCD_value.Enabled = false;
 			this.SCD_value.Location = new System.Drawing.Point(67, 30);
 			this.SCD_value.Name = "SCD_value";
-			this.SCD_value.regex = "";
+			this.SCD_value.Regex = "";
 			this.SCD_value.Size = new System.Drawing.Size(250, 20);
 			this.SCD_value.TabIndex = 11;
 			this.SCD_value.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

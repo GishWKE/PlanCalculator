@@ -82,12 +82,12 @@
 				else
 				{
 					KeyPress += DoubleTextBox_KeyPress_NoMinus;
+					DeleteMinus ( );
 				}
-				DeleteMinus ( );
 			}
 		}
 		private Regex Checker = null;
-		public string regex
+		public string Regex
 		{
 			get => ( Checker == null ) ? string.Empty : Checker.ToString ( );
 			set
@@ -98,7 +98,7 @@
 				}
 			}
 		}
-		public bool IsCorrect => ( this.IsEmpty ( ) || regex.IsEmpty ( ) ) ? true : Checker.IsMatch ( Text );
+		public bool IsCorrect => this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
 		private void DoubleTextBox_KeyPress_NoMinus ( object sender, KeyPressEventArgs e )
 		{
 			if ( e.KeyChar == '-' )
@@ -169,7 +169,8 @@
 			{
 				Value = null;
 			}
-			else Value = Value;
+			else
+				Value = Value;
 		}
 	}
 }

@@ -61,7 +61,7 @@
 			this.Depth.Location = new System.Drawing.Point(48, 0);
 			this.Depth.MaxLength = 4;
 			this.Depth.Name = "Depth";
-			this.Depth.regex = "^$|^(0?[,.][5-9]|[1-9]|[1-2]\\d|30|[1-9][,.]\\d?|[1-2]\\d[,.]\\d?|30[,.]0?)$";
+			this.Depth.Regex = "^$|^(0?[,.][5-9]|[1-9]|[1-2]\\d|30|[1-9][,.]\\d?|[1-2]\\d[,.]\\d?|30[,.]0?)$";
 			this.Depth.Size = new System.Drawing.Size(30, 20);
 			this.Depth.TabIndex = 2;
 			this.Depth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -81,7 +81,7 @@
 			this.OTV_value.Location = new System.Drawing.Point(109, 0);
 			this.OTV_value.MaxLength = 5;
 			this.OTV_value.Name = "OTV_value";
-			this.OTV_value.regex = "";
+			this.OTV_value.Regex = "";
 			this.OTV_value.Size = new System.Drawing.Size(38, 20);
 			this.OTV_value.TabIndex = 3;
 			this.OTV_value.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

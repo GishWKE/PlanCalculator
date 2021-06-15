@@ -54,7 +54,7 @@
 			this.A_size.Location = new System.Drawing.Point(35, 0);
 			this.A_size.MaxLength = 2;
 			this.A_size.Name = "A_size";
-			this.A_size.regex = "^$|^([4-9]|1\\d|20)$";
+			this.A_size.Regex = "^$|^([4-9]|1\\d|20)$";
 			this.A_size.Size = new System.Drawing.Size(20, 20);
 			this.A_size.TabIndex = 1;
 			this.A_size.Tag = "A";
@@ -71,7 +71,7 @@
 			this.B_size.Location = new System.Drawing.Point(79, 0);
 			this.B_size.MaxLength = 2;
 			this.B_size.Name = "B_size";
-			this.B_size.regex = "^$|^([4-9]|1\\d|20)$";
+			this.B_size.Regex = "^$|^([4-9]|1\\d|20)$";
 			this.B_size.Size = new System.Drawing.Size(20, 20);
 			this.B_size.TabIndex = 3;
 			this.B_size.Tag = "B";
@@ -109,7 +109,7 @@
 			this.Kb.Location = new System.Drawing.Point(130, 0);
 			this.Kb.MaxLength = 5;
 			this.Kb.Name = "Kb";
-			this.Kb.regex = "";
+			this.Kb.Regex = "";
 			this.Kb.Size = new System.Drawing.Size(51, 20);
 			this.Kb.TabIndex = 5;
 			this.Kb.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

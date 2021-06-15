@@ -75,7 +75,7 @@
 			this.L.Location = new System.Drawing.Point(131, 0);
 			this.L.MaxLength = 5;
 			this.L.Name = "L";
-			this.L.regex = "";
+			this.L.Regex = "";
 			this.L.Size = new System.Drawing.Size(41, 20);
 			this.L.TabIndex = 5;
 			this.L.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -90,7 +90,7 @@
 			this.Thickness.Location = new System.Drawing.Point(73, 0);
 			this.Thickness.MaxLength = 4;
 			this.Thickness.Name = "Thickness";
-			this.Thickness.regex = "^$|^(0?[,.][5-9]|[1-9]|1[0-1]|12|[1-9][,.]\\d?|1[0-1][,.]\\d?|12[,.]0?)$";
+			this.Thickness.Regex = "^$|^(0?[,.][5-9]|[1-9]|1[0-1]|12|[1-9][,.]\\d?|1[0-1][,.]\\d?|12[,.]0?)$";
 			this.Thickness.Size = new System.Drawing.Size(27, 20);
 			this.Thickness.TabIndex = 4;
 			this.Thickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -106,7 +106,7 @@
 			this.Distance.Location = new System.Drawing.Point(28, 0);
 			this.Distance.MaxLength = 2;
 			this.Distance.Name = "Distance";
-			this.Distance.regex = "^$|^([1-9]|1[0-4])$";
+			this.Distance.Regex = "^$|^([1-9]|1[0-4])$";
 			this.Distance.Size = new System.Drawing.Size(23, 20);
 			this.Distance.TabIndex = 3;
 			this.Distance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

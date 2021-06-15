@@ -267,7 +267,7 @@
 			this.D.Correct_tooltip = "Разовая доза";
 			this.D.Location = new System.Drawing.Point(96, 0);
 			this.D.Name = "D";
-			this.D.regex = "";
+			this.D.Regex = "";
 			this.D.Size = new System.Drawing.Size(277, 20);
 			this.D.TabIndex = 3;
 			this.D.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -292,7 +292,7 @@
 			this.P.Location = new System.Drawing.Point(30, 0);
 			this.P.MaxLength = 3;
 			this.P.Name = "P";
-			this.P.regex = "";
+			this.P.Regex = "";
 			this.P.Size = new System.Drawing.Size(24, 20);
 			this.P.TabIndex = 1;
 			this.P.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

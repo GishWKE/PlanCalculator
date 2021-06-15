@@ -15,11 +15,11 @@
 		}
 		private readonly IntTextBox A_size = new IntTextBox
 		{
-			regex = @"^$|^([4-9]|1\d|20)$"
+			Regex = @"^$|^([4-9]|1\d|20)$"
 		};
 		private readonly IntTextBox B_size = new IntTextBox
 		{
-			regex = @"^$|^([4-9]|1\d|20)$",
+			Regex = @"^$|^([4-9]|1\d|20)$",
 		};
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName

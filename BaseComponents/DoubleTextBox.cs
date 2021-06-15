@@ -18,23 +18,17 @@
 			set
 			{
 				dec_places = value;
-				/*
-					if ( Text.Length > MaxLength )
-					{
-						var sym = ( int ) Math.Ceiling ( Math.Log ( ( double ) value, 10 ) );
-						if ( sym > MaxLength )
-						{
-							MaxLength = Text.Length;
-						}
-						else
-						{
-							var left = MaxLength - sym - 1;
-							var pow = Math.Pow ( 10, left );
-							var tmp = ( int ) Math.Round ( ( double ) value * pow );
-							Text = ( tmp / pow ).ToString ( );
-						}
-					}*/
-				/// TODO: Add handler here
+				if ( dec_places < 0 || dec_places > 15 )
+				{
+					return;
+				}
+				else
+				{
+					var tmp = Value;
+					if (tmp==null) return;
+					Text = Math.Round ( ( double ) tmp, dec_places ).ToString ( );
+					SelectionStart = Text.Length;
+				}
 			}
 		}
 		public double? Value

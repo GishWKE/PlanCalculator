@@ -1,6 +1,8 @@
 ﻿namespace DB_Worker
 {
 	using System;
+	using System.Collections.Generic;
+	using System.Linq;
 	using System.Data;
 	using System.Data.OleDb;
 	using System.Data.SqlClient;
@@ -112,6 +114,18 @@
 				throw new Exception ( "Ошибка при создании подключения к БД" );
 			}
 			command.CommandText = sql;
+			command.Connection.Open ( );
+			command.ExecuteNonQuery ( );
+			command.Connection.Close ( );
+		}
+		public void ExecuteQuery ( string sql, List<OleDbParameter> parameters )
+		{
+			if ( command == null || command.Connection == null )
+			{
+				throw new Exception ( "Ошибка при создании подключения к БД" );
+			}
+			command.CommandText = sql;
+			var tmp = parameters.AsParallel ( ).Select ( p => command.Parameters.Add ( p ) ).Count ( );
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			command.Connection.Close ( );

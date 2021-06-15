@@ -1,8 +1,10 @@
 ﻿namespace DB_Worker
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Data;
 	using System.Data.SqlClient;
+	using System.Linq;
 
 	using BaseComponents;
 
@@ -88,6 +90,18 @@
 				throw new Exception ( "Ошибка при создании подключения к БД" );
 			}
 			command.CommandText = sql;
+			command.Connection.Open ( );
+			command.ExecuteNonQuery ( );
+			command.Connection.Close ( );
+		}
+		public void ExecuteQuery ( string sql, List<SqlParameter> parameters)
+		{
+			if ( command == null || command.Connection == null )
+			{
+				throw new Exception ( "Ошибка при создании подключения к БД" );
+			}
+			command.CommandText = sql;
+			var tmp = parameters.AsParallel ( ).Select ( p => command.Parameters.Add ( p ) ).Count ( );
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			command.Connection.Close ( );

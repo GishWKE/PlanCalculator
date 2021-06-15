@@ -9,7 +9,7 @@
 	using System.Windows.Forms;
 	using BaseComponents;
 
-	public class OleDB_Worker
+	public class OleDB_Worker : IDisposable
 	{
 		private OleDbCommand command;
 		private string fileName = string.Empty;
@@ -78,7 +78,6 @@
 			}
 		}
 
-
 		public DataTable GetTable ( string sql )
 		{
 			if ( command == null || command.Connection == null )
@@ -129,6 +128,13 @@
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			command.Connection.Close ( );
+		}
+
+		public void Dispose ( )
+		{
+			command?.Connection?.Close ( );
+			command?.Connection?.Dispose ( );
+			command?.Dispose ( );
 		}
 	}
 }

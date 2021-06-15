@@ -32,28 +32,6 @@
 				}
 			}
 		}
-		public string SQLConnectionString
-		{
-			get
-			{
-				try
-				{
-					if ( DataSource.IsEmpty ( ) )
-					{
-						throw new Exception ( "Не задано имя файла с БД" );
-					}
-
-					return new SqlConnectionStringBuilder
-					{
-						DataSource = DataSource
-					}.ConnectionString;
-				}
-				catch
-				{
-					throw;
-				}
-			}
-		}
 		public string ConnectionString
 		{
 			get

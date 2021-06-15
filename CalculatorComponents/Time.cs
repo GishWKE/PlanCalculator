@@ -28,6 +28,7 @@
 				is_sec = value;
 				Time_label1.Text = value ? "секунд" : "минут";
 				Time_value.FractionalPlaces = value ? 1 : 2;
+				Value = Value;
 			}
 		}
 		public double? Value

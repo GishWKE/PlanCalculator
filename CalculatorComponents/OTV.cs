@@ -85,7 +85,7 @@
 			{
 				return;
 			}
-			var SQL_string = $@"SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина = {Depth.Value} AND ОТВ.B = {B} AND ОТВ.A = {A};".Replace ( Extension.DblDot, '.' );
+			var SQL_string = $@"SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина = {Depth.Value} AND ОТВ.B = {BB} AND ОТВ.A = {AA};".Replace ( Extension.DblDot, '.' );
 			Value = ( double? ) sql.GetValue ( SQL_string );
 		}
 		public OTV ( )

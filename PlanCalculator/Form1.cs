@@ -29,7 +29,7 @@
 			var sec = ( bool ) sel [ "Время в минутах" ];
 			foreach ( var f in fields )
 			{
-				f.IsInSeconds = sec;
+				f.IsInMinutes = sec;
 				f.SCD = scd;
 			}
 		}

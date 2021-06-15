@@ -62,7 +62,14 @@
 			var SQLstr = "SELECT * FROM [Аппараты];";
 			UpdateDeviesList ( sql.GetTable ( SQLstr ) );
 		}
-
+		public bool Editable
+		{
+			get => Power.Enabled;
+			set
+			{
+				SCD_value.Enabled = Power.Enabled = value;
+			}
+		}
 		private void UpdateDeviesList ( DataTable dt )
 		{
 			if ( !dt.IsEmpty ( ) )
@@ -95,7 +102,11 @@
 			get => SCD_value.Value;
 			set => SCD_value.Value = value;
 		}
-		public Device ( ) => InitializeComponent ( );
+		public Device ( )
+		{
+			InitializeComponent ( );
+			Editable = false;
+		}
 		public void UpdateData ( )
 		{
 			FillDevicesList ( );

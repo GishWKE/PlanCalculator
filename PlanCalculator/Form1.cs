@@ -7,16 +7,16 @@
 
 	using CalculatorComponents;
 
+	using BaseComponents;
+
 	public partial class Form1 : Form
 	{
 		private readonly string FileName;
 		private readonly List<CalculatorComponents.Field> fields;
-		private readonly DateTime RecalculationDate;
 		public Form1 ( )
 		{
 			FileName = @".\Resources\DB.accdb";
 			fields = new List<CalculatorComponents.Field> ( );
-			RecalculationDate = DateTime.Today;
 			InitializeComponent ( );
 			Devices.Add ( new EventHandler ( DeviceChanged ) );
 			Devices.FileName = FileName;

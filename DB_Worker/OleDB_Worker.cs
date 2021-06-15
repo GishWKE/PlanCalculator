@@ -4,6 +4,8 @@
 	using System.Data;
 	using System.Data.OleDb;
 	using System.Data.SqlClient;
+	using System.Windows.Forms;
+	using BaseComponents;
 
 	public class OleDB_Worker
 	{

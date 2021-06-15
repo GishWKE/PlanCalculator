@@ -5,6 +5,9 @@
 	using System.Linq;
 	using System.Windows.Forms;
 
+
+	using BaseComponents;
+
 	using DB_Worker;
 
 	public partial class Device : UserControl

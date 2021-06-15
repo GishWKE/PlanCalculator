@@ -5,6 +5,8 @@
 
 	using DB_Worker;
 
+	using BaseComponents;
+
 	public partial class Kb_Control : UserControl
 	{
 		public void Recalculate ( )

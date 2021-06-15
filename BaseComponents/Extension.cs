@@ -4,7 +4,7 @@
 	using System.Data;
 	using System.Globalization;
 	using System.Windows.Forms;
-	internal static class Extension
+	public static class Extension
 	{
 		public static readonly char DblDot = char.Parse ( CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator );
 		public static double ToDouble ( this string tb )

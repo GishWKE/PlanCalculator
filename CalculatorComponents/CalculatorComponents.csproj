@@ -51,7 +51,6 @@
     <Compile Include="Device.Designer.cs">
       <DependentUpon>Device.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extension.cs" />
     <Compile Include="Field.cs">
       <SubType>UserControl</SubType>
     </Compile>

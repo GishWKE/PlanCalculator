@@ -7,6 +7,8 @@ namespace DB_Worker
 	using System.Data.OleDb;
 	using System.Linq;
 
+	using BaseComponents;
+
 	internal static class DBProviders
 	{
 		/// <summary>

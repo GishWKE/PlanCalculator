@@ -10,6 +10,8 @@
 	using System.Threading.Tasks;
 	using System.Windows.Forms;
 
+	using BaseComponents;
+
 	public partial class Time : UserControl
 	{
 		private bool is_sec = true;

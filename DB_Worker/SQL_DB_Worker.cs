@@ -4,6 +4,8 @@
 	using System.Data;
 	using System.Data.SqlClient;
 
+	using BaseComponents;
+
 	public class SQL_DB_Worker
 	{
 		private SqlCommand command;

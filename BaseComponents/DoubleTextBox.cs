@@ -11,6 +11,32 @@
 	{
 		private new readonly Color DefaultBackColor;
 		private readonly Regex empty = new Regex ( "^-?[,.]?$" );
+		private int dec_places = -1;
+		public int FractionalPlaces
+		{
+			get => dec_places;
+			set
+			{
+				dec_places = value;
+				/*
+					if ( Text.Length > MaxLength )
+					{
+						var sym = ( int ) Math.Ceiling ( Math.Log ( ( double ) value, 10 ) );
+						if ( sym > MaxLength )
+						{
+							MaxLength = Text.Length;
+						}
+						else
+						{
+							var left = MaxLength - sym - 1;
+							var pow = Math.Pow ( 10, left );
+							var tmp = ( int ) Math.Round ( ( double ) value * pow );
+							Text = ( tmp / pow ).ToString ( );
+						}
+					}*/
+				/// TODO: Add handler here
+			}
+		}
 		public double? Value
 		{
 			get
@@ -31,21 +57,7 @@
 				else
 				{
 					Text = value.ToString ( );
-					if ( Text.Length > MaxLength )
-					{
-						var sym = ( int ) Math.Ceiling ( Math.Log ( ( double ) value, 10 ) );
-						if ( sym > MaxLength )
-						{
-							MaxLength = Text.Length;
-						}
-						else
-						{
-							var left = MaxLength - sym - 1;
-							var pow = Math.Pow ( 10, left );
-							var tmp = ( int ) Math.Round ( ( double ) value * pow );
-							Text = ( tmp / pow ).ToString ( );
-						}
-					}
+					FractionalPlaces = FractionalPlaces;
 				}
 				SelectionStart = Text.Length;
 			}

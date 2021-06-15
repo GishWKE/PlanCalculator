@@ -59,6 +59,7 @@
 			this.Depth.BackColor = System.Drawing.SystemColors.Window;
 			this.Depth.CanBeNegative = false;
 			this.Depth.Correct_tooltip = "Глубина";
+			this.Depth.FractionalPlaces = 1;
 			this.Depth.Location = new System.Drawing.Point(48, 0);
 			this.Depth.MaxLength = 4;
 			this.Depth.Name = "Depth";
@@ -79,6 +80,7 @@
 			this.OTV_value.CanBeNegative = false;
 			this.OTV_value.Correct_tooltip = "Значение коэффициента ОТВ";
 			this.OTV_value.Enabled = false;
+			this.OTV_value.FractionalPlaces = 3;
 			this.OTV_value.Location = new System.Drawing.Point(109, 0);
 			this.OTV_value.MaxLength = 5;
 			this.OTV_value.Name = "OTV_value";

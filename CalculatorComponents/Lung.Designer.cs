@@ -73,6 +73,7 @@
 			this.L.CanBeNegative = false;
 			this.L.Correct_tooltip = "Значние коэффициента L";
 			this.L.Enabled = false;
+			this.L.FractionalPlaces = 3;
 			this.L.Location = new System.Drawing.Point(131, 0);
 			this.L.MaxLength = 5;
 			this.L.Name = "L";
@@ -88,6 +89,7 @@
 			this.Thickness.BackColor = System.Drawing.SystemColors.Window;
 			this.Thickness.CanBeNegative = false;
 			this.Thickness.Correct_tooltip = "Толщина легочной ткани";
+			this.Thickness.FractionalPlaces = 1;
 			this.Thickness.Location = new System.Drawing.Point(73, 0);
 			this.Thickness.MaxLength = 4;
 			this.Thickness.Name = "Thickness";

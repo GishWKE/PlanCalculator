@@ -32,14 +32,7 @@
 
 				return null;
 			}
-			private set
-			{
-				L.ResetText ( );
-				if ( value != null )
-				{
-					L.Text = $"{( double ) value:F3}";
-				}
-			}
+			private set => L.Value = value;
 		}
 		public new bool Visible
 		{

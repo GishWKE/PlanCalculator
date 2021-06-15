@@ -53,14 +53,7 @@
 
 				return null;
 			}
-			private set
-			{
-				OTV_value.ResetText ( );
-				if ( value != null )
-				{
-					OTV_value.Text = $"{( double ) value:F3}";
-				}
-			}
+			private set => OTV_value.Value = value;
 		}
 		private void AB_Depth_Changed_Leave ( object sender, EventArgs e )
 		{

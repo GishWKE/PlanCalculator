@@ -107,6 +107,7 @@
 			this.Kb.CanBeNegative = false;
 			this.Kb.Correct_tooltip = "Значение коэффициента Кб";
 			this.Kb.Enabled = false;
+			this.Kb.FractionalPlaces = 3;
 			this.Kb.Location = new System.Drawing.Point(130, 0);
 			this.Kb.MaxLength = 5;
 			this.Kb.Name = "Kb";

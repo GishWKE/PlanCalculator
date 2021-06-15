@@ -3,6 +3,7 @@
 	using System;
 	using System.Drawing;
 	using System.Linq;
+	using System.Text;
 	using System.Text.RegularExpressions;
 	using System.Windows.Forms;
 
@@ -20,17 +21,22 @@
 				dec_places = value;
 				if ( dec_places < 0 || dec_places > 15 )
 				{
+					dec_places = -1;
+					FormatString = string.Empty;
 					return;
 				}
 				else
 				{
-					var tmp = Value;
-					if (tmp==null) return;
-					Text = Math.Round ( ( double ) tmp, dec_places ).ToString ( );
+					var sb = new StringBuilder ( "{0:F" );
+					sb.Append ( value );
+					sb.Append ( "}" );
+					FormatString = sb.ToString ( );
+					Value = Value;
 					SelectionStart = Text.Length;
 				}
 			}
 		}
+		private string FormatString = string.Empty;
 		public double? Value
 		{
 			get
@@ -50,8 +56,7 @@
 				}
 				else
 				{
-					Text = value.ToString ( );
-					FractionalPlaces = FractionalPlaces;
+					Text = ( FractionalPlaces != -1 ) ? string.Format ( FormatString, value ) : value.ToString ( );
 				}
 				SelectionStart = Text.Length;
 			}
@@ -176,7 +181,9 @@
 				Value = null;
 			}
 			else
+			{
 				Value = Value;
+			}
 		}
 	}
 }

@@ -40,12 +40,7 @@
 
 				return null;
 			}
-			private set
-			{
-				Kb.ResetText ( );
-				if(value != null )
-					Kb.Text = $"{( double ) value:F3}";
-			}
+			private set => Kb.Value = value;
 		}
 		public int? A
 		{

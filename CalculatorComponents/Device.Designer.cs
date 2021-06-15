@@ -56,6 +56,7 @@
 			this.Power.CanBeNegative = false;
 			this.Power.Correct_tooltip = "Мощность";
 			this.Power.Enabled = false;
+			this.Power.FractionalPlaces = 4;
 			this.Power.Location = new System.Drawing.Point(67, 56);
 			this.Power.MaxLength = 8;
 			this.Power.Name = "Power";

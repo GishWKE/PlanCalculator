@@ -104,12 +104,7 @@
 				throw new Exception ( "Ошибка при создании подключения к БД" );
 			}
 			command.CommandText = sql;
-			
-			foreach (var p in parameters)
-			{
-				command.Parameters.Add ( p );
-			}
-			// var tmp = parameters.AsParallel ( ).Select ( p => command.Parameters.Add ( p ) ).Count ( );
+			command.Parameters.AddRange ( parameters.ToArray ( ) );
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			command.Connection.Close ( );

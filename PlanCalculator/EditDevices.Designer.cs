@@ -44,7 +44,7 @@ namespace PlanCalculator
 			this.buttonOk.TabIndex = 0;
 			this.buttonOk.Text = "Применить";
 			this.buttonOk.UseVisualStyleBackColor = true;
-			this.buttonOk.Click += new System.EventHandler(this.Button_Ok_Click);
+			this.buttonOk.Click += new System.EventHandler(this.Button_Click);
 			// 
 			// Devices
 			// 
@@ -68,7 +68,7 @@ namespace PlanCalculator
 			this.buttonCancel.TabIndex = 0;
 			this.buttonCancel.Text = "Отменить";
 			this.buttonCancel.UseVisualStyleBackColor = true;
-			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+			this.buttonCancel.Click += new System.EventHandler(this.Button_Click );
 			// 
 			// EditDevices
 			// 

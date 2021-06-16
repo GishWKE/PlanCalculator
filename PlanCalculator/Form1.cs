@@ -59,7 +59,7 @@
 			}
 
 			var mult = new double [ ] { ( double ) D.Value, 100, 100, ( double ) N.Value };
-			var div = new List<double> { ( double ) P.Value, ( double ) FieldsCount.Value, ( double ) f.Kb, ( double ) f.OTV };
+			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Power.Value, ( double ) FieldsCount.Value, ( double ) f.Kb, ( double ) f.OTV };
 			if ( f.IsLung )
 			{
 				div.Add ( ( double ) f.L );
@@ -70,8 +70,9 @@
 				div.Add ( 60 );
 			}
 
-			var Time = mult.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
-			f.Time = div.AsParallel ( ).Aggregate ( Time, ( aggregator, current ) => aggregator / current );
+			var Numerator = mult.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
+			var Divisor = div.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
+			f.Time = Numerator / Divisor;
 		}
 
 		private void FieldCount_ValueChanged ( object sender, EventArgs e )

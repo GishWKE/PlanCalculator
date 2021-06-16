@@ -7,43 +7,20 @@
 	public static class Extension
 	{
 		public static readonly char DblDot = char.Parse ( CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator );
-		public static double ToDouble ( this string tb )
-		{
-			return double.Parse ( tb );
-		}
-		public static double ToDouble ( this TextBox tb )
-		{
-			return tb.Text.ToDouble();
-		}
+		public static void Clear ( this string s ) => s = string.Empty;
+		public static double ToDouble ( this string tb ) => double.Parse ( tb );
+		public static double ToDouble ( this TextBox tb ) => tb.Text.ToDouble ( );
 
-		public static int ToInt ( this string tb )
-		{
-			return int.Parse ( tb );
-		}
+		public static int ToInt ( this string tb ) => int.Parse ( tb );
 
-		public static int ToInt ( this TextBox tb )
-		{
-			return tb.Text.ToInt ( );
-		}
+		public static int ToInt ( this TextBox tb ) => tb.Text.ToInt ( );
 
-		public static bool IsEmpty ( this TextBox tb )
-		{
-			return tb.Text.IsEmpty ( );
-		}
+		public static bool IsEmpty ( this TextBox tb ) => tb.Text.IsEmpty ( );
 
-		public static bool IsEmpty ( this string tb )
-		{
-			return string.IsNullOrWhiteSpace ( tb );
-		}
+		public static bool IsEmpty ( this string tb ) => string.IsNullOrWhiteSpace ( tb );
 
-		public static bool IsEmpty ( this DataTable dt )
-		{
-			return dt.Rows.Count == 0;
-		}
+		public static bool IsEmpty ( this DataTable dt ) => dt.Rows.Count == 0;
 
-		public static bool IsEmpty<T> ( this List<T> l )
-		{
-			return l.Count == 0;
-		}
+		public static bool IsEmpty<T> ( this List<T> l ) => l.Count == 0;
 	}
 }

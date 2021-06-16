@@ -4,19 +4,17 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Windows.Forms;
-
 	using CalculatorComponents;
 
-	using BaseComponents;
 
 	public partial class Form1 : Form
 	{
 		private readonly string FileName;
-		private readonly List<CalculatorComponents.Field> fields;
+		private readonly List<Field> fields;
 		public Form1 ( )
 		{
 			FileName = @".\Resources\DB.accdb";
-			fields = new List<CalculatorComponents.Field> ( );
+			fields = new List<Field> ( );
 			InitializeComponent ( );
 			Devices.Add ( new EventHandler ( DeviceChanged ) );
 			Devices.FileName = FileName;
@@ -46,7 +44,6 @@
 		}
 		private void Calculate ( object fld )
 		{
-
 			if ( !( fld is Field ) )
 			{
 				return;
@@ -73,7 +70,6 @@
 
 			var Time = mult.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
 			f.Time = div.AsParallel ( ).Aggregate ( Time, ( aggregator, current ) => aggregator / current );
-
 		}
 
 		private void FieldCount_ValueChanged ( object sender, EventArgs e )
@@ -97,6 +93,7 @@
 				}
 				AllFields.ResumeLayout ( true );
 				AllFields.PerformLayout ( );
+				Calculate ( );
 			}
 			else
 			{
@@ -111,12 +108,14 @@
 						SCD = ( int ) Devices.SCD,
 						A = ( int ) A.Value,
 						B = ( int ) B.Value,
+						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ],
 						TimeCalculator = Calculate
 					} );
 					AllFields.Controls.Add ( fields [ i ] );
 				}
 				AllFields.ResumeLayout ( true );
 				AllFields.PerformLayout ( );
+				Calculate ( );
 			}
 		}
 		private void AB_ValueChanged ( object sender, EventArgs e )

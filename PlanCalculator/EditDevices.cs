@@ -45,12 +45,12 @@
 			sqlQuery.Append ( $" WHERE [Аппараты].[Аппарат] = ?;" );
 			return sqlQuery.ToString ( );
 		}
-		private List<OleDbParameter> Parameters ( DataRowView r ) => new List<OleDbParameter>
-			{
-				new OleDbParameter ( "[Аппараты].[Мощность]", r["Мощность"] ),
-				new OleDbParameter ( "[Аппараты].[Дата замера мощности]", DateTime.Today ),
-				new OleDbParameter ( "[Аппараты].[Аппарат]", r["Аппарат"] )
-			};
+		private List<OleDbParameter> Parameters ( DataRowView r ) => sql.Create ( new List<(string name, object value)>
+		{
+			( "[Аппараты].[Мощность]", r["Мощность"] ),
+			( "[Аппараты].[Дата замера мощности]", DateTime.Today ),
+			( "[Аппараты].[Аппарат]", r["Аппарат"] )
+		} );
 
 		private void EditDevices_FormClosing ( object sender, FormClosingEventArgs e )
 		{
@@ -72,12 +72,15 @@
 		}
 		private void Save ( )
 		{
+			var tmp = Cursor;
+			Cursor = Cursors.WaitCursor;
 			Devices.Current [ "Мощность" ] = Devices.Power.Value;
 			for ( var i = 0; i < Devices.Count; i++ )
 			{
 				var dev = Devices [ i ];
 				sql.ExecuteQuery ( ReSQL ( ), Parameters ( dev ) );
 			}
+			Cursor = tmp;
 		}
 	}
 }

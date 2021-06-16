@@ -160,10 +160,7 @@
 			}
 		}
 
-		private void DoubleTextBox_TextChanged ( object sender, EventArgs e )
-		{
-			BackColor = IsCorrect ? DefaultBackColor : Color.Red;
-		}
+		private void DoubleTextBox_TextChanged ( object sender, EventArgs e ) => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
 
 		private void DoubleTextBox_BackColorChanged ( object sender, EventArgs e )
 		{

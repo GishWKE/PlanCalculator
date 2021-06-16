@@ -51,13 +51,7 @@
 			get;
 			set;
 		}
-		public bool IsCorrect
-		{
-			get
-			{
-				return this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
-			}
-		}
+		public bool IsCorrect => this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
 		private bool can_neg = false;
 		public bool CanBeNegative
 		{
@@ -83,7 +77,9 @@
 			set
 			{
 				if ( !value.IsEmpty ( ) )
+				{
 					Checker = new Regex ( value );
+				}
 			}
 		}
 		private void IntTextBox_KeyPress_NoMinus ( object sender, KeyPressEventArgs e )
@@ -128,10 +124,7 @@
 			}
 		}
 
-		private void IntTextBox_TextChanged ( object sender, EventArgs e )
-		{
-			BackColor = IsCorrect ? DefaultBackColor : Color.Red;
-		}
+		private void IntTextBox_TextChanged ( object sender, EventArgs e ) => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
 
 		private void IntTextBox_BackColorChanged ( object sender, EventArgs e )
 		{
@@ -150,7 +143,9 @@
 				Value = null;
 			}
 			else
+			{
 				Value = Value;
+			}
 		}
 	}
 }

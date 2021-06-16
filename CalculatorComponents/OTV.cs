@@ -1,6 +1,7 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -9,10 +10,7 @@
 
 	public partial class OTV : UserControl
 	{
-		public void Recalculate ( )
-		{
-			OnLeave ( new EventArgs ( ) );
-		}
+		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
 		private readonly IntTextBox A_size = new IntTextBox
 		{
 			Regex = @"^$|^([4-9]|1\d|20)$"
@@ -55,14 +53,8 @@
 			}
 			private set => OTV_value.Value = value;
 		}
-		private void AB_Depth_Changed_Leave ( object sender, EventArgs e )
-		{
-			Recalculate ( );
-		}
-		private void OTV_Leave ( object sender, EventArgs e )
-		{
-			UpdateOTV ( );
-		}
+		private void AB_Depth_Changed_Leave ( object sender, EventArgs e ) => Recalculate ( );
+		private void OTV_Leave ( object sender, EventArgs e ) => UpdateOTV ( );
 		private void UpdateOTV ( )
 		{
 			OTV_value.ResetText ( );
@@ -78,8 +70,13 @@
 			{
 				return;
 			}
-			var SQL_string = $@"SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина = {Depth.Value} AND ОТВ.B = {BB} AND ОТВ.A = {AA};".Replace ( Extension.DblDot, '.' );
-			Value = ( double? ) sql.GetValue ( SQL_string );
+			var SQL_string = $@"SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина=? AND ОТВ.B=? AND ОТВ.A=?;";
+			Value = ( double? ) sql.GetValue ( SQL_string, sql.Create ( new List<(string name, object value)>
+			{
+				("ОТВ.Глубина",Depth.Value),
+				("ОТВ.B",BB),
+				("ОТВ.A",AA)
+			} ) );
 		}
 		public OTV ( )
 		{

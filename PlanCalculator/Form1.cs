@@ -5,6 +5,7 @@
 	using System.IO;
 	using System.Linq;
 	using System.Windows.Forms;
+
 	using CalculatorComponents;
 
 
@@ -15,7 +16,7 @@
 		public Form1 ( )
 		{
 			FileName = @".\Resources\DB.accdb";
-			FileName = Path.GetFullPath ( FileName );
+			//FileName = Path.GetFullPath ( FileName );
 			fields = new List<Field> ( );
 			InitializeComponent ( );
 			Devices.Add ( new EventHandler ( DeviceChanged ) );
@@ -33,16 +34,16 @@
 				f.SCD = scd;
 			}
 		}
-		private void Dose_Changed ( object sender, EventArgs e )
-		{
-			Calculate ( );
-		}
+		private void Dose_Changed ( object sender, EventArgs e ) => Calculate ( );
 		private void Calculate ( )
 		{
+			var tmp = Cursor;
+			Cursor = Cursors.WaitCursor;
 			foreach ( var f in fields )
 			{
 				Calculate ( f );
 			}
+			Cursor = tmp;
 		}
 		private void Calculate ( object fld )
 		{
@@ -58,6 +59,8 @@
 				return;
 			}
 
+			var tmp = Cursor;
+			Cursor = Cursors.WaitCursor;
 			var mult = new double [ ] { ( double ) D.Value, 100, 100, ( double ) N.Value };
 			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Power.Value, ( double ) FieldsCount.Value, ( double ) f.Kb, ( double ) f.OTV };
 			if ( f.IsLung )
@@ -73,10 +76,13 @@
 			var Numerator = mult.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
 			var Divisor = div.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
 			f.Time = Numerator / Divisor;
+			Cursor = tmp;
 		}
 
 		private void FieldCount_ValueChanged ( object sender, EventArgs e )
 		{
+			var tmp = Cursor;
+			Cursor = Cursors.WaitCursor;
 			var cnt = ( int ) FieldsCount.Value;
 			if ( cnt == 0 )
 			{
@@ -89,7 +95,7 @@
 			else if ( cnt < fields.Count )
 			{
 				AllFields.SuspendLayout ( );
-				for ( int i = fields.Count - 1; i >= cnt; i-- )
+				for ( var i = fields.Count - 1; i >= cnt; i-- )
 				{
 					AllFields.Controls.Remove ( fields [ i ] );
 					fields.RemoveAt ( i );
@@ -101,7 +107,7 @@
 			else
 			{
 				AllFields.SuspendLayout ( );
-				for ( int i = fields.Count; i < cnt; i++ )
+				for ( var i = fields.Count; i < cnt; i++ )
 				{
 					fields.Add ( new Field
 					{
@@ -120,6 +126,7 @@
 				AllFields.PerformLayout ( );
 				Calculate ( );
 			}
+			Cursor = tmp;
 		}
 		private void AB_ValueChanged ( object sender, EventArgs e )
 		{
@@ -138,18 +145,18 @@
 			}
 		}
 
-		private void Exit_Button_Click ( object sender, EventArgs e )
-		{
-			Application.Exit ( );
-		}
+		private void Exit_Button_Click ( object sender, EventArgs e ) => Application.Exit ( );
 
 		private void EditDevices_Click ( object sender, EventArgs e )
-		{	
-			if ( new EditDevices { FileName = FileName }.ShowDialog() == DialogResult.OK )
+		{
+			var tmp = Cursor;
+			Cursor = Cursors.WaitCursor;
+			if ( new EditDevices { FileName = FileName }.ShowDialog ( ) == DialogResult.OK )
 			{
 				Devices.FileName = FileName;
 				Calculate ( );
 			}
+			Cursor = tmp;
 		}
 	}
 }

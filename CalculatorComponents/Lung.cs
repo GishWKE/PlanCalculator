@@ -1,6 +1,7 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -9,10 +10,7 @@
 
 	public partial class Lung : UserControl
 	{
-		public void Recalculate ( )
-		{
-			OnLeave ( new EventArgs ( ) );
-		}
+		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName
 		{
@@ -40,14 +38,8 @@
 			set => IsLung.Checked = value;
 		}
 		public Lung ( ) => InitializeComponent ( );
-		private void DT_Leave ( object sender, EventArgs e )
-		{
-			Recalculate ( );
-		}
-		private void Lung_Leave ( object sender, EventArgs e )
-		{
-			UpdateL ( );
-		}
+		private void DT_Leave ( object sender, EventArgs e ) => Recalculate ( );
+		private void Lung_Leave ( object sender, EventArgs e ) => UpdateL ( );
 		private void UpdateL ( )
 		{
 			L.ResetText ( );
@@ -63,9 +55,13 @@
 				return;
 			}
 
-			var SQL_string = $@"SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]={TT} AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]={DD};".Replace ( Extension.DblDot, '.' );
+			var SQL_string = $@"SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;";
 
-			Value = ( double? ) sql.GetValue ( SQL_string );
+			Value = ( double? ) sql.GetValue ( SQL_string, sql.Create ( new List<(string name, object value)>
+			{
+				("[Легочная ткань].[Толщина легкого]",TT),
+				("[Легочная ткань].[Расстояние от точки расчета до легкого (не более)]",DD)
+			} ) );
 		}
 		private void IsLung_CheckedChanged ( object sender, EventArgs e )
 		{

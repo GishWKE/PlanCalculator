@@ -2,6 +2,8 @@
 {
 	using System;
 	using System.Windows.Forms;
+	using System.Data.OleDb;
+	using System.Collections.Generic;
 
 	using DB_Worker;
 
@@ -74,8 +76,13 @@
 				return;
 			}
 
-			var SQL_string = $@"SELECT Кб.Кб FROM Кб WHERE Кб.РИЦ={SCD} AND Кб.A={( int ) AA} AND Кб.B={( int ) BB};";
-			Value = ( double? ) sql.GetValue ( SQL_string );
+			var SQL_string = $@"SELECT Кб.Кб FROM Кб WHERE Кб.РИЦ=? AND Кб.A=? AND Кб.B=?;";
+			Value = ( double? ) sql.GetValue ( SQL_string, sql.Create ( new List<(string name, object value)>
+			{
+				("Кб.РИЦ",SCD),
+				("Кб.A",AA),
+				("Кб.B",BB)
+			} ) );
 		}
 	}
 }

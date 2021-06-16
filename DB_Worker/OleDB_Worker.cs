@@ -2,11 +2,9 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Linq;
 	using System.Data;
 	using System.Data.OleDb;
-	using System.Data.SqlClient;
-	using System.Windows.Forms;
+
 	using BaseComponents;
 
 	public class OleDB_Worker : IDisposable
@@ -85,6 +83,21 @@
 			command.CommandText = string.Empty;
 			return dt;
 		}
+		public object GetValue ( string sql, List<OleDbParameter> parameters )
+		{
+			if ( command == null || command.Connection == null )
+			{
+				throw new Exception ( "Ошибка при создании подключения к БД" );
+			}
+			command.CommandText = sql;
+			command.Parameters.AddRange ( parameters.ToArray ( ) );
+			command.Connection.Open ( );
+			var dt = command.ExecuteScalar ( );
+			command.Connection.Close ( );
+			command.CommandText = string.Empty;
+			command.Parameters.Clear ( );
+			return dt;
+		}
 		public void ExecuteQuery ( string sql )
 		{
 			if ( command == null || command.Connection == null )
@@ -117,6 +130,19 @@
 			command?.Connection?.Close ( );
 			command?.Connection?.Dispose ( );
 			command?.Dispose ( );
+		}
+		public OleDbParameter Create ( string name, object value )
+		{
+			return new OleDbParameter ( name, value );
+		}
+		public List<OleDbParameter> Create ( List<(string name, object value)> par )
+		{
+			var ret = new List<OleDbParameter> ( );
+			foreach ( var p in par )
+			{
+				ret.Add ( Create ( p.name, p.value ) );
+			}
+			return ret;
 		}
 	}
 }

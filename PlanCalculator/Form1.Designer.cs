@@ -265,6 +265,7 @@
 			this.D.BackColor = System.Drawing.SystemColors.Window;
 			this.D.CanBeNegative = false;
 			this.D.Correct_tooltip = "Разовая доза";
+			this.D.FractionalPlaces = -1;
 			this.D.Location = new System.Drawing.Point(96, 0);
 			this.D.Name = "D";
 			this.D.Regex = "";
@@ -295,8 +296,9 @@
 			this.P.Regex = "";
 			this.P.Size = new System.Drawing.Size(24, 20);
 			this.P.TabIndex = 1;
+			this.P.Text = "90";
 			this.P.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.P.Value = null;
+			this.P.Value = 90;
 			this.P.Wrong_tooltip = null;
 			this.P.Leave += new System.EventHandler(this.Dose_Changed);
 			// 
@@ -312,6 +314,7 @@
 			// Devices
 			// 
 			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
+			this.Devices.Editable = false;
 			this.Devices.FileName = "";
 			this.Devices.Location = new System.Drawing.Point(0, 0);
 			this.Devices.Name = "Devices";

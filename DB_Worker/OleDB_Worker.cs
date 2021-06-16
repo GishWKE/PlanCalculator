@@ -55,7 +55,6 @@
 				}
 			}
 		}
-
 		public DataTable GetTable ( string sql )
 		{
 			if ( command == null || command.Connection == null )
@@ -70,6 +69,7 @@
 				dt.Load ( reader );
 			}
 			command.Connection.Close ( );
+			command.CommandText = string.Empty;
 			return dt.Copy ( );
 		}
 		public object GetValue ( string sql )
@@ -82,6 +82,7 @@
 			command.Connection.Open ( );
 			var dt = command.ExecuteScalar ( );
 			command.Connection.Close ( );
+			command.CommandText = string.Empty;
 			return dt;
 		}
 		public void ExecuteQuery ( string sql )
@@ -94,6 +95,7 @@
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			command.Connection.Close ( );
+			command.CommandText = string.Empty;
 		}
 		public void ExecuteQuery ( string sql, List<OleDbParameter> parameters )
 		{
@@ -102,10 +104,17 @@
 				throw new Exception ( "Ошибка при создании подключения к БД" );
 			}
 			command.CommandText = sql;
-			var tmp = parameters.AsParallel ( ).Select ( p => command.Parameters.Add ( p ) ).Count ( );
+			
+			foreach (var p in parameters)
+			{
+				command.Parameters.Add ( p );
+			}
+			// var tmp = parameters.AsParallel ( ).Select ( p => command.Parameters.Add ( p ) ).Count ( );
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			command.Connection.Close ( );
+			command.CommandText = string.Empty;
+			command.Parameters.Clear ( );
 		}
 
 		public void Dispose ( )

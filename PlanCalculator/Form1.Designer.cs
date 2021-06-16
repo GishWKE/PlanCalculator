@@ -50,6 +50,10 @@
 			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.изменениеМощностиАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.добавлениеАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -61,12 +65,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
 			this.Dose_panel.SuspendLayout();
+			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
 			// 
 			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer1.Location = new System.Drawing.Point(0, 24);
 			this.splitContainer1.Name = "splitContainer1";
 			// 
 			// splitContainer1.Panel1
@@ -80,7 +85,7 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.AllFields);
-			this.splitContainer1.Size = new System.Drawing.Size(1084, 461);
+			this.splitContainer1.Size = new System.Drawing.Size(1084, 437);
 			this.splitContainer1.SplitterDistance = 401;
 			this.splitContainer1.TabIndex = 0;
 			// 
@@ -328,17 +333,52 @@
 			this.AllFields.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.AllFields.Location = new System.Drawing.Point(0, 0);
 			this.AllFields.Name = "AllFields";
-			this.AllFields.Size = new System.Drawing.Size(679, 461);
+			this.AllFields.Size = new System.Drawing.Size(679, 437);
 			this.AllFields.TabIndex = 0;
 			// 
 			// toolTip1
 			// 
 			this.toolTip1.IsBalloon = true;
 			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.изменениеМощностиАппаратовToolStripMenuItem,
+            this.добавлениеАппаратовToolStripMenuItem,
+            this.выходToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(1084, 24);
+			this.menuStrip1.TabIndex = 1;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// изменениеМощностиАппаратовToolStripMenuItem
+			// 
+			this.изменениеМощностиАппаратовToolStripMenuItem.Name = "изменениеМощностиАппаратовToolStripMenuItem";
+			this.изменениеМощностиАппаратовToolStripMenuItem.Size = new System.Drawing.Size(168, 20);
+			this.изменениеМощностиАппаратовToolStripMenuItem.Text = "Редактирование аппаратов";
+			this.изменениеМощностиАппаратовToolStripMenuItem.Click += new System.EventHandler(this.EditDevices_Click);
+			// 
+			// добавлениеАппаратовToolStripMenuItem
+			// 
+			this.добавлениеАппаратовToolStripMenuItem.Name = "добавлениеАппаратовToolStripMenuItem";
+			this.добавлениеАппаратовToolStripMenuItem.Size = new System.Drawing.Size(146, 20);
+			this.добавлениеАппаратовToolStripMenuItem.Text = "Добавление аппаратов";
+			// 
+			// выходToolStripMenuItem
+			// 
+			this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+			this.выходToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+			this.выходToolStripMenuItem.Text = "Выход";
+			this.выходToolStripMenuItem.Click += new System.EventHandler(this.Exit_Button_Click);
+			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(1084, 461);
 			this.Controls.Add(this.splitContainer1);
+			this.Controls.Add(this.menuStrip1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MainMenuStrip = this.menuStrip1;
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(1100, 500);
 			this.MinimizeBox = false;
@@ -358,7 +398,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.N)).EndInit();
 			this.Dose_panel.ResumeLayout(false);
 			this.Dose_panel.PerformLayout();
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -384,6 +427,10 @@
 		private NumericUpDown A;
 		private Label A_label;
 		private ToolTip toolTip1;
+		private MenuStrip menuStrip1;
+		private ToolStripMenuItem изменениеМощностиАппаратовToolStripMenuItem;
+		private ToolStripMenuItem добавлениеАппаратовToolStripMenuItem;
+		private ToolStripMenuItem выходToolStripMenuItem;
 	}
 }
 

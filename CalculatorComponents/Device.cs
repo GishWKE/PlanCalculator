@@ -1,6 +1,7 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
+	using System.Collections.Specialized;
 	using System.Data;
 	using System.Linq;
 	using System.Windows.Forms;
@@ -16,10 +17,25 @@
 		/// Период полураспада кобальта-60 в днях
 		/// </summary>
 		private readonly double Cobalt60 = 5.27138888888889D * 365.25D;
+		public double? PreviousPower = null;
+		private int PreviousIndex = -1, CurrentIndex = -1;
 		/// <summary>
 		/// Выбранный для отображения аппарат
 		/// </summary>
 		public DataRowView Selected => DeviceList.SelectedItem as DataRowView;
+		public DataRowView Current => Selected;
+		public DataRowView Previous
+		{
+			get
+			{
+				if ( PreviousIndex != -1 )
+					//return DeviceList.Items [ PreviousIndex ] as DataRowView;
+					return this [ PreviousIndex ];
+				return null;
+			}
+		}
+		public DataRowView this [ int index ] => DeviceList.Items [ index ] as DataRowView;
+		public int Count => DeviceList.Items.Count;
 		/// <summary>
 		/// Дабаить обработчик при измении выбранного элемента 
 		/// </summary>
@@ -50,6 +66,8 @@
 			{
 				sql.DataSource = value;
 				UpdateData ( );
+				PreviousIndex = -1;
+				PreviousPower = null;
 			}
 		}
 		private void FillDevicesList ( )
@@ -67,7 +85,7 @@
 			get => Power.Enabled;
 			set
 			{
-				SCD_value.Enabled = Power.Enabled = value;
+				Power.Enabled = value;
 			}
 		}
 		private void UpdateDeviesList ( DataTable dt )
@@ -93,6 +111,9 @@
 		}
 		private void DeviceList_SelectedIndexChanged ( object sender, EventArgs e )
 		{
+			PreviousIndex = CurrentIndex;
+			PreviousPower = Power.Value;
+			CurrentIndex = DeviceList.SelectedIndex;
 			var sel = Selected;
 			SCD = ( int ) sel [ "РИЦ" ];
 			Power.Value = ( double ) sel [ "Мощность" ];

@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.IO;
 	using System.Linq;
 	using System.Windows.Forms;
 	using CalculatorComponents;
@@ -14,6 +15,7 @@
 		public Form1 ( )
 		{
 			FileName = @".\Resources\DB.accdb";
+			FileName = Path.GetFullPath ( FileName );
 			fields = new List<Field> ( );
 			InitializeComponent ( );
 			Devices.Add ( new EventHandler ( DeviceChanged ) );
@@ -132,6 +134,20 @@
 				{
 					f.B = ( int ) obj.Value;
 				}
+			}
+		}
+
+		private void Exit_Button_Click ( object sender, EventArgs e )
+		{
+			Application.Exit ( );
+		}
+
+		private void EditDevices_Click ( object sender, EventArgs e )
+		{	
+			if ( new EditDevices { FileName = FileName }.ShowDialog() == DialogResult.OK )
+			{
+				Devices.FileName = FileName;
+				Calculate ( );
 			}
 		}
 	}

@@ -82,10 +82,10 @@
 		}
 		public bool Editable
 		{
-			get => Power.Enabled;
+			get => Power.ReadOnly;
 			set
 			{
-				Power.Enabled = value;
+				Power.ReadOnly = value;
 			}
 		}
 		private void UpdateDeviesList ( DataTable dt )

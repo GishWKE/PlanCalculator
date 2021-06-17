@@ -35,7 +35,10 @@
 			// 
 			// toolTip1
 			// 
+			this.toolTip1.AutoPopDelay = 5000;
+			this.toolTip1.InitialDelay = 200;
 			this.toolTip1.IsBalloon = true;
+			this.toolTip1.ReshowDelay = 100;
 			// 
 			// IntTextBox
 			// 

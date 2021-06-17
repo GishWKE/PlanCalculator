@@ -6,6 +6,8 @@
 	using System.Linq;
 	using System.Windows.Forms;
 
+	using BaseComponents;
+
 	using CalculatorComponents;
 
 
@@ -28,6 +30,22 @@
 			var sel = Devices.Selected;
 			var scd = ( int ) sel [ "РИЦ" ];
 			var sec = ( bool ) sel [ "Время в минутах" ];
+			switch(scd)
+			{
+				case 75:
+					Distance.Regex = @"^$|^(0?[,.]?|0?[,.]\d|[1-9][,.]?|[1-9][,.]\d|[1-6]\d[,.]?|[1-6]\d[,.]\d|7[0-4][,.]?|7[0-4][,.]\d|75[,.]?|75[,.]0?)$";
+					break;
+				case 80:
+					Distance.Regex = @"^$|^(0?[,.]?|0?[,.]\d|[1-9][,.]?|[1-9][,.]\d|[1-7]\d[,.]?|[1-7]\d[,.]\d|80[,.]?|80[,.]0?)$";
+					break;
+				case 100:
+					Distance.Regex = @"^$|^(0?[,.]?|0?[,.]\d|[1-9][,.]?|[1-9][,.]\d|[1-9]\d[,.]?|[1-9]\d[,.]\d|100[,.]?|100[,.]0?)$";
+					break;
+				default:
+					Distance.Regex.Clear ( );
+					break;
+			}
+			CalcSSD ( );
 			foreach ( var f in fields )
 			{
 				f.IsInMinutes = sec;
@@ -144,7 +162,6 @@
 				}
 			}
 		}
-
 		private void Exit_Button_Click ( object sender, EventArgs e ) => Application.Exit ( );
 
 		private void EditDevices_Click ( object sender, EventArgs e )
@@ -157,6 +174,21 @@
 				Calculate ( );
 			}
 			Cursor = tmp;
+		}
+		private void Distance_Leave ( object sender, EventArgs e )
+		{
+			CalcSSD ( );
+		}
+		private void CalcSSD ( )
+		{
+			double? DST = Distance.Value;
+			double? SCD = Devices.SCD;
+			SSD.Clear ( );
+			if ( SSD == null || DST > SCD)
+			{
+				return;
+			}
+			SSD.Value = SCD - DST;
 		}
 	}
 }

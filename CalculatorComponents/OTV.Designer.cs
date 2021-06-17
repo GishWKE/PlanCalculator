@@ -79,11 +79,11 @@
 			this.OTV_value.BackColor = System.Drawing.SystemColors.Window;
 			this.OTV_value.CanBeNegative = false;
 			this.OTV_value.Correct_tooltip = "Значение коэффициента ОТВ";
-			this.OTV_value.Enabled = false;
 			this.OTV_value.FractionalPlaces = 3;
 			this.OTV_value.Location = new System.Drawing.Point(109, 0);
 			this.OTV_value.MaxLength = 5;
 			this.OTV_value.Name = "OTV_value";
+			this.OTV_value.ReadOnly = true;
 			this.OTV_value.Regex = "";
 			this.OTV_value.Size = new System.Drawing.Size(38, 20);
 			this.OTV_value.TabIndex = 3;

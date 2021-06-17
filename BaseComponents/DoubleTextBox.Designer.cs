@@ -35,15 +35,18 @@
 			// 
 			// toolTip1
 			// 
+			this.toolTip1.AutoPopDelay = 5000;
+			this.toolTip1.InitialDelay = 200;
 			this.toolTip1.IsBalloon = true;
+			this.toolTip1.ReshowDelay = 100;
 			// 
 			// DoubleTextBox
 			// 
 			this.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.BackColorChanged += new System.EventHandler ( this.DoubleTextBox_BackColorChanged );
-			this.TextChanged += new System.EventHandler ( this.DoubleTextBox_TextChanged );
-			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler ( this.DoubleTextBox_KeyPress );
-			this.Leave += new System.EventHandler ( this.DoubleTextBox_Leave );
+			this.BackColorChanged += new System.EventHandler(this.DoubleTextBox_BackColorChanged);
+			this.TextChanged += new System.EventHandler(this.DoubleTextBox_TextChanged);
+			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DoubleTextBox_KeyPress);
+			this.Leave += new System.EventHandler(this.DoubleTextBox_Leave);
 			this.ResumeLayout(false);
 
 		}

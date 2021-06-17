@@ -72,11 +72,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.L.CanBeNegative = false;
 			this.L.Correct_tooltip = "Значние коэффициента L";
-			this.L.Enabled = false;
 			this.L.FractionalPlaces = 3;
 			this.L.Location = new System.Drawing.Point(131, 0);
 			this.L.MaxLength = 5;
 			this.L.Name = "L";
+			this.L.ReadOnly = true;
 			this.L.Regex = "";
 			this.L.Size = new System.Drawing.Size(41, 20);
 			this.L.TabIndex = 5;

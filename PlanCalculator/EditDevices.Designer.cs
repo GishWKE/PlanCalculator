@@ -18,6 +18,7 @@ namespace PlanCalculator
 			{
 				components.Dispose ( );
 			}
+			sql.Dispose ( );
 			base.Dispose ( disposing );
 		}
 

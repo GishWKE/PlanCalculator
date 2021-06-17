@@ -56,11 +56,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Power.CanBeNegative = false;
 			this.Power.Correct_tooltip = "Мощность";
-			this.Power.Enabled = false;
 			this.Power.FractionalPlaces = 4;
 			this.Power.Location = new System.Drawing.Point(67, 56);
 			this.Power.MaxLength = 8;
 			this.Power.Name = "Power";
+			this.Power.ReadOnly = true;
 			this.Power.Regex = "";
 			this.Power.Size = new System.Drawing.Size(250, 20);
 			this.Power.TabIndex = 14;
@@ -92,10 +92,10 @@
 			this.SCD_value.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SCD_value.CanBeNegative = false;
-			this.SCD_value.Correct_tooltip = "РИЦ";
-			this.SCD_value.Enabled = false;
+			this.SCD_value.Correct_tooltip = "Расстояние источник-центр вращения аппарата";
 			this.SCD_value.Location = new System.Drawing.Point(67, 30);
 			this.SCD_value.Name = "SCD_value";
+			this.SCD_value.ReadOnly = true;
 			this.SCD_value.Regex = "";
 			this.SCD_value.Size = new System.Drawing.Size(250, 20);
 			this.SCD_value.TabIndex = 11;

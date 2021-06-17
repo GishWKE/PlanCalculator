@@ -106,11 +106,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Kb.CanBeNegative = false;
 			this.Kb.Correct_tooltip = "Значение коэффициента Кб";
-			this.Kb.Enabled = false;
 			this.Kb.FractionalPlaces = 3;
 			this.Kb.Location = new System.Drawing.Point(130, 0);
 			this.Kb.MaxLength = 5;
 			this.Kb.Name = "Kb";
+			this.Kb.ReadOnly = true;
 			this.Kb.Regex = "";
 			this.Kb.Size = new System.Drawing.Size(51, 20);
 			this.Kb.TabIndex = 5;

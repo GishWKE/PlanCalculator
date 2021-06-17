@@ -2,7 +2,6 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using System.IO;
 	using System.Linq;
 	using System.Windows.Forms;
 
@@ -25,7 +24,7 @@
 			Devices.FileName = FileName;
 			Text = DateTime.Today.ToString ( "d" );
 		}
-		
+
 		private static readonly string str_beg = "^";
 		private static readonly string str_end = "$";
 		private static readonly string empty = $"{str_beg}{str_end}";
@@ -52,7 +51,7 @@
 				_ => string.Empty
 			};
 			*/
-			switch ( scd)
+			switch ( scd )
 			{
 				case var _ when scd >= 40 && scd <= 100 && scd % 10 == 0: // 40,50,60,70,80,90,100
 					{
@@ -200,16 +199,13 @@
 			}
 			Cursor = tmp;
 		}
-		private void Distance_Leave ( object sender, EventArgs e )
-		{
-			CalcSSD ( );
-		}
+		private void Distance_Leave ( object sender, EventArgs e ) => CalcSSD ( );
 		private void CalcSSD ( )
 		{
-			double? DST = Distance.Value;
+			var DST = Distance.Value;
 			double? SCD = Devices.SCD;
 			SSD.Clear ( );
-			if ( SSD == null || DST > SCD)
+			if ( SSD == null || DST > SCD )
 			{
 				return;
 			}
@@ -220,7 +216,7 @@
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			if ( new EditDevices { FileName = FileName }.ShowDialog ( ) == DialogResult.Yes )
+			if ( new CreateDevice { FileName = FileName }.ShowDialog ( ) == DialogResult.Yes )
 			{
 				Devices.FileName = FileName;
 				Calculate ( );

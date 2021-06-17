@@ -190,5 +190,17 @@
 			}
 			SSD.Value = SCD - DST;
 		}
+
+		private void добавлениеАппаратовToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			var tmp = Cursor;
+			Cursor = Cursors.WaitCursor;
+			if ( new EditDevices { FileName = FileName }.ShowDialog ( ) == DialogResult.Yes )
+			{
+				Devices.FileName = FileName;
+				Calculate ( );
+			}
+			Cursor = tmp;
+		}
 	}
 }

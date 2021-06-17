@@ -98,6 +98,8 @@
 			command.Parameters.Clear ( );
 			return dt;
 		}
+		public object GetValue ( string sql, (string name, object value) parameter ) => GetValue ( sql, new List<OleDbParameter> { CreateParameter ( parameter.name, parameter.value ) } );
+		public object GetValue ( string sql, List<(string name, object value)> parameters ) => GetValue ( sql, CreateParameter ( parameters ) );
 		public void ExecuteQuery ( string sql )
 		{
 			if ( command == null || command.Connection == null )
@@ -124,23 +126,21 @@
 			command.CommandText = string.Empty;
 			command.Parameters.Clear ( );
 		}
-
+		public void ExecuteQuery ( string sql, (string name, object value) parameter ) => ExecuteQuery ( sql, new List<OleDbParameter> { CreateParameter ( parameter.name, parameter.value ) } );
+		public void ExecuteQuery ( string sql, List<(string name, object value)> parameters ) => ExecuteQuery ( sql, CreateParameter ( parameters ) );
 		public void Dispose ( )
 		{
 			command?.Connection?.Close ( );
 			command?.Connection?.Dispose ( );
 			command?.Dispose ( );
 		}
-		public OleDbParameter Create ( string name, object value )
-		{
-			return new OleDbParameter ( name, value );
-		}
-		public List<OleDbParameter> Create ( List<(string name, object value)> par )
+		public OleDbParameter CreateParameter ( string name, object value ) => new OleDbParameter ( name, value );
+		public List<OleDbParameter> CreateParameter ( List<(string name, object value)> par )
 		{
 			var ret = new List<OleDbParameter> ( );
 			foreach ( var p in par )
 			{
-				ret.Add ( Create ( p.name, p.value ) );
+				ret.Add ( CreateParameter ( p.name, p.value ) );
 			}
 			return ret;
 		}

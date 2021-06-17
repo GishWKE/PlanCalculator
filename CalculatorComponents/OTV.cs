@@ -11,14 +11,18 @@
 	public partial class OTV : UserControl
 	{
 		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
+
+		private readonly Kb_Control Kb = new Kb_Control ( ); 
+		/*
+		private static readonly string AB_REGEX = @"^$|^([4-9]|1\d|20)$";
 		private readonly IntTextBox A_size = new IntTextBox
 		{
-			Regex = @"^$|^([4-9]|1\d|20)$"
+			Regex = AB_REGEX
 		};
 		private readonly IntTextBox B_size = new IntTextBox
 		{
-			Regex = @"^$|^([4-9]|1\d|20)$",
-		};
+			Regex = AB_REGEX
+		};*/
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName
 		{
@@ -27,13 +31,13 @@
 		}
 		public int? A
 		{
-			get => A_size.Value;
-			set => A_size.Value = value;
+			get => Kb.A;
+			set => Kb.A = value;
 		}
 		public int? B
 		{
-			get => B_size.Value;
-			set => B_size.Value = value;
+			get => Kb.B;
+			set => Kb.B = value;
 		}
 		public double? D
 		{
@@ -55,8 +59,11 @@
 		}
 		private void AB_Depth_Changed_Leave ( object sender, EventArgs e ) => Recalculate ( );
 		private void OTV_Leave ( object sender, EventArgs e ) => UpdateOTV ( );
+		public static readonly string SQL_Query = "SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина=? AND ОТВ.B=? AND ОТВ.A=?;";
 		private void UpdateOTV ( )
 		{
+			if ( Parent == null ) // Не размещен на форме/компоненте
+				return;
 			OTV_value.ResetText ( );
 			if ( !Visible )
 			{
@@ -70,20 +77,20 @@
 			{
 				return;
 			}
-			var SQL_string = $@"SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина=? AND ОТВ.B=? AND ОТВ.A=?;";
-			Value = ( double? ) sql.GetValue ( SQL_string, sql.Create ( new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( SQL_Query, new List<(string name, object value)>
 			{
 				("ОТВ.Глубина",Depth.Value),
 				("ОТВ.B",BB),
 				("ОТВ.A",AA)
-			} ) );
+			} );
 		}
 		public OTV ( )
 		{
-			A_size.TextChanged += new EventHandler ( AB_Depth_Changed_Leave );
+			/*A_size.TextChanged += new EventHandler ( AB_Depth_Changed_Leave );
 			A_size.Leave += new EventHandler ( AB_Depth_Changed_Leave );
 			B_size.TextChanged += new EventHandler ( AB_Depth_Changed_Leave );
-			B_size.Leave += new EventHandler ( AB_Depth_Changed_Leave );
+			B_size.Leave += new EventHandler ( AB_Depth_Changed_Leave );*/
+			Kb.Leave += new EventHandler ( AB_Depth_Changed_Leave );
 			InitializeComponent ( );
 		}
 	}

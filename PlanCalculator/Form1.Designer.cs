@@ -54,13 +54,13 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.Distance = new BaseComponents.DoubleTextBox();
 			this.DST = new System.Windows.Forms.Label();
+			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.изменениеМощностиАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.добавлениеАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.Devices = new CalculatorComponents.Device();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -357,7 +357,9 @@
 			this.SSD.Correct_tooltip = "Расстояние источник-поверхность";
 			this.SSD.FractionalPlaces = 1;
 			this.SSD.Location = new System.Drawing.Point(112, 0);
+			this.SSD.MaxLength = 5;
 			this.SSD.Name = "SSD";
+			this.SSD.ReadOnly = true;
 			this.SSD.Regex = "";
 			this.SSD.Size = new System.Drawing.Size(261, 20);
 			this.SSD.TabIndex = 3;
@@ -401,6 +403,17 @@
 			this.DST.TabIndex = 0;
 			this.DST.Text = "РИП (";
 			// 
+			// Devices
+			// 
+			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
+			this.Devices.Editable = false;
+			this.Devices.FileName = "";
+			this.Devices.Location = new System.Drawing.Point(0, 0);
+			this.Devices.Name = "Devices";
+			this.Devices.SCD = null;
+			this.Devices.Size = new System.Drawing.Size(401, 87);
+			this.Devices.TabIndex = 0;
+			// 
 			// AllFields
 			// 
 			this.AllFields.AutoScroll = true;
@@ -441,6 +454,7 @@
 			this.добавлениеАппаратовToolStripMenuItem.Name = "добавлениеАппаратовToolStripMenuItem";
 			this.добавлениеАппаратовToolStripMenuItem.Size = new System.Drawing.Size(146, 20);
 			this.добавлениеАппаратовToolStripMenuItem.Text = "Добавление аппаратов";
+			this.добавлениеАппаратовToolStripMenuItem.Click += new System.EventHandler(this.добавлениеАппаратовToolStripMenuItem_Click);
 			// 
 			// выходToolStripMenuItem
 			// 
@@ -448,17 +462,6 @@
 			this.выходToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
 			this.выходToolStripMenuItem.Text = "Выход";
 			this.выходToolStripMenuItem.Click += new System.EventHandler(this.Exit_Button_Click);
-			// 
-			// Devices
-			// 
-			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Devices.Editable = false;
-			this.Devices.FileName = "";
-			this.Devices.Location = new System.Drawing.Point(0, 0);
-			this.Devices.Name = "Devices";
-			this.Devices.SCD = null;
-			this.Devices.Size = new System.Drawing.Size(401, 87);
-			this.Devices.TabIndex = 0;
 			// 
 			// Form1
 			// 

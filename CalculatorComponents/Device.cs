@@ -70,6 +70,7 @@
 				PreviousPower = null;
 			}
 		}
+		public static readonly string SQL_Query = "SELECT * FROM [Аппараты];";
 		private void FillDevicesList ( )
 		{
 			if ( FileName.IsEmpty ( ) )
@@ -77,8 +78,7 @@
 				return;
 			}
 
-			var SQLstr = "SELECT * FROM [Аппараты];";
-			UpdateDeviesList ( sql.GetTable ( SQLstr ) );
+			UpdateDeviesList ( sql.GetTable ( SQL_Query ) );
 		}
 		public bool Editable
 		{

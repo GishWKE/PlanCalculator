@@ -40,8 +40,12 @@
 		public Lung ( ) => InitializeComponent ( );
 		private void DT_Leave ( object sender, EventArgs e ) => Recalculate ( );
 		private void Lung_Leave ( object sender, EventArgs e ) => UpdateL ( );
+		public static readonly string SQL_Query = "SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;";
+
 		private void UpdateL ( )
 		{
+			if ( Parent == null ) // Не размещен на форме/компоненте
+				return;
 			L.ResetText ( );
 			if ( !Visible )
 			{
@@ -55,13 +59,11 @@
 				return;
 			}
 
-			var SQL_string = $@"SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;";
-
-			Value = ( double? ) sql.GetValue ( SQL_string, sql.Create ( new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( SQL_Query, new List<(string name, object value)>
 			{
 				("[Легочная ткань].[Толщина легкого]",TT),
 				("[Легочная ткань].[Расстояние от точки расчета до легкого (не более)]",DD)
-			} ) );
+			} );
 		}
 		private void IsLung_CheckedChanged ( object sender, EventArgs e )
 		{

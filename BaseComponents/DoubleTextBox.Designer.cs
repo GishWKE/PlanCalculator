@@ -39,6 +39,7 @@
 			this.toolTip1.InitialDelay = 200;
 			this.toolTip1.IsBalloon = true;
 			this.toolTip1.ReshowDelay = 100;
+			this.toolTip1.ShowAlways = true;
 			// 
 			// DoubleTextBox
 			// 

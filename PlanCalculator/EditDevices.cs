@@ -2,9 +2,6 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Data;
-	using System.Data.OleDb;
-	using System.Text;
 	using System.Windows.Forms;
 
 	using DB_Worker;
@@ -37,21 +34,7 @@
 			prev [ "Мощность" ] = Devices.PreviousPower;
 		}
 		private void Button_Click ( object sender, EventArgs e ) => Close ( );
-		private string ReSQL ( )
-		{
-			var sqlQuery = new StringBuilder ( );
-			sqlQuery.Append ( "UPDATE [Аппараты] SET [Аппараты].[Мощность] = ?" );
-			sqlQuery.Append ( ", [Аппараты].[Дата замера мощности] = ?" );
-			sqlQuery.Append ( $" WHERE [Аппараты].[Аппарат] = ?;" );
-			return sqlQuery.ToString ( );
-		}
-		private List<OleDbParameter> Parameters ( DataRowView r ) => sql.Create ( new List<(string name, object value)>
-		{
-			( "[Аппараты].[Мощность]", r["Мощность"] ),
-			( "[Аппараты].[Дата замера мощности]", DateTime.Today ),
-			( "[Аппараты].[Аппарат]", r["Аппарат"] )
-		} );
-
+		public static readonly string SQL_Query = "UPDATE [Аппараты] SET [Аппараты].[Мощность]=?, [Аппараты].[Дата замера мощности]=? WHERE [Аппараты].[Аппарат]=?;";
 		private void EditDevices_FormClosing ( object sender, FormClosingEventArgs e )
 		{
 			switch ( DialogResult )
@@ -78,7 +61,12 @@
 			for ( var i = 0; i < Devices.Count; i++ )
 			{
 				var dev = Devices [ i ];
-				sql.ExecuteQuery ( ReSQL ( ), Parameters ( dev ) );
+				sql.ExecuteQuery ( SQL_Query, new List<(string name, object value)>
+				{
+					( "[Аппараты].[Мощность]", dev["Мощность"] ),
+					( "[Аппараты].[Дата замера мощности]", DateTime.Today ),
+					( "[Аппараты].[Аппарат]", dev["Аппарат"] )
+				} );
 			}
 			Cursor = tmp;
 		}

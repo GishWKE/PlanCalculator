@@ -66,8 +66,11 @@
 			UpdateKb ( );
 		}
 
+		public static readonly string SQL_Query = "SELECT Кб.Кб FROM Кб WHERE Кб.РИЦ=? AND Кб.A=? AND Кб.B=?;";
 		private void UpdateKb ( )
 		{
+			if ( Parent == null ) // Не размещен на форме/компоненте
+				return;
 			Kb.ResetText ( );
 			var AA = A;
 			var BB = B;
@@ -76,13 +79,12 @@
 				return;
 			}
 
-			var SQL_string = $@"SELECT Кб.Кб FROM Кб WHERE Кб.РИЦ=? AND Кб.A=? AND Кб.B=?;";
-			Value = ( double? ) sql.GetValue ( SQL_string, sql.Create ( new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( SQL_Query, new List<(string name, object value)>
 			{
 				("Кб.РИЦ",SCD),
 				("Кб.A",AA),
 				("Кб.B",BB)
-			} ) );
+			} );
 		}
 	}
 }

@@ -8,6 +8,8 @@
 
 	using DB_Worker;
 
+	using PlanCalculator.Properties;
+
 	public partial class CreateDevice : Form
 	{
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
@@ -52,14 +54,13 @@
 					return;
 			}
 		}
-		public static string SQL_Query = "INSERT INTO [Аппараты] ([Аппараты].[Аппарат],[Аппараты].[Мощность],[Аппараты].[РИЦ],[Аппараты].[Время в минутах],[Аппараты].[Дата замера мощности]) VALUES(?,?,?,?,?);";
-		private void CreateDeviceSQL ( ) => sql.ExecuteQuery ( SQL_Query, new List<(string name, object value)>
+		private void CreateDeviceSQL ( ) => sql.ExecuteQuery ( Resources.CreateDeviceSQL, new List<(string name, object value)>
 			{
-				("[Аппараты].[Аппарат]", DeviceName.Text),
-				("[Аппараты].[Мощность]", Power.Value),
-				("[Аппараты].[РИЦ]", SCD.Value),
-				("[Аппараты].[Время в минутах]", Minutes.Checked),
-				("[Аппараты].[Дата замера мощности]", dateTimePicker1.Value)
+				(Resources.DeviceName_Table, DeviceName.Text),
+				(Resources.DevicePower_Table, Power.Value),
+				(Resources.DeviceSCD_Table, SCD.Value),
+				(Resources.DeviceTime_Table, Minutes.Checked),
+				(Resources.DeviceCheckPower_Table, dateTimePicker1.Value)
 			} );
 	}
 }

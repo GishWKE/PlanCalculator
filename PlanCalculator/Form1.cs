@@ -9,6 +9,7 @@
 
 	using CalculatorComponents;
 
+	using PlanCalculator.Properties;
 
 	public partial class Form1 : Form
 	{
@@ -25,12 +26,7 @@
 			Text = DateTime.Today.ToString ( "d" );
 		}
 
-		private static readonly string str_beg = "^";
-		private static readonly string str_end = "$";
-		private static readonly string empty = $"{str_beg}{str_end}";
-		private static readonly string r_0_10 = @"\d?|\d[,.]?|\d[,.]\d?|[,.]\d";
-		private static readonly string formatter_div10 = @"[1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[,.]?|{1}[,.]0?";
-		private static readonly string formatter_div5 = @"[1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[0-4][,.]?|{1}[0-4][,.]\d?|{2}[,.]?|{2}[,.]0?";
+		private static readonly string regex_fmt = $"{Resources.RegEx_Empty}|{Resources.RegEx_Begin}({Resources.RegEx_0__9_9}|{{0}}){Resources.RegEx_End}";
 
 		private void DeviceChanged ( object sender, EventArgs e )
 		{
@@ -55,14 +51,14 @@
 			{
 				case var _ when scd >= 40 && scd <= 100 && scd % 10 == 0: // 40,50,60,70,80,90,100
 					{
-						var temp = string.Format ( formatter_div10, tmp - 1, scd );
-						Distance.Regex = $"{empty}|{str_beg}({r_0_10}|{temp}){str_end}";
+						var temp = string.Format ( Resources.RegEx_format_end0, tmp - 1, scd );
+						Distance.Regex = string.Format ( regex_fmt, temp );
 						break;
 					}
 				case var _ when scd >= 45 && scd <= 95 && scd % 10 == 5: // 45,55,65,75,85,95
 					{
-						var temp = string.Format ( formatter_div5, tmp - 1, tmp, scd );
-						Distance.Regex = $"{empty}|{str_beg}({r_0_10}|{temp}){str_end}";
+						var temp = string.Format ( Resources.RegEx_format_end5, tmp - 1, tmp, scd );
+						Distance.Regex = string.Format ( regex_fmt, temp );
 						break;
 					}
 				default:

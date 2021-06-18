@@ -6,6 +6,8 @@
 
 	using DB_Worker;
 
+	using PlanCalculator.Properties;
+
 	public partial class EditDevices : Form
 	{
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
@@ -34,7 +36,6 @@
 			prev [ "Мощность" ] = Devices.PreviousPower;
 		}
 		private void Button_Click ( object sender, EventArgs e ) => Close ( );
-		public static readonly string SQL_Query = "UPDATE [Аппараты] SET [Аппараты].[Мощность]=?, [Аппараты].[Дата замера мощности]=? WHERE [Аппараты].[Аппарат]=?;";
 		private void EditDevices_FormClosing ( object sender, FormClosingEventArgs e )
 		{
 			switch ( DialogResult )
@@ -61,11 +62,11 @@
 			for ( var i = 0; i < Devices.Count; i++ )
 			{
 				var dev = Devices [ i ];
-				sql.ExecuteQuery ( SQL_Query, new List<(string name, object value)>
+				sql.ExecuteQuery ( Resources.UpdateDeviceSQL, new List<(string name, object value)>
 				{
-					( "[Аппараты].[Мощность]", dev["Мощность"] ),
-					( "[Аппараты].[Дата замера мощности]", DateTime.Today ),
-					( "[Аппараты].[Аппарат]", dev["Аппарат"] )
+					( Resources.DevicePower_Table, dev["Мощность"] ),
+					( Resources.DeviceCheckPower_Table, DateTime.Today ),
+					( Resources.DeviceName_Table, dev["Аппарат"] )
 				} );
 			}
 			Cursor = tmp;

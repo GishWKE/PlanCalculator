@@ -1,13 +1,14 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
-	using System.Collections.Specialized;
 	using System.Data;
 	using System.Linq;
 	using System.Windows.Forms;
 
 
 	using BaseComponents;
+
+	using CalculatorComponents.Properties;
 
 	using DB_Worker;
 
@@ -29,8 +30,11 @@
 			get
 			{
 				if ( PreviousIndex != -1 )
+				{
 					//return DeviceList.Items [ PreviousIndex ] as DataRowView;
 					return this [ PreviousIndex ];
+				}
+
 				return null;
 			}
 		}
@@ -40,18 +44,12 @@
 		/// Дабаить обработчик при измении выбранного элемента 
 		/// </summary>
 		/// <param name="add">Обработчик</param>
-		public void Add ( EventHandler add )
-		{
-			DeviceList.SelectedIndexChanged += add;
-		}
+		public void Add ( EventHandler add ) => DeviceList.SelectedIndexChanged += add;
 		/// <summary>
 		/// Удалить обработчик при измении выбранного элемента 
 		/// </summary>
 		/// <param name="add">Обработчик</param>
-		public void Del ( EventHandler del )
-		{
-			DeviceList.SelectedIndexChanged -= del;
-		}
+		public void Del ( EventHandler del ) => DeviceList.SelectedIndexChanged -= del;
 		/// <summary>
 		/// Обработчик запросов к БД
 		/// </summary>
@@ -70,7 +68,6 @@
 				PreviousPower = null;
 			}
 		}
-		public static readonly string SQL_Query = "SELECT * FROM [Аппараты];";
 		private void FillDevicesList ( )
 		{
 			if ( FileName.IsEmpty ( ) )
@@ -78,15 +75,12 @@
 				return;
 			}
 
-			UpdateDeviesList ( sql.GetTable ( SQL_Query ) );
+			UpdateDeviesList ( sql.GetTable ( Resource.SQL_Device ) );
 		}
 		public bool Editable
 		{
 			get => Power.ReadOnly;
-			set
-			{
-				Power.ReadOnly = value;
-			}
+			set => Power.ReadOnly = value;
 		}
 		private void UpdateDeviesList ( DataTable dt )
 		{
@@ -128,9 +122,6 @@
 			InitializeComponent ( );
 			Editable = false;
 		}
-		public void UpdateData ( )
-		{
-			FillDevicesList ( );
-		}
+		public void UpdateData ( ) => FillDevicesList ( );
 	}
 }

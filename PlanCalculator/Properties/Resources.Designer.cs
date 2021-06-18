@@ -125,6 +125,24 @@ namespace PlanCalculator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Число полей.
+        /// </summary>
+        internal static string Fld_Num {
+            get {
+                return ResourceManager.GetString("Fld_Num", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Число изоцентров.
+        /// </summary>
+        internal static string Isc_Num {
+            get {
+                return ResourceManager.GetString("Isc_Num", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \d?|\d[,.]?|\d[,.]\d?|[,.]\d.
         /// </summary>
         internal static string RegEx_0__9_9 {
@@ -175,6 +193,24 @@ namespace PlanCalculator.Properties {
         internal static string RegEx_format_end5 {
             get {
                 return ResourceManager.GetString("RegEx_format_end5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ширина поля.
+        /// </summary>
+        internal static string ToolTip_A {
+            get {
+                return ResourceManager.GetString("ToolTip_A", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Высота поля.
+        /// </summary>
+        internal static string ToolTip_B {
+            get {
+                return ResourceManager.GetString("ToolTip_B", resourceCulture);
             }
         }
         

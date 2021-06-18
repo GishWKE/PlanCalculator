@@ -1,4 +1,6 @@
-﻿namespace CalculatorComponents
+﻿using CalculatorComponents.Properties;
+
+namespace CalculatorComponents
 {
 
 	partial class Lung
@@ -71,7 +73,7 @@
 			this.L.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.L.CanBeNegative = false;
-			this.L.Correct_tooltip = "Значние коэффициента L";
+			this.L.Correct_tooltip = Resource.ToolTip_Lung;
 			this.L.FractionalPlaces = 3;
 			this.L.Location = new System.Drawing.Point(131, 0);
 			this.L.MaxLength = 5;
@@ -88,33 +90,33 @@
 			// 
 			this.Thickness.BackColor = System.Drawing.SystemColors.Window;
 			this.Thickness.CanBeNegative = false;
-			this.Thickness.Correct_tooltip = "Толщина легочной ткани";
+			this.Thickness.Correct_tooltip = Resource.ToolTip_Lung_Thickness;
 			this.Thickness.FractionalPlaces = 1;
 			this.Thickness.Location = new System.Drawing.Point(73, 0);
 			this.Thickness.MaxLength = 4;
 			this.Thickness.Name = "Thickness";
-			this.Thickness.Regex = "^$|^(0?[,.][5-9]|[1-9]|1[0-1]|12|[1-9][,.]\\d?|1[0-1][,.]\\d?|12[,.]0?)$";
+			this.Thickness.Regex = Resource.RegEx_Thickness;
 			this.Thickness.Size = new System.Drawing.Size(27, 20);
 			this.Thickness.TabIndex = 4;
 			this.Thickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Thickness.Value = null;
-			this.Thickness.Wrong_tooltip = "Допустимые значения параметра [0.5-12.0]";
+			this.Thickness.Wrong_tooltip = Resource.ToolTip_Lung_Thickness_wrong;
 			this.Thickness.Leave += new System.EventHandler(this.DT_Leave);
 			// 
 			// Distance
 			// 
 			this.Distance.BackColor = System.Drawing.SystemColors.Window;
 			this.Distance.CanBeNegative = false;
-			this.Distance.Correct_tooltip = "Расстояние от точки расчета до легкого (не более)";
+			this.Distance.Correct_tooltip = Resource.ToolTip_Lung_Distance;
 			this.Distance.Location = new System.Drawing.Point(28, 0);
 			this.Distance.MaxLength = 2;
 			this.Distance.Name = "Distance";
-			this.Distance.Regex = "^$|^([1-9]|1[0-4])$";
+			this.Distance.Regex = Resource.RegEx_Distance;
 			this.Distance.Size = new System.Drawing.Size(23, 20);
 			this.Distance.TabIndex = 3;
 			this.Distance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Distance.Value = null;
-			this.Distance.Wrong_tooltip = "Допустимые значения параметра [1-14]";
+			this.Distance.Wrong_tooltip = Resource.ToolTip_Lung_Distance_wrong;
 			this.Distance.Leave += new System.EventHandler(this.DT_Leave);
 			// 
 			// L_label2

@@ -1,20 +1,18 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
-	using System.Windows.Forms;
-	using System.Data.OleDb;
 	using System.Collections.Generic;
-
-	using DB_Worker;
+	using System.Windows.Forms;
 
 	using BaseComponents;
 
+	using CalculatorComponents.Properties;
+
+	using DB_Worker;
+
 	public partial class Kb_Control : UserControl
 	{
-		public void Recalculate ( )
-		{
-			OnLeave ( new EventArgs ( ) );
-		}
+		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
 		private int scd_val = 0;
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName
@@ -56,21 +54,17 @@
 		}
 
 		public Kb_Control ( ) => InitializeComponent ( );
-		private void AB_Changed_Leave ( object sender, EventArgs e )
-		{
-			Recalculate ( );
-		}
+		private void AB_Changed_Leave ( object sender, EventArgs e ) => Recalculate ( );
 
-		private void Kb_Control_Leave ( object sender, EventArgs e )
-		{
-			UpdateKb ( );
-		}
+		private void Kb_Control_Leave ( object sender, EventArgs e ) => UpdateKb ( );
 
-		public static readonly string SQL_Query = "SELECT Кб.Кб FROM Кб WHERE Кб.РИЦ=? AND Кб.A=? AND Кб.B=?;";
 		private void UpdateKb ( )
 		{
 			if ( Parent == null ) // Не размещен на форме/компоненте
+			{
 				return;
+			}
+
 			Kb.ResetText ( );
 			var AA = A;
 			var BB = B;
@@ -79,11 +73,11 @@
 				return;
 			}
 
-			Value = ( double? ) sql.GetValue ( SQL_Query, new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( Resource.SQL_Kb, new List<(string name, object value)>
 			{
-				("Кб.РИЦ",SCD),
-				("Кб.A",AA),
-				("Кб.B",BB)
+				(Resource.SQL_Kb_SCD, SCD),
+				(Resource.SQL_Kb_A, AA),
+				(Resource.SQL_Kb_B, BB)
 			} );
 		}
 	}

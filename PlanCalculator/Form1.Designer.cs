@@ -1,6 +1,9 @@
 ﻿namespace PlanCalculator
 {
 	using System.Windows.Forms;
+
+	using PlanCalculator.Properties;
+
 	partial class Form1
 	{
 		/// <summary>
@@ -126,7 +129,7 @@
 			this.B.Name = "B";
 			this.B.Size = new System.Drawing.Size(157, 20);
 			this.B.TabIndex = 3;
-			this.toolTip1.SetToolTip(this.B, "Высота поля");
+			this.toolTip1.SetToolTip(this.B, Resources.ToolTip_B );
 			this.B.Value = new decimal(new int[] {
             4,
             0,
@@ -142,7 +145,7 @@
 			this.B_label.Size = new System.Drawing.Size(23, 13);
 			this.B_label.TabIndex = 2;
 			this.B_label.Text = "B =";
-			this.toolTip1.SetToolTip(this.B_label, "Высота поля");
+			this.toolTip1.SetToolTip(this.B_label, Resources.ToolTip_B );
 			// 
 			// A
 			// 
@@ -160,7 +163,7 @@
 			this.A.Name = "A";
 			this.A.Size = new System.Drawing.Size(160, 20);
 			this.A.TabIndex = 1;
-			this.toolTip1.SetToolTip(this.A, "Ширина поля");
+			this.toolTip1.SetToolTip(this.A, Resources.ToolTip_A );
 			this.A.Value = new decimal(new int[] {
             4,
             0,
@@ -176,7 +179,7 @@
 			this.A_label.Size = new System.Drawing.Size(23, 13);
 			this.A_label.TabIndex = 0;
 			this.A_label.Text = "A =";
-			this.toolTip1.SetToolTip(this.A_label, "Ширина поля");
+			this.toolTip1.SetToolTip(this.A_label, Resources.ToolTip_A );
 			// 
 			// panel1
 			// 
@@ -201,7 +204,7 @@
 			this.FieldsCount.Name = "FieldsCount";
 			this.FieldsCount.Size = new System.Drawing.Size(157, 20);
 			this.FieldsCount.TabIndex = 3;
-			this.toolTip1.SetToolTip(this.FieldsCount, "Число полей");
+			this.toolTip1.SetToolTip(this.FieldsCount, Resources.Fld_Num );
 			this.FieldsCount.ValueChanged += new System.EventHandler(this.FieldCount_ValueChanged);
 			// 
 			// label2
@@ -212,7 +215,7 @@
 			this.label2.Size = new System.Drawing.Size(22, 13);
 			this.label2.TabIndex = 2;
 			this.label2.Text = "n =";
-			this.toolTip1.SetToolTip(this.label2, "Число полей");
+			this.toolTip1.SetToolTip(this.label2, Resources.Fld_Num );
 			// 
 			// N
 			// 
@@ -231,7 +234,7 @@
 			this.N.ReadOnly = true;
 			this.N.Size = new System.Drawing.Size(160, 20);
 			this.N.TabIndex = 1;
-			this.toolTip1.SetToolTip(this.N, "Число изоцентров");
+			this.toolTip1.SetToolTip(this.N, Resources.Isc_Num );
 			this.N.Value = new decimal(new int[] {
             1,
             0,
@@ -247,7 +250,7 @@
 			this.label1.Size = new System.Drawing.Size(24, 13);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "N =";
-			this.toolTip1.SetToolTip(this.label1, "Число изоцентров");
+			this.toolTip1.SetToolTip(this.label1, Resources.Isc_Num );
 			// 
 			// P1
 			// 

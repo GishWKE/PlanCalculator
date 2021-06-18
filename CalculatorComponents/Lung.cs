@@ -6,6 +6,8 @@
 
 	using BaseComponents;
 
+	using CalculatorComponents.Properties;
+
 	using DB_Worker;
 
 	public partial class Lung : UserControl
@@ -40,12 +42,14 @@
 		public Lung ( ) => InitializeComponent ( );
 		private void DT_Leave ( object sender, EventArgs e ) => Recalculate ( );
 		private void Lung_Leave ( object sender, EventArgs e ) => UpdateL ( );
-		public static readonly string SQL_Query = "SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;";
 
 		private void UpdateL ( )
 		{
 			if ( Parent == null ) // Не размещен на форме/компоненте
+			{
 				return;
+			}
+
 			L.ResetText ( );
 			if ( !Visible )
 			{
@@ -59,10 +63,10 @@
 				return;
 			}
 
-			Value = ( double? ) sql.GetValue ( SQL_Query, new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( Resource.SQL_Lung, new List<(string name, object value)>
 			{
-				("[Легочная ткань].[Толщина легкого]",TT),
-				("[Легочная ткань].[Расстояние от точки расчета до легкого (не более)]",DD)
+				(Resource.SQL_Lung_Thickness, TT),
+				(Resource.SQL_Lung_Distance, DD)
 			} );
 		}
 		private void IsLung_CheckedChanged ( object sender, EventArgs e )

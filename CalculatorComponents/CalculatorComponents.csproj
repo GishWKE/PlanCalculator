@@ -76,6 +76,11 @@
       <DependentUpon>OTV.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Time.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -109,6 +114,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OTV.resx">
       <DependentUpon>OTV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Time.resx">
       <DependentUpon>Time.cs</DependentUpon>

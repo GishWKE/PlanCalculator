@@ -1,4 +1,6 @@
-﻿namespace CalculatorComponents
+﻿using CalculatorComponents.Properties;
+
+namespace CalculatorComponents
 {
 
 	partial class Kb_Control
@@ -51,34 +53,34 @@
 			// 
 			this.A_size.BackColor = System.Drawing.SystemColors.Window;
 			this.A_size.CanBeNegative = false;
-			this.A_size.Correct_tooltip = "Ширина поля";
+			this.A_size.Correct_tooltip = Resource.ToolTip_Kb_A;
 			this.A_size.Location = new System.Drawing.Point(35, 0);
 			this.A_size.MaxLength = 2;
 			this.A_size.Name = "A_size";
-			this.A_size.Regex = "^$|^([4-9]|1\\d|20)$";
+			this.A_size.Regex = Resource.RegEx_AB;
 			this.A_size.Size = new System.Drawing.Size(20, 20);
 			this.A_size.TabIndex = 1;
 			this.A_size.Tag = "A";
 			this.A_size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.A_size.Value = null;
-			this.A_size.Wrong_tooltip = "Допустимые значения параметра [4-20]";
+			this.A_size.Wrong_tooltip = Resource.ToolTip_Kb_AB_wrong;
 			this.A_size.TextChanged += new System.EventHandler(this.AB_Changed_Leave);
 			this.A_size.Leave += new System.EventHandler(this.AB_Changed_Leave);
 			// 
 			// B_size
 			// 
 			this.B_size.CanBeNegative = false;
-			this.B_size.Correct_tooltip = "Высота поля";
+			this.B_size.Correct_tooltip = Resource.ToolTip_Kb_B;
 			this.B_size.Location = new System.Drawing.Point(79, 0);
 			this.B_size.MaxLength = 2;
 			this.B_size.Name = "B_size";
-			this.B_size.Regex = "^$|^([4-9]|1\\d|20)$";
+			this.B_size.Regex = Resource.RegEx_AB;
 			this.B_size.Size = new System.Drawing.Size(20, 20);
 			this.B_size.TabIndex = 3;
 			this.B_size.Tag = "B";
 			this.B_size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.B_size.Value = null;
-			this.B_size.Wrong_tooltip = "Допустимые значения параметра [4-20]";
+			this.B_size.Wrong_tooltip = Resource.ToolTip_Kb_AB_wrong;
 			this.B_size.TextChanged += new System.EventHandler(this.AB_Changed_Leave);
 			this.B_size.Leave += new System.EventHandler(this.AB_Changed_Leave);
 			// 
@@ -105,7 +107,7 @@
 			this.Kb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Kb.CanBeNegative = false;
-			this.Kb.Correct_tooltip = "Значение коэффициента Кб";
+			this.Kb.Correct_tooltip = Resource.ToolTip_Kb;
 			this.Kb.FractionalPlaces = 3;
 			this.Kb.Location = new System.Drawing.Point(130, 0);
 			this.Kb.MaxLength = 5;

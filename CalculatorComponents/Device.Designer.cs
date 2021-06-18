@@ -1,4 +1,6 @@
-﻿namespace CalculatorComponents
+﻿using CalculatorComponents.Properties;
+
+namespace CalculatorComponents
 {
 
 	partial class Device
@@ -55,7 +57,7 @@
 			this.Power.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Power.CanBeNegative = false;
-			this.Power.Correct_tooltip = "Мощность";
+			this.Power.Correct_tooltip = Resource.ToolTip_Device_Power;
 			this.Power.FractionalPlaces = 4;
 			this.Power.Location = new System.Drawing.Point(67, 56);
 			this.Power.MaxLength = 8;
@@ -92,7 +94,7 @@
 			this.SCD_value.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.SCD_value.CanBeNegative = false;
-			this.SCD_value.Correct_tooltip = "Расстояние источник-центр вращения аппарата";
+			this.SCD_value.Correct_tooltip = Resource.ToolTip_Device_SCD;
 			this.SCD_value.Location = new System.Drawing.Point(67, 30);
 			this.SCD_value.Name = "SCD_value";
 			this.SCD_value.ReadOnly = true;

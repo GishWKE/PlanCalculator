@@ -6,23 +6,15 @@
 
 	using BaseComponents;
 
+	using CalculatorComponents.Properties;
+
 	using DB_Worker;
 
 	public partial class OTV : UserControl
 	{
 		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
 
-		private readonly Kb_Control Kb = new Kb_Control ( ); 
-		/*
-		private static readonly string AB_REGEX = @"^$|^([4-9]|1\d|20)$";
-		private readonly IntTextBox A_size = new IntTextBox
-		{
-			Regex = AB_REGEX
-		};
-		private readonly IntTextBox B_size = new IntTextBox
-		{
-			Regex = AB_REGEX
-		};*/
+		private readonly Kb_Control Kb = new Kb_Control ( );
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName
 		{
@@ -59,7 +51,6 @@
 		}
 		private void AB_Depth_Changed_Leave ( object sender, EventArgs e ) => Recalculate ( );
 		private void OTV_Leave ( object sender, EventArgs e ) => UpdateOTV ( );
-		public static readonly string SQL_Query = "SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина=? AND ОТВ.B=? AND ОТВ.A=?;";
 		private void UpdateOTV ( )
 		{
 			if ( Parent == null ) // Не размещен на форме/компоненте
@@ -77,11 +68,11 @@
 			{
 				return;
 			}
-			Value = ( double? ) sql.GetValue ( SQL_Query, new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( Resource.SQL_OTV, new List<(string name, object value)>
 			{
-				("ОТВ.Глубина",Depth.Value),
-				("ОТВ.B",BB),
-				("ОТВ.A",AA)
+				(Resource.SQL_OTV_Depth, Depth.Value),
+				(Resource.SQL_OTV_B, BB),
+				(Resource.SQL_OTV_A, AA)
 			} );
 		}
 		public OTV ( )

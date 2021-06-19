@@ -8,7 +8,8 @@
 
 	using DB_Worker;
 
-	using PlanCalculator.Properties;
+	using Resource;
+	using Resource.Properties;
 
 	public partial class CreateDevice : Form
 	{
@@ -54,13 +55,13 @@
 					return;
 			}
 		}
-		private void CreateDeviceSQL ( ) => sql.ExecuteQuery ( Resources.CreateDeviceSQL, new List<(string name, object value)>
+		private void CreateDeviceSQL ( ) => sql.ExecuteQuery ( SQL.CreateDevice, new List<(string name, object value)>
 			{
-				(Resources.DeviceName_Table, DeviceName.Text),
-				(Resources.DevicePower_Table, Power.Value),
-				(Resources.DeviceSCD_Table, SCD.Value),
-				(Resources.DeviceTime_Table, Minutes.Checked),
-				(Resources.DeviceCheckPower_Table, dateTimePicker1.Value)
+				(SQL.DeviceName_Table, DeviceName.Text),
+				(SQL.DevicePower_Table, Power.Value),
+				(SQL.DeviceSCD_Table, SCD.Value),
+				(SQL.DeviceTime_Table, Minutes.Checked),
+				(SQL.DeviceCheckPower_Table, dateTimePicker1.Value)
 			} );
 	}
 }

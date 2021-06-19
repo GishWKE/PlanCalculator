@@ -5,8 +5,8 @@
 	using System.Windows.Forms;
 
 	using BaseComponents;
-
-	using CalculatorComponents.Properties;
+	using Resource;
+	using Resource.Properties;
 
 	using DB_Worker;
 
@@ -68,11 +68,11 @@
 			{
 				return;
 			}
-			Value = ( double? ) sql.GetValue ( Resource.SQL_OTV, new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( SQL.OTV, new List<(string name, object value)>
 			{
-				(Resource.SQL_OTV_Depth, Depth.Value),
-				(Resource.SQL_OTV_B, BB),
-				(Resource.SQL_OTV_A, AA)
+				(SQL.OTV_Depth, Depth.Value),
+				(SQL.OTV_B, BB),
+				(SQL.OTV_A, AA)
 			} );
 		}
 		public OTV ( )

@@ -6,7 +6,8 @@
 
 	using BaseComponents;
 
-	using CalculatorComponents.Properties;
+	using Resource;
+	using Resource.Properties;
 
 	using DB_Worker;
 
@@ -63,10 +64,10 @@
 				return;
 			}
 
-			Value = ( double? ) sql.GetValue ( Resource.SQL_Lung, new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( SQL.Lung, new List<(string name, object value)>
 			{
-				(Resource.SQL_Lung_Thickness, TT),
-				(Resource.SQL_Lung_Distance, DD)
+				(SQL.Lung_Thickness, TT),
+				(SQL.Lung_Distance, DD)
 			} );
 		}
 		private void IsLung_CheckedChanged ( object sender, EventArgs e )

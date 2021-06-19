@@ -117,72 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateDeviceSQL" xml:space="preserve">
-    <value>INSERT INTO [Аппараты] ([Аппараты].[Аппарат],[Аппараты].[Мощность],[Аппараты].[РИЦ],[Аппараты].[Время в минутах],[Аппараты].[Дата замера мощности]) VALUES(?,?,?,?,?);</value>
-    <comment>SQL запрос с параметрами для добавления 1 аппарата в БД</comment>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DB.accdb;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DeviceCheckPower_Table" xml:space="preserve">
-    <value>[Аппараты].[Дата замера мощности]</value>
-    <comment>Имя столбца в БД с датой замера мощности аппарата</comment>
-  </data>
-  <data name="DeviceName_Table" xml:space="preserve">
-    <value>[Аппараты].[Аппарат]</value>
-    <comment>Имя столбца в БД с названием аппарата</comment>
-  </data>
-  <data name="DevicePower_Table" xml:space="preserve">
-    <value>[Аппараты].[Мощность]</value>
-    <comment>Имя столбца в БД с мощностью аппарата</comment>
-  </data>
-  <data name="DeviceSCD_Table" xml:space="preserve">
-    <value>[Аппараты].[РИЦ]</value>
-    <comment>Имя столбца в БД с РИЦ аппарата</comment>
-  </data>
-  <data name="DeviceTime_Table" xml:space="preserve">
-    <value>[Аппараты].[Время в минутах]</value>
-    <comment>Имя столбца в БД с требуемой единицей расчетов для аппарата</comment>
-  </data>
-  <data name="Fld_Num" xml:space="preserve">
-    <value>Число полей</value>
-  </data>
-  <data name="Isc_Num" xml:space="preserve">
-    <value>Число изоцентров</value>
-  </data>
-  <data name="RegEx_0__9_9" xml:space="preserve">
-    <value>\d?|\d[,.]?|\d[,.]\d?|[,.]\d</value>
-    <comment>Регулярное выражение для ввода значений от 0 до 9,9</comment>
-  </data>
-  <data name="RegEx_Begin" xml:space="preserve">
-    <value>^</value>
-    <comment>Символ начала строки в регулярном выражении</comment>
-  </data>
-  <data name="RegEx_Empty" xml:space="preserve">
-    <value>^$</value>
-    <comment>Регулярное выражение для пустой строки</comment>
-  </data>
-  <data name="RegEx_End" xml:space="preserve">
-    <value>$</value>
-    <comment>Символ конца строки в регулярном выражении</comment>
-  </data>
-  <data name="RegEx_format_end0" xml:space="preserve">
-    <value>[1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[,.]?|{1}[,.]0?</value>
-    <comment>Строка для формирования регулярного выражения для ввода значений от 10,0 до {заданное число}0.0 ({4}0/{5}0/{6}0/{7}0/{8}0/{9}0/{10}0)</comment>
-  </data>
-  <data name="RegEx_format_end5" xml:space="preserve">
-    <value>[1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[0-4][,.]?|{1}[0-4][,.]\d?|{2}[,.]?|{2}[,.]0?</value>
-    <comment>Строка для формирования регулярного выражения для ввода значений от 10,0 до {заданное число}5.0 ({4}5/{5}5/{6}5/{7}5/{8}5/{9}5)</comment>
-  </data>
-  <data name="ToolTip_A" xml:space="preserve">
+  <data name="A" xml:space="preserve">
     <value>Ширина поля</value>
   </data>
-  <data name="ToolTip_B" xml:space="preserve">
+  <data name="B" xml:space="preserve">
     <value>Высота поля</value>
   </data>
-  <data name="UpdateDeviceSQL" xml:space="preserve">
-    <value>UPDATE [Аппараты] SET [Аппараты].[Мощность]=?, [Аппараты].[Дата замера мощности]=? WHERE [Аппараты].[Аппарат]=?;</value>
-    <comment>SQL запрос с параметрами для редактирования мощности 1 аппарата в БД</comment>
+  <data name="Device_Power" xml:space="preserve">
+    <value>Мощность</value>
+  </data>
+  <data name="Device_SCD" xml:space="preserve">
+    <value>Расстояние источник-центр вращения аппарата</value>
+  </data>
+  <data name="Kb" xml:space="preserve">
+    <value>Значение коэффициента Кб</value>
+  </data>
+  <data name="AB_wrong" xml:space="preserve">
+    <value>Допустимые значения параметра [4-20]</value>
+  </data>
+  <data name="Lung" xml:space="preserve">
+    <value>Значние коэффициента L</value>
+  </data>
+  <data name="Lung_Distance" xml:space="preserve">
+    <value>Расстояние от точки расчета до легкого (не более)</value>
+  </data>
+  <data name="Lung_Distance_wrong" xml:space="preserve">
+    <value>Допустимые значения параметра [1-14]</value>
+  </data>
+  <data name="Lung_Thickness" xml:space="preserve">
+    <value>Толщина легочной ткани</value>
+  </data>
+  <data name="Lung_Thickness_wrong" xml:space="preserve">
+    <value>Допустимые значения параметра [0.5-12.0]</value>
+  </data>
+  <data name="OTV" xml:space="preserve">
+    <value>Значение коэффициента ОТВ</value>
+  </data>
+  <data name="OTV_Depth" xml:space="preserve">
+    <value>Глубина</value>
+  </data>
+  <data name="OTV_Depth_wrong" xml:space="preserve">
+    <value>Допустимые значения параметра [0.5-30.0]</value>
   </data>
 </root>

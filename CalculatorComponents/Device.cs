@@ -8,7 +8,8 @@
 
 	using BaseComponents;
 
-	using CalculatorComponents.Properties;
+	using Resource;
+	using Resource.Properties;
 
 	using DB_Worker;
 
@@ -75,7 +76,7 @@
 				return;
 			}
 
-			UpdateDeviesList ( sql.GetTable ( Resource.SQL_Device ) );
+			UpdateDeviesList ( sql.GetTable ( SQL.Device ) );
 		}
 		public bool Editable
 		{

@@ -1,7 +1,12 @@
-﻿using CalculatorComponents.Properties;
-
-namespace CalculatorComponents
+﻿namespace CalculatorComponents
 {
+	using System;
+	using System.ComponentModel;
+	using System.Windows.Forms;
+	using System.Drawing;
+	using Resource;
+	using Resource.Properties;
+	using BaseComponents;
 
 	partial class OTV
 	{
@@ -60,17 +65,17 @@ namespace CalculatorComponents
 			// 
 			this.Depth.BackColor = System.Drawing.SystemColors.Window;
 			this.Depth.CanBeNegative = false;
-			this.Depth.Correct_tooltip = Resource.ToolTip_OTV_Depth;
+			this.Depth.Correct_tooltip = ToolTips.OTV_Depth;
 			this.Depth.FractionalPlaces = 1;
 			this.Depth.Location = new System.Drawing.Point(48, 0);
 			this.Depth.MaxLength = 4;
 			this.Depth.Name = "Depth";
-			this.Depth.Regex = Resource.RegEx_Depth;
+			this.Depth.Regex = RegEx.Depth;
 			this.Depth.Size = new System.Drawing.Size(30, 20);
 			this.Depth.TabIndex = 2;
 			this.Depth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Depth.Value = null;
-			this.Depth.Wrong_tooltip = Resource.ToolTip_OTV_Depth_wrong;
+			this.Depth.Wrong_tooltip = ToolTips.OTV_Depth_wrong;
 			this.Depth.TextChanged += new System.EventHandler(this.AB_Depth_Changed_Leave);
 			this.Depth.Leave += new System.EventHandler(this.AB_Depth_Changed_Leave);
 			// 
@@ -80,7 +85,7 @@ namespace CalculatorComponents
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.OTV_value.BackColor = System.Drawing.SystemColors.Window;
 			this.OTV_value.CanBeNegative = false;
-			this.OTV_value.Correct_tooltip = Resource.ToolTIp_OTV;
+			this.OTV_value.Correct_tooltip = ToolTips.OTV;
 			this.OTV_value.FractionalPlaces = 3;
 			this.OTV_value.Location = new System.Drawing.Point(109, 0);
 			this.OTV_value.MaxLength = 5;

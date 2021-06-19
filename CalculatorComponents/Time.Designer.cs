@@ -1,6 +1,13 @@
 ﻿namespace CalculatorComponents
 {
 
+	using System;
+	using System.ComponentModel;
+	using System.Windows.Forms;
+	using System.Drawing;
+	using Resource;
+	using Resource.Properties;
+	using BaseComponents;
 	partial class Time
 	{
 		/// <summary> 

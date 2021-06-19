@@ -1,15 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31402.337
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanCalculator", "PlanCalculator\PlanCalculator.csproj", "{30AFBB25-ADDE-4F33-9EB1-73A9F0AB1F48}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FDB31006-6538-4CEB-8C4E-9B28651ACBD6} = {FDB31006-6538-4CEB-8C4E-9B28651ACBD6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_Worker", "DB_Worker\DB_Worker.csproj", "{AEA4139A-807E-4CB5-8884-D665E12D98A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseComponents", "BaseComponents\BaseComponents.csproj", "{043C02F2-DCFD-40F3-84E7-066D0B604A46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorComponents", "CalculatorComponents\CalculatorComponents.csproj", "{2DECD75B-FED5-4865-981E-1761C90E42BE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FDB31006-6538-4CEB-8C4E-9B28651ACBD6} = {FDB31006-6538-4CEB-8C4E-9B28651ACBD6}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6CC3FF90-A341-490B-878B-4B81C0D87956}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resource", "Resource\Resource.csproj", "{FDB31006-6538-4CEB-8C4E-9B28651ACBD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +48,10 @@ Global
 		{2DECD75B-FED5-4865-981E-1761C90E42BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DECD75B-FED5-4865-981E-1761C90E42BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DECD75B-FED5-4865-981E-1761C90E42BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDB31006-6538-4CEB-8C4E-9B28651ACBD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDB31006-6538-4CEB-8C4E-9B28651ACBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDB31006-6538-4CEB-8C4E-9B28651ACBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDB31006-6538-4CEB-8C4E-9B28651ACBD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

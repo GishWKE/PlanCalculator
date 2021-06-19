@@ -2,7 +2,8 @@
 {
 	using System.Windows.Forms;
 
-	using CalculatorComponents.Properties;
+	using Resource;
+	using Resource.Properties;
 
 	public partial class Time : UserControl
 	{
@@ -18,7 +19,7 @@
 			set
 			{
 				is_sec = value;
-				Time_label1.Text = value ? Resource.Time_seconds : Resource.Time_minutes;
+				Time_label1.Text = value ? Resources.Time_seconds : Resources.Time_minutes;
 				Time_value.FractionalPlaces = value ? 1 : 2;
 				Value = Value;
 			}

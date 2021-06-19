@@ -6,7 +6,8 @@
 
 	using DB_Worker;
 
-	using PlanCalculator.Properties;
+	using Resource;
+	using Resource.Properties;
 
 	public partial class EditDevices : Form
 	{
@@ -62,11 +63,11 @@
 			for ( var i = 0; i < Devices.Count; i++ )
 			{
 				var dev = Devices [ i ];
-				sql.ExecuteQuery ( Resources.UpdateDeviceSQL, new List<(string name, object value)>
+				sql.ExecuteQuery ( SQL.UpdateDevice, new List<(string name, object value)>
 				{
-					( Resources.DevicePower_Table, dev["Мощность"] ),
-					( Resources.DeviceCheckPower_Table, DateTime.Today ),
-					( Resources.DeviceName_Table, dev["Аппарат"] )
+					( SQL.DevicePower_Table, dev["Мощность"] ),
+					( SQL.DeviceCheckPower_Table, DateTime.Today ),
+					( SQL.DeviceName_Table, dev["Аппарат"] )
 				} );
 			}
 			Cursor = tmp;

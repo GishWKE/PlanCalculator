@@ -4,6 +4,7 @@
 	using System.Collections.Generic;
 	using System.Data;
 	using System.Data.OleDb;
+	using System.Linq;
 
 	using BaseComponents;
 
@@ -137,12 +138,13 @@
 		public OleDbParameter CreateParameter ( string name, object value ) => new OleDbParameter ( name, value );
 		public List<OleDbParameter> CreateParameter ( List<(string name, object value)> par )
 		{
-			var ret = new List<OleDbParameter> ( );
+			/*var ret = new List<OleDbParameter> ( );
 			foreach ( var p in par )
 			{
 				ret.Add ( CreateParameter ( p.name, p.value ) );
 			}
-			return ret;
+			return ret;*/
+			return new List<OleDbParameter> ( par.AsParallel ( ).Select ( p => CreateParameter ( p.name, p.value ) ) );
 		}
 	}
 }

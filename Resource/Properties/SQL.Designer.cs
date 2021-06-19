@@ -61,7 +61,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO [Аппараты] ([Аппараты].[Аппарат],[Аппараты].[Мощность],[Аппараты].[РИЦ],[Аппараты].[Время в минутах],[Аппараты].[Дата замера мощности]) VALUES(?,?,?,?,?);.
+        ///   Looks up a localized string similar to INSERT INTO [Аппараты] (Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности]) VALUES(?,?,?,?,?);.
         /// </summary>
         public static string CreateDevice {
             get {
@@ -79,7 +79,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Аппараты].[Дата замера мощности].
+        ///   Looks up a localized string similar to Аппараты.[Дата замера мощности].
         /// </summary>
         public static string DeviceCheckPower_Table {
             get {
@@ -88,7 +88,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Аппараты].[Аппарат].
+        ///   Looks up a localized string similar to Аппараты.Аппарат.
         /// </summary>
         public static string DeviceName_Table {
             get {
@@ -97,7 +97,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Аппараты].[Мощность].
+        ///   Looks up a localized string similar to Аппараты.Мощность.
         /// </summary>
         public static string DevicePower_Table {
             get {
@@ -106,7 +106,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Аппараты].[РИЦ].
+        ///   Looks up a localized string similar to Аппараты.РИЦ.
         /// </summary>
         public static string DeviceSCD_Table {
             get {
@@ -115,7 +115,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Аппараты].[Время в минутах].
+        ///   Looks up a localized string similar to Аппараты.[Время в минутах].
         /// </summary>
         public static string DeviceTime_Table {
             get {

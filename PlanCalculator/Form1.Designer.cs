@@ -6,10 +6,10 @@
 	using System.Drawing;
 
 	using BaseComponents;
-
-	using CalculatorComponents;
 	using Resource;
 	using Resource.Properties;
+
+	using CalculatorComponents;
 
 	partial class Form1
 	{

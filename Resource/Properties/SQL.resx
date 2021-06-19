@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CreateDevice" xml:space="preserve">
-    <value>INSERT INTO [Аппараты] ([Аппараты].[Аппарат],[Аппараты].[Мощность],[Аппараты].[РИЦ],[Аппараты].[Время в минутах],[Аппараты].[Дата замера мощности]) VALUES(?,?,?,?,?);</value>
+    <value>INSERT INTO [Аппараты] (Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности]) VALUES(?,?,?,?,?);</value>
     <comment>SQL запрос с параметрами для добавления 1 аппарата в БД</comment>
   </data>
   <data name="Device" xml:space="preserve">
@@ -126,23 +126,23 @@
     <comment>SQL запрос для получения списка параметров аппаратов из БД</comment>
   </data>
   <data name="DeviceCheckPower_Table" xml:space="preserve">
-    <value>[Аппараты].[Дата замера мощности]</value>
+    <value>Аппараты.[Дата замера мощности]</value>
     <comment>Имя столбца в БД с датой замера мощности аппарата</comment>
   </data>
   <data name="DeviceName_Table" xml:space="preserve">
-    <value>[Аппараты].[Аппарат]</value>
+    <value>Аппараты.Аппарат</value>
     <comment>Имя столбца в БД с названием аппарата</comment>
   </data>
   <data name="DevicePower_Table" xml:space="preserve">
-    <value>[Аппараты].[Мощность]</value>
+    <value>Аппараты.Мощность</value>
     <comment>Имя столбца в БД с мощностью аппарата</comment>
   </data>
   <data name="DeviceSCD_Table" xml:space="preserve">
-    <value>[Аппараты].[РИЦ]</value>
+    <value>Аппараты.РИЦ</value>
     <comment>Имя столбца в БД с РИЦ аппарата</comment>
   </data>
   <data name="DeviceTime_Table" xml:space="preserve">
-    <value>[Аппараты].[Время в минутах]</value>
+    <value>Аппараты.[Время в минутах]</value>
     <comment>Имя столбца в БД с требуемой единицей расчетов для аппарата</comment>
   </data>
   <data name="Kb" xml:space="preserve">

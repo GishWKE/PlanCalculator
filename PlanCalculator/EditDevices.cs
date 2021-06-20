@@ -7,7 +7,6 @@
 
 	using DB_Worker;
 
-	using Resource;
 	using Resource.Properties;
 
 	public partial class EditDevices : Form
@@ -15,11 +14,10 @@
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName
 		{
-			get => Devices.FileName;
+			get => sql.DataSource;
 			set
 			{
-				Devices.FileName = value;
-				sql.DataSource = value;
+				Devices.FileName = sql.DataSource = value;
 			}
 		}
 		public EditDevices ( )

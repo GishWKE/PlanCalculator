@@ -18,7 +18,7 @@ using System.Collections.Generic;
 		/// <summary>
 		/// Период полураспада кобальта-60 в днях
 		/// </summary>
-		private readonly double Cobalt60 = 5.27138888888889D * 365.25D;
+		private readonly double Cobalt60 = 5.271388888888888888888888888888D * 365.2425D;
 		public double? PreviousPower = null;
 		private int PreviousIndex = -1, CurrentIndex = -1;
 		/// <summary>
@@ -38,7 +38,15 @@ using System.Collections.Generic;
 				return null;
 			}
 		}
+		/// <summary>
+		/// Данные по аппарату
+		/// </summary>
+		/// <param name="index">Порядковый номер аппарата</param>
+		/// <returns></returns>
 		public DataRowView this [ int index ] => DeviceList.Items [ index ] as DataRowView;
+		/// <summary>
+		/// Число аппаратов
+		/// </summary>
 		public int Count => DeviceList.Items.Count;
 		/// <summary>
 		/// Дабаить обработчик при измении выбранного элемента 

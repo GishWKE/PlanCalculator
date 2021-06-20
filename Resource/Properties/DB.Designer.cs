@@ -22,14 +22,14 @@ namespace Resource.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class RegEx {
+    public class DB {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RegEx() {
+        internal DB() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Resource.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resource.Properties.RegEx", typeof(RegEx).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resource.Properties.DB", typeof(DB).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,110 +61,74 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^([4-9]|1\d|20)$.
+        ///   Looks up a localized string similar to Ошибка при создании подключения к БД.
         /// </summary>
-        public static string AB {
+        public static string Connection_create_error {
             get {
-                return ResourceManager.GetString("AB", resourceCulture);
+                return ResourceManager.GetString("Connection_create_error", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^.
+        ///   Looks up a localized string similar to Заданный файл БД отсутствует.
         /// </summary>
-        public static string Begin {
+        public static string File_absent {
             get {
-                return ResourceManager.GetString("Begin", resourceCulture);
+                return ResourceManager.GetString("File_absent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^(0?[,.][5-9]|[1-9]|[1-2]\d|30|[1-9][,.]\d?|[1-2]\d[,.]\d?|30[,.]0?)$.
+        ///   Looks up a localized string similar to Не задано имя файла с БД.
         /// </summary>
-        public static string Depth {
+        public static string No_filename {
             get {
-                return ResourceManager.GetString("Depth", resourceCulture);
+                return ResourceManager.GetString("No_filename", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \d+.
+        ///   Looks up a localized string similar to Microsoft.Jet.OLEDB.4.0.
         /// </summary>
-        public static string DigitInString {
+        public static string Provider0 {
             get {
-                return ResourceManager.GetString("DigitInString", resourceCulture);
+                return ResourceManager.GetString("Provider0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^([1-9]|1[0-4])$.
+        ///   Looks up a localized string similar to Microsoft.ACE.OLEDB.12.0.
         /// </summary>
-        public static string Distance {
+        public static string Provider1 {
             get {
-                return ResourceManager.GetString("Distance", resourceCulture);
+                return ResourceManager.GetString("Provider1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$.
+        ///   Looks up a localized string similar to Microsoft.ACE.OLEDB.14.0.
         /// </summary>
-        public static string Empty {
+        public static string Provider2 {
             get {
-                return ResourceManager.GetString("Empty", resourceCulture);
+                return ResourceManager.GetString("Provider2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $.
+        ///   Looks up a localized string similar to Microsoft.ACE.OLEDB.16.0.
         /// </summary>
-        public static string End {
+        public static string Provider3 {
             get {
-                return ResourceManager.GetString("End", resourceCulture);
+                return ResourceManager.GetString("Provider3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[,.]?|{1}[,.]0?.
+        ///   Looks up a localized string similar to Не обнаружены провайдеры подключения к БД.
         /// </summary>
-        public static string Format_end0 {
+        public static string Providers_error {
             get {
-                return ResourceManager.GetString("Format_end0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[0-4][,.]?|{1}[0-4][,.]\d?|{2}[,.]?|{2}[,.]0?.
-        /// </summary>
-        public static string Format_end5 {
-            get {
-                return ResourceManager.GetString("Format_end5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ^$|^(0?[,.][5-9]|[1-9]|1[0-1]|12|[1-9][,.]\d?|1[0-1][,.]\d?|12[,.]0?)$.
-        /// </summary>
-        public static string Thickness {
-            get {
-                return ResourceManager.GetString("Thickness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \d?|\d[,.]?|\d[,.]\d?|[,.]\d.
-        /// </summary>
-        public static string Values_0__9_9 {
-            get {
-                return ResourceManager.GetString("Values_0__9_9", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ^$|^([1-9]|[1-9]\d|100)$.
-        /// </summary>
-        public static string Values_1_100 {
-            get {
-                return ResourceManager.GetString("Values_1_100", resourceCulture);
+                return ResourceManager.GetString("Providers_error", resourceCulture);
             }
         }
     }

@@ -40,12 +40,7 @@
 		{
 			get
 			{
-				if ( A != null && B != null && D != null )
-				{
-					return OTV_value.Value;
-				}
-
-				return null;
+				return A != null && B != null && D != null ? OTV_value.Value : null;
 			}
 			private set => OTV_value.Value = value;
 		}

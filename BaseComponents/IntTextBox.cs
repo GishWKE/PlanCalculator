@@ -13,12 +13,7 @@
 		{
 			get
 			{
-				if ( this.IsEmpty ( ) || !IsCorrect )
-				{
-					return null;
-				}
-
-				return this.ToInt ( );
+				return this.IsEmpty ( ) || !IsCorrect ? null : ( int? ) this.ToInt ( );
 			}
 			set
 			{

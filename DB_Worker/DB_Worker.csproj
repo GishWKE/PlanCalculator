@@ -59,6 +59,10 @@
       <Project>{043c02f2-dcfd-40f3-84e7-066d0b604a46}</Project>
       <Name>BaseComponents</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Resource\Resource.csproj">
+      <Project>{fdb31006-6538-4ceb-8c4e-9b28651acbd6}</Project>
+      <Name>Resource</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -26,12 +26,7 @@
 		{
 			get
 			{
-				if ( D != null && T != null )
-				{
-					return L.Value;
-				}
-
-				return null;
+				return D != null && T != null ? L.Value : null;
 			}
 			private set => L.Value = value;
 		}

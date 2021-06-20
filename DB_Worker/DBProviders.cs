@@ -1,25 +1,28 @@
-﻿
-namespace DB_Worker
+﻿namespace DB_Worker
 {
 	using System;
 	using System.Collections.Generic;
 	using System.Data;
 	using System.Data.OleDb;
 	using System.Linq;
+	using System.Text.RegularExpressions;
 
 	using BaseComponents;
 
+	using Resource.Properties;
+
 	internal static class DBProviders
 	{
+		private static readonly Regex regex = new Regex ( RegEx.DigitInString );
 		/// <summary>
 		/// Список провайдеров для подключения к БД/Excel.
 		/// </summary>
 		private static readonly List<string> providers = new List<string> ( )
 		{
-			@"Microsoft.ACE.OLEDB.16.0",
-			@"Microsoft.ACE.OLEDB.14.0",
-			@"Microsoft.ACE.OLEDB.12.0",
-			@"Microsoft.Jet.OLEDB.4.0"
+			DB.Provider2,
+			DB.Provider1,
+			DB.Provider3,
+			DB.Provider0
 		};
 		/// <summary>
 		/// Индекс последнего (по дате создания) зарегестрированного в системе провайдера
@@ -36,12 +39,9 @@ namespace DB_Worker
 				{
 					CheckProviders ( );
 				}
-				if ( selectedPrivider == -1 || selectedPrivider >= providers.Count ) // Не найден или какая-то ошибка
-				{
-					throw new Exception ( @"Не обнаружены провайдеры подключения к БД" );
-				}
-
-				return providers [ selectedPrivider ];
+				return selectedPrivider == -1 || selectedPrivider >= providers.Count
+					? throw new Exception ( DB.Providers_error )
+					: providers [ selectedPrivider ];
 			}
 		}
 		/// <summary>
@@ -54,49 +54,13 @@ namespace DB_Worker
 			{
 				providers.RemoveAt ( providers.Count - 1 );
 			}
-			//var enumerator = new OleDbEnumerator ( ); // Полная информация о зарегестрированных провайдерах (Lazy)
-			var el = new OleDbEnumerator ( ).GetElements ( ); // Полная информация о зарегестрированных провайдерах
-			var fl = 0; // Битовая маска. 1 - соответствующий провайдер установлен, 0 - его нет
-			var ParProv = providers.AsParallel ( ); // Для более быстрого поиска
-			foreach ( var r in el.AsEnumerable ( ) ) // Проверка по одному
-			{
-				var pp = r [ 0 ].ToString ( ).ToLower ( ); // Имя провайдера
-
-				if ( ParProv.Any ( p => p.ToLower ( ).Equals ( pp ) ) ) // Если провайдер есть в списке
-				{
-					switch ( pp )
-					{
-						case string pr when pr.Equals ( providers [ 0 ].ToLower ( ) ):
-							fl |= 0b1000;
-							break;
-						case string pr when pr.Equals ( providers [ 1 ].ToLower ( ) ):
-							fl |= 0b100;
-							break;
-						case string pr when pr.Equals ( providers [ 2 ].ToLower ( ) ):
-							fl |= 0b10;
-							break;
-						default:
-							fl |= 0b1;
-							break;
-					}
-				}
-			}
-			if ( ( fl & 0b1000 ) != 0 )
-			{
-				selectedPrivider = 0;
-			}
-			else if ( ( fl & 0b100 ) != 0 )
-			{
-				selectedPrivider = 1;
-			}
-			else if ( ( fl & 0b10 ) != 0 )
-			{
-				selectedPrivider = 2;
-			}
-			else if ( ( fl & 0b1 ) != 0 )
-			{
-				selectedPrivider = 3;
-			}
+			var names = new OleDbEnumerator ( ).GetElements ( ).AsEnumerable ( ).AsParallel ( ).Select ( r => r [ 0 ].ToString ( ) );
+			selectedPrivider = providers.AsParallel ( ).
+				Select ( ( provider, index ) => (provider, index) ).
+				OrderByDescending ( p => regex.Matches ( p.provider ).AsParallel ( ).Cast<Match> ( ).
+				Select ( m => m.Value.ToInt ( ) ).Max ( ) ).
+				 Where ( p => names.Any ( pp => pp.Equals ( p.provider, StringComparison.InvariantCultureIgnoreCase ) ) ).
+				 First ( ).index;
 		}
 	}
 }

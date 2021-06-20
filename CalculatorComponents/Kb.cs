@@ -34,12 +34,7 @@
 		{
 			get
 			{
-				if ( A != null && B != null )
-				{
-					return Kb.Value;
-				}
-
-				return null;
+				return A != null && B != null ? Kb.Value : null;
 			}
 			private set => Kb.Value = value;
 		}

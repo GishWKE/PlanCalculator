@@ -117,50 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AB" xml:space="preserve">
-    <value>^$|^([4-9]|1\d|20)$</value>
-    <comment>Ограничить ввод A/B от 4 до 20</comment>
+  <data name="Connection_create_error" xml:space="preserve">
+    <value>Ошибка при создании подключения к БД</value>
   </data>
-  <data name="Begin" xml:space="preserve">
-    <value>^</value>
-    <comment>Символ начала строки в регулярном выражении</comment>
+  <data name="File_absent" xml:space="preserve">
+    <value>Заданный файл БД отсутствует</value>
   </data>
-  <data name="Depth" xml:space="preserve">
-    <value>^$|^(0?[,.][5-9]|[1-9]|[1-2]\d|30|[1-9][,.]\d?|[1-2]\d[,.]\d?|30[,.]0?)$</value>
-    <comment>Ограничить ввод глубины от 0,5 до 30,0</comment>
+  <data name="No_filename" xml:space="preserve">
+    <value>Не задано имя файла с БД</value>
   </data>
-  <data name="DigitInString" xml:space="preserve">
-    <value>\d+</value>
+  <data name="Provider0" xml:space="preserve">
+    <value>Microsoft.Jet.OLEDB.4.0</value>
   </data>
-  <data name="Distance" xml:space="preserve">
-    <value>^$|^([1-9]|1[0-4])$</value>
-    <comment>Ограничить ввод расстояния от 1 до 14</comment>
+  <data name="Provider1" xml:space="preserve">
+    <value>Microsoft.ACE.OLEDB.12.0</value>
   </data>
-  <data name="Empty" xml:space="preserve">
-    <value>^$</value>
-    <comment>Регулярное выражение для пустой строки</comment>
+  <data name="Provider2" xml:space="preserve">
+    <value>Microsoft.ACE.OLEDB.14.0</value>
   </data>
-  <data name="End" xml:space="preserve">
-    <value>$</value>
-    <comment>Символ конца строки в регулярном выражении</comment>
+  <data name="Provider3" xml:space="preserve">
+    <value>Microsoft.ACE.OLEDB.16.0</value>
   </data>
-  <data name="Format_end0" xml:space="preserve">
-    <value>[1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[,.]?|{1}[,.]0?</value>
-    <comment>Строка для формирования регулярного выражения для ввода значений от 10,0 до {заданное число}0.0 ({4}0/{5}0/{6}0/{7}0/{8}0/{9}0/{10}0)</comment>
-  </data>
-  <data name="Format_end5" xml:space="preserve">
-    <value>[1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[0-4][,.]?|{1}[0-4][,.]\d?|{2}[,.]?|{2}[,.]0?</value>
-    <comment>Строка для формирования регулярного выражения для ввода значений от 10,0 до {заданное число}5.0 ({4}5/{5}5/{6}5/{7}5/{8}5/{9}5)</comment>
-  </data>
-  <data name="Thickness" xml:space="preserve">
-    <value>^$|^(0?[,.][5-9]|[1-9]|1[0-1]|12|[1-9][,.]\d?|1[0-1][,.]\d?|12[,.]0?)$</value>
-    <comment>Ограничить ввод толщины от 0,5 до 12,0</comment>
-  </data>
-  <data name="Values_0__9_9" xml:space="preserve">
-    <value>\d?|\d[,.]?|\d[,.]\d?|[,.]\d</value>
-    <comment>Регулярное выражение для ввода значений от 0 до 9,9</comment>
-  </data>
-  <data name="Values_1_100" xml:space="preserve">
-    <value>^$|^([1-9]|[1-9]\d|100)$</value>
+  <data name="Providers_error" xml:space="preserve">
+    <value>Не обнаружены провайдеры подключения к БД</value>
   </data>
 </root>

@@ -41,12 +41,7 @@
 		{
 			get
 			{
-				if ( this.IsEmpty ( ) || !IsCorrect )
-				{
-					return null;
-				}
-
-				return this.ToDouble ( );
+				return this.IsEmpty ( ) || !IsCorrect ? null : ( double? ) this.ToDouble ( );
 			}
 			set
 			{

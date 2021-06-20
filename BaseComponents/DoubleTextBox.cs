@@ -22,7 +22,7 @@
 				if ( dec_places < 0 || dec_places > 15 )
 				{
 					dec_places = -1;
-					FormatString = string.Empty;
+					FormatString.Clear ( );
 					return;
 				}
 				else
@@ -39,10 +39,7 @@
 		private string FormatString = string.Empty;
 		public double? Value
 		{
-			get
-			{
-				return this.IsEmpty ( ) || !IsCorrect ? null : ( double? ) this.ToDouble ( );
-			}
+			get => this.IsEmpty ( ) || !IsCorrect ? null : ( double? ) this.ToDouble ( );
 			set
 			{
 				if ( value == null )

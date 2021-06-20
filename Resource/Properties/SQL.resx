@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CreateDevice" xml:space="preserve">
-    <value>INSERT INTO Аппараты (Аппарат,Мощность,РИЦ,[Время в минутах],[Дата замера мощности]) VALUES(?,?,?,?,?);</value>
+    <value>INSERT INTO Аппараты (Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности]) VALUES(?,?,?,?,?);</value>
     <comment>SQL запрос с параметрами для добавления 1 аппарата в БД</comment>
   </data>
   <data name="Device" xml:space="preserve">
@@ -126,23 +126,23 @@
     <comment>SQL запрос для получения списка параметров аппаратов из БД</comment>
   </data>
   <data name="DeviceCheckPower_Table" xml:space="preserve">
-    <value>Дата замера мощности</value>
+    <value>Аппараты.[Дата замера мощности]</value>
     <comment>Имя столбца в БД с датой замера мощности аппарата</comment>
   </data>
   <data name="DeviceName_Table" xml:space="preserve">
-    <value>Аппарат</value>
+    <value>Аппараты.Аппарат</value>
     <comment>Имя столбца в БД с названием аппарата</comment>
   </data>
   <data name="DevicePower_Table" xml:space="preserve">
-    <value>Мощность</value>
+    <value>Аппараты.Мощность</value>
     <comment>Имя столбца в БД с мощностью аппарата</comment>
   </data>
   <data name="DeviceSCD_Table" xml:space="preserve">
-    <value>РИЦ</value>
+    <value>Аппараты.РИЦ</value>
     <comment>Имя столбца в БД с РИЦ аппарата</comment>
   </data>
   <data name="DeviceTime_Table" xml:space="preserve">
-    <value>Время в минутах</value>
+    <value>Аппараты.[Время в минутах]</value>
     <comment>Имя столбца в БД с требуемой единицей расчетов для аппарата</comment>
   </data>
   <data name="Kb" xml:space="preserve">
@@ -162,15 +162,15 @@
     <comment>Имя столбца со значением РИЦ в таблице Кб в БД</comment>
   </data>
   <data name="Lung" xml:space="preserve">
-    <value>SELECT L FROM [Легочная ткань] WHERE [Толщина легкого]=? AND [Расстояние от точки расчета до легкого (не более)]=?;</value>
+    <value>SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;</value>
     <comment>SQL запрос для получения значения коэффициента L из БД</comment>
   </data>
   <data name="Lung_Distance" xml:space="preserve">
-    <value>[Расстояние от точки расчета до легкого (не более)]</value>
+    <value>[Легочная ткань].[Расстояние от точки расчета до легкого (не более)]</value>
     <comment>Имя столбца со значением [Расстояние от точки расчета до легкого (не более)] в таблице [Легочная ткань] в БД</comment>
   </data>
   <data name="Lung_Thickness" xml:space="preserve">
-    <value>[Толщина легкого]</value>
+    <value>[Легочная ткань].[Толщина легкого]</value>
     <comment>Имя столбца со значением [Толщина легкого] в таблице [Легочная ткань] в БД</comment>
   </data>
   <data name="OTV" xml:space="preserve">
@@ -190,7 +190,7 @@
     <comment>Имя столбца со значением Глубина в таблице ОТВ в БД</comment>
   </data>
   <data name="UpdateDevice" xml:space="preserve">
-    <value>UPDATE Аппараты SET Мощность=?, [Дата замера мощности]=? WHERE Аппарат=?;</value>
+    <value>UPDATE Аппараты SET Аппараты.Мощность=?, Аппараты.[Дата замера мощности]=? WHERE Аппараты.Аппарат=?;</value>
     <comment>SQL запрос с параметрами для редактирования мощности 1 аппарата в БД</comment>
   </data>
 </root>

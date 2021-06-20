@@ -60,27 +60,17 @@
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			Devices.Current [ "Мощность" ] = Devices.Power.Value;
-			foreach ( var d in Devices )
+			Devices.Selected [ "Мощность" ] = Devices.Power.Value;
+			foreach ( var dev in Devices )
 			{
-				var dev = d as DataRowView;
+				var d = dev as DataRowView;
 				sql.ExecuteQuery ( SQL.UpdateDevice, new List<(string name, object value)>
 				{
-					( SQL.DevicePower_Table, dev["Мощность"] ),
+					( SQL.DevicePower_Table, d["Мощность"] ),
 					( SQL.DeviceCheckPower_Table, DateTime.Today ),
-					( SQL.DeviceName_Table, dev["Аппарат"] )
+					( SQL.DeviceName_Table, d["Аппарат"] )
 				} );
 			}
-			/*for ( var i = 0; i < Devices.Count; i++ )
-			{
-				var dev = Devices [ i ];
-				sql.ExecuteQuery ( SQL.UpdateDevice, new List<(string name, object value)>
-				{
-					( SQL.DevicePower_Table, dev["Мощность"] ),
-					( SQL.DeviceCheckPower_Table, DateTime.Today ),
-					( SQL.DeviceName_Table, dev["Аппарат"] )
-				} );
-			}*/
 			Cursor = tmp;
 		}
 	}

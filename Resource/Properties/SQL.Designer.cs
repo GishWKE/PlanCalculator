@@ -61,7 +61,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO Аппараты (Аппарат,Мощность,РИЦ,[Время в минутах],[Дата замера мощности]) VALUES(?,?,?,?,?);.
+        ///   Looks up a localized string similar to INSERT INTO Аппараты (Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности]) VALUES(?,?,?,?,?);.
         /// </summary>
         public static string CreateDevice {
             get {
@@ -79,7 +79,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата замера мощности.
+        ///   Looks up a localized string similar to Аппараты.[Дата замера мощности].
         /// </summary>
         public static string DeviceCheckPower_Table {
             get {
@@ -88,7 +88,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Аппарат.
+        ///   Looks up a localized string similar to Аппараты.Аппарат.
         /// </summary>
         public static string DeviceName_Table {
             get {
@@ -97,7 +97,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Мощность.
+        ///   Looks up a localized string similar to Аппараты.Мощность.
         /// </summary>
         public static string DevicePower_Table {
             get {
@@ -106,7 +106,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to РИЦ.
+        ///   Looks up a localized string similar to Аппараты.РИЦ.
         /// </summary>
         public static string DeviceSCD_Table {
             get {
@@ -115,7 +115,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Время в минутах.
+        ///   Looks up a localized string similar to Аппараты.[Время в минутах].
         /// </summary>
         public static string DeviceTime_Table {
             get {
@@ -160,7 +160,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT L FROM [Легочная ткань] WHERE [Толщина легкого]=? AND [Расстояние от точки расчета до легкого (не более)]=?;.
+        ///   Looks up a localized string similar to SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;.
         /// </summary>
         public static string Lung {
             get {
@@ -169,7 +169,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Расстояние от точки расчета до легкого (не более)].
+        ///   Looks up a localized string similar to [Легочная ткань].[Расстояние от точки расчета до легкого (не более)].
         /// </summary>
         public static string Lung_Distance {
             get {
@@ -178,7 +178,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Толщина легкого].
+        ///   Looks up a localized string similar to [Легочная ткань].[Толщина легкого].
         /// </summary>
         public static string Lung_Thickness {
             get {
@@ -223,7 +223,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UPDATE Аппараты SET Мощность=?, [Дата замера мощности]=? WHERE Аппарат=?;.
+        ///   Looks up a localized string similar to UPDATE Аппараты SET Аппараты.Мощность=?, Аппараты.[Дата замера мощности]=? WHERE Аппараты.Аппарат=?;.
         /// </summary>
         public static string UpdateDevice {
             get {

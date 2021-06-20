@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections;
+using System.Collections.Generic;
 	using System.Data;
 	using System.Linq;
 	using System.Windows.Forms;
@@ -12,7 +13,7 @@
 
 	using Resource.Properties;
 
-	public partial class Device : UserControl, IEnumerable, IEnumerator
+	public partial class Device : UserControl, IEnumerable
 	{
 		/// <summary>
 		/// Период полураспада кобальта-60 в днях
@@ -24,7 +25,6 @@
 		/// Выбранный для отображения аппарат
 		/// </summary>
 		public DataRowView Selected => DeviceList.SelectedItem as DataRowView;
-		public DataRowView Current => Selected;
 		public DataRowView Previous
 		{
 			get
@@ -122,22 +122,6 @@
 			InitializeComponent ( );
 		}
 		public void UpdateData ( ) => FillDevicesList ( );
-		public IEnumerator GetEnumerator ( ) => this;
-		private int index = -1;
-
-		public bool MoveNext ( )
-		{
-			if ( index == Count - 1 )
-			{
-				Reset ( );
-				return false;
-			}
-
-			index++;
-			return true;
-		}
-		public void Reset ( ) => index = -1;
-
-		object IEnumerator.Current => this [ index ];
+		IEnumerator IEnumerable.GetEnumerator ( ) => DeviceList.Items.GetEnumerator ( );
 	}
 }

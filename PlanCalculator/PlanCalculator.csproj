@@ -38,7 +38,8 @@
     <StartupObject>PlanCalculator.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -102,9 +103,6 @@
     <None Include="Resources\DB.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseComponents\BaseComponents.csproj">

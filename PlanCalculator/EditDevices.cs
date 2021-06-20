@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Data;
 	using System.Windows.Forms;
 
 	using DB_Worker;
@@ -60,7 +61,17 @@
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
 			Devices.Current [ "Мощность" ] = Devices.Power.Value;
-			for ( var i = 0; i < Devices.Count; i++ )
+			foreach ( var d in Devices )
+			{
+				var dev = d as DataRowView;
+				sql.ExecuteQuery ( SQL.UpdateDevice, new List<(string name, object value)>
+				{
+					( SQL.DevicePower_Table, dev["Мощность"] ),
+					( SQL.DeviceCheckPower_Table, DateTime.Today ),
+					( SQL.DeviceName_Table, dev["Аппарат"] )
+				} );
+			}
+			/*for ( var i = 0; i < Devices.Count; i++ )
 			{
 				var dev = Devices [ i ];
 				sql.ExecuteQuery ( SQL.UpdateDevice, new List<(string name, object value)>
@@ -69,7 +80,7 @@
 					( SQL.DeviceCheckPower_Table, DateTime.Today ),
 					( SQL.DeviceName_Table, dev["Аппарат"] )
 				} );
-			}
+			}*/
 			Cursor = tmp;
 		}
 	}

@@ -1,19 +1,18 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
+	using System.Collections;
 	using System.Data;
 	using System.Linq;
 	using System.Windows.Forms;
 
-
 	using BaseComponents;
-
-	using Resource;
-	using Resource.Properties;
 
 	using DB_Worker;
 
-	public partial class Device : UserControl
+	using Resource.Properties;
+
+	public partial class Device : UserControl, IEnumerable, IEnumerator
 	{
 		/// <summary>
 		/// Период полураспада кобальта-60 в днях
@@ -81,7 +80,7 @@
 		public bool Editable
 		{
 			get => Power.ReadOnly;
-			set => Power.ReadOnly = value;
+			set => Power.ReadOnly = !value;
 		}
 		private void UpdateDeviesList ( DataTable dt )
 		{
@@ -121,8 +120,24 @@
 		public Device ( )
 		{
 			InitializeComponent ( );
-			Editable = false;
 		}
 		public void UpdateData ( ) => FillDevicesList ( );
+		public IEnumerator GetEnumerator ( ) => this;
+		private int index = -1;
+
+		public bool MoveNext ( )
+		{
+			if ( index == Count - 1 )
+			{
+				Reset ( );
+				return false;
+			}
+
+			index++;
+			return true;
+		}
+		public void Reset ( ) => index = -1;
+
+		object IEnumerator.Current => this [ index ];
 	}
 }

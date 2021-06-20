@@ -19,9 +19,9 @@
 		/// </summary>
 		private static readonly List<string> providers = new List<string> ( )
 		{
+			DB.Provider3,
 			DB.Provider2,
 			DB.Provider1,
-			DB.Provider3,
 			DB.Provider0
 		};
 		/// <summary>
@@ -52,7 +52,7 @@
 			selectedPrivider = -1;
 			if ( Environment.Is64BitOperatingSystem ) // Microsoft.Jet.OLEDB.4.0 - поддерживает только x86 ОС
 			{
-				providers.RemoveAt ( providers.Count - 1 );
+				providers.Remove ( DB.Provider0 );
 			}
 			var names = new OleDbEnumerator ( ).GetElements ( ).AsEnumerable ( ).AsParallel ( ).Select ( r => r [ 0 ].ToString ( ) );
 			selectedPrivider = providers.AsParallel ( ).

@@ -6,9 +6,10 @@
 	using System.Data.OleDb;
 	using System.IO;
 	using System.Linq;
-	using Resource;
-	using Resource.Properties;
+
 	using BaseComponents;
+
+	using Resource.Properties;
 
 	public class OleDB_Worker : IDisposable
 	{
@@ -24,15 +25,16 @@
 					CloseAndClear ( );
 					return;
 				}
-				if ( fileName.IsPathEquals ( value ) )
+				var tmp = new FileInfo ( value ).FullName;
+				if ( fileName.IsPathEquals ( tmp ) )
 				{
 					return;
 				}
 
 				CloseAndClear ( );
-				if ( File.Exists ( value ) )
+				if ( File.Exists ( tmp ) )
 				{
-					fileName = value;
+					fileName = tmp;
 					command = new OleDbCommand
 					{
 						Connection = new OleDbConnection ( ConnectionString )
@@ -51,12 +53,12 @@
 				try
 				{
 					return DataSource.IsEmpty ( )
-                        ?                     throw new Exception ( DB.No_filename )
+						? throw new Exception ( DB.No_filename )
 						: new OleDbConnectionStringBuilder
-                    {
-                        DataSource = DataSource,
-                        Provider = DBProviders.Provider
-                    }.ConnectionString;
+						{
+							DataSource = DataSource,
+							Provider = DBProviders.Provider
+						}.ConnectionString;
 				}
 				catch
 				{

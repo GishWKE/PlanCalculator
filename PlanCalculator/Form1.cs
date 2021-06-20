@@ -19,7 +19,6 @@
 		public Form1 ( )
 		{
 			FileName = @".\Resources\DB.accdb";
-			//FileName = Path.GetFullPath ( FileName );
 			fields = new List<Field> ( );
 			InitializeComponent ( );
 			Devices.Add ( new EventHandler ( DeviceChanged ) );

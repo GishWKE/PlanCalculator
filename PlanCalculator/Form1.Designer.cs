@@ -288,7 +288,6 @@
 			this.D.BackColor = SystemColors.Window;
 			this.D.CanBeNegative = false;
 			this.D.Correct_tooltip = "Разовая доза";
-			this.D.FractionalPlaces = -1;
 			this.D.Location = new Point(112, 0);
 			this.D.Name = "D";
 			this.D.Regex = "";

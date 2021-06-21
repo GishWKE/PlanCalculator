@@ -2,8 +2,8 @@
 {
 	using System;
 	using System.Drawing;
+	using System.Globalization;
 	using System.Linq;
-	using System.Text;
 	using System.Text.RegularExpressions;
 	using System.Windows.Forms;
 
@@ -12,31 +12,19 @@
 	{
 		private new readonly Color DefaultBackColor;
 		private readonly Regex empty = new Regex ( "^-?[,.]?$" );
-		private int dec_places = -1;
 		public int FractionalPlaces
 		{
-			get => dec_places;
+			get => nfi.NumberDecimalDigits;
 			set
 			{
-				dec_places = value;
-				if ( dec_places < 0 || dec_places > 15 )
+				try
 				{
-					dec_places = -1;
-					FormatString.Clear ( );
-					return;
+					nfi.NumberDecimalDigits = value;
 				}
-				else
-				{
-					var sb = new StringBuilder ( "{0:F" );
-					sb.Append ( value );
-					sb.Append ( "}" );
-					FormatString = sb.ToString ( );
-					Value = Value;
-					SelectionStart = Text.Length;
-				}
+				catch { throw; }
 			}
 		}
-		private string FormatString = string.Empty;
+		private readonly NumberFormatInfo nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
 		public double? Value
 		{
 			get => this.IsEmpty ( ) || !IsCorrect ? null : ( double? ) this.ToDouble ( );
@@ -48,7 +36,7 @@
 				}
 				else
 				{
-					Text = ( FractionalPlaces != -1 ) ? string.Format ( FormatString, value ) : value.ToString ( );
+					Text = ( ( double ) value ).ToString ( "F", nfi );
 				}
 				SelectionStart = Text.Length;
 			}

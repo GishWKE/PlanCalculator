@@ -37,7 +37,7 @@
 				if ( !value.IsEmpty ( ) )
 				{
 					default_tooltip = value;
-					toolTip1.SetToolTip ( this, default_tooltip );
+					toolTip1.SetToolTip ( this, value );
 				}
 			}
 		}

@@ -2,7 +2,6 @@
 {
 	using System;
 	using System.Collections;
-using System.Collections.Generic;
 	using System.Data;
 	using System.Linq;
 	using System.Windows.Forms;
@@ -18,7 +17,11 @@ using System.Collections.Generic;
 		/// <summary>
 		/// Период полураспада кобальта-60 в днях
 		/// </summary>
-		private readonly double Cobalt60 = 5.271388888888888888888888888888D * 365.2425D;
+		private static readonly double Cobalt60 = 5.271388888888888888888888888888D * 365.2425D;
+		/// <summary>
+		/// 1/период полураспада кобальта-60
+		/// </summary>
+		private static readonly double Cobalt60_1 = 1D / Cobalt60;
 		public double? PreviousPower = null;
 		private int PreviousIndex = -1, CurrentIndex = -1;
 		/// <summary>
@@ -107,8 +110,8 @@ using System.Collections.Generic;
 			{
 				var pow = ( double ) r [ "Мощность" ];
 				var date = ( DateTime ) r [ "Дата замера мощности" ];
-				var diff = ( double ) ( DateTime.Now - date ).Days;
-				r [ "Мощность" ] = pow / Math.Pow ( 2, diff / Cobalt60 );
+				double diff = ( DateTime.Now - date ).Days;
+				r [ "Мощность" ] = pow / Math.Pow ( 2, diff * Cobalt60_1 );
 			}
 		}
 		private void DeviceList_SelectedIndexChanged ( object sender, EventArgs e )

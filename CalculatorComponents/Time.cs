@@ -2,7 +2,6 @@
 {
 	using System.Windows.Forms;
 
-	using Resource;
 	using Resource.Properties;
 
 	public partial class Time : UserControl

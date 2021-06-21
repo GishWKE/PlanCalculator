@@ -55,12 +55,13 @@
 				providers.Remove ( DB.Provider0 );
 			}
 			var names = new OleDbEnumerator ( ).GetElements ( ).AsEnumerable ( ).AsParallel ( ).Select ( r => r [ 0 ].ToString ( ) );
-			selectedPrivider = providers.AsParallel ( ).
+			var tmp = providers.AsParallel ( ).
 				Select ( ( provider, index ) => (provider, index) ).
-				OrderByDescending ( p => regex.Matches ( p.provider ).AsParallel ( ).Cast<Match> ( ).
-				Select ( m => m.Value.ToInt ( ) ).Max ( ) ).
-				 Where ( p => names.Any ( pp => pp.Equals ( p.provider, StringComparison.InvariantCultureIgnoreCase ) ) ).
-				 First ( ).index;
+				OrderByDescending ( p => regex.Match ( p.provider ).Value.ToInt ( ) ).
+				 Where ( p => names.Any ( pp => pp.Equals ( p.provider, StringComparison.InvariantCultureIgnoreCase ) ) );
+			if ( tmp.IsEmpty ( ) )
+				return;
+			selectedPrivider = tmp.First ( ).index;
 		}
 	}
 }

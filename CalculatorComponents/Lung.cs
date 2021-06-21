@@ -6,7 +6,6 @@
 
 	using BaseComponents;
 
-	using Resource;
 	using Resource.Properties;
 
 	using DB_Worker;
@@ -59,7 +58,7 @@
 				return;
 			}
 
-			Value = ( double? ) sql.GetValue ( SQL.Lung, new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( SQL.Lung, new (string name, object value) [ ]
 			{
 				(SQL.Lung_Thickness, TT),
 				(SQL.Lung_Distance, DD)

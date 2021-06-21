@@ -62,7 +62,7 @@
 			foreach ( var dev in Devices )
 			{
 				var d = dev as DataRowView;
-				sql.ExecuteQuery ( SQL.UpdateDevice, new List<(string name, object value)>
+				sql.ExecuteQuery ( SQL.UpdateDevice, new (string name, object value) [ ]
 				{
 					( SQL.DevicePower_Table, d["Мощность"] ),
 					( SQL.DeviceCheckPower_Table, DateTime.Today ),

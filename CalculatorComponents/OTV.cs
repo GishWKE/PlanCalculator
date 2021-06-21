@@ -5,7 +5,6 @@
 	using System.Windows.Forms;
 
 	using BaseComponents;
-	using Resource;
 	using Resource.Properties;
 
 	using DB_Worker;
@@ -63,8 +62,7 @@
 			{
 				return;
 			}
-			Value = ( double? ) sql.GetValue ( SQL.OTV, new List<(string name, object value)>
-			{
+			Value = ( double? ) sql.GetValue ( SQL.OTV, new (string name, object value) [ ] {
 				(SQL.OTV_Depth, Depth.Value),
 				(SQL.OTV_B, BB),
 				(SQL.OTV_A, AA)
@@ -72,10 +70,6 @@
 		}
 		public OTV ( )
 		{
-			/*A_size.TextChanged += new EventHandler ( AB_Depth_Changed_Leave );
-			A_size.Leave += new EventHandler ( AB_Depth_Changed_Leave );
-			B_size.TextChanged += new EventHandler ( AB_Depth_Changed_Leave );
-			B_size.Leave += new EventHandler ( AB_Depth_Changed_Leave );*/
 			Kb.Leave += new EventHandler ( AB_Depth_Changed_Leave );
 			InitializeComponent ( );
 		}

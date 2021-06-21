@@ -6,7 +6,6 @@
 
 	using BaseComponents;
 
-	using Resource;
 	using Resource.Properties;
 
 	using DB_Worker;
@@ -69,7 +68,7 @@
 				return;
 			}
 
-			Value = ( double? ) sql.GetValue ( SQL.Kb, new List<(string name, object value)>
+			Value = ( double? ) sql.GetValue ( SQL.Kb, new (string name, object value) [ ]
 			{
 				(SQL.Kb_SCD, SCD),
 				(SQL.Kb_A, AA),

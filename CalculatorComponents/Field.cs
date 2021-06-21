@@ -2,9 +2,6 @@
 {
 	using System;
 	using System.Windows.Forms;
-
-	using BaseComponents;
-
 	public partial class Field : UserControl
 	{
 		public Action<object> TimeCalculator;

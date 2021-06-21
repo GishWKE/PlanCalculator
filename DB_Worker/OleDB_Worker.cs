@@ -6,6 +6,7 @@
 	using System.Data.OleDb;
 	using System.IO;
 	using System.Linq;
+	using System.Linq.Expressions;
 
 	using BaseComponents;
 
@@ -25,23 +26,29 @@
 					CloseAndClear ( );
 					return;
 				}
-				var tmp = new FileInfo ( value ).FullName;
-				if ( fileName.IsPathEquals ( tmp ) )
+				if ( fileName.IsPathEquals ( value ) )
 				{
 					return;
 				}
 
 				CloseAndClear ( );
-				if ( File.Exists ( tmp ) )
+				if ( File.Exists ( value ) )
 				{
-					fileName = tmp;
-					command = new OleDbCommand
+					fileName = new FileInfo ( value ).FullName;
+					try
 					{
-						Connection = new OleDbConnection ( ConnectionString )
-					};
-					if ( command == null || command.Connection == null )
+						command = new OleDbCommand
+						{
+							Connection = new OleDbConnection ( ConnectionString )
+						};
+						if ( command == null || command.Connection == null )
+						{
+							throw new Exception ( DB.Connection_create_error );
+						}
+					}
+					catch
 					{
-						throw new Exception ( DB.Connection_create_error );
+						throw;
 					}
 				}
 			}

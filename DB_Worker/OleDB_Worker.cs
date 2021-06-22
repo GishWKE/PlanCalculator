@@ -8,6 +8,7 @@
 	using System.Linq;
 	using System.Linq.Expressions;
 using System.Security.Cryptography;
+	using System.Threading.Tasks;
 
 	using BaseComponents;
 
@@ -97,6 +98,7 @@ using System.Security.Cryptography;
 		public object GetValue ( string sql, OleDbParameter parameter ) => GetValue ( sql, new [ ] { parameter } );
 		public object GetValue ( string sql, (string name, object value) parameter ) => GetValue ( sql, CreateParameter ( parameter ) );
 		public object GetValue ( string sql, IEnumerable<(string name, object value)> parameters ) => GetValue ( sql, CreateParameter ( parameters ) );
+		public object GetValue ( string sql, Dictionary<string, object> parameters ) => GetValue ( sql, CreateParameter ( parameters ) );
 		#endregion
 		#region ExecuteQuery functions
 		public void ExecuteQuery ( string sql, IEnumerable<OleDbParameter> parameters = null )
@@ -130,12 +132,13 @@ using System.Security.Cryptography;
 		public List<OleDbParameter> CreateParameter ( IEnumerable<(string name, object value)> par ) => new List<OleDbParameter> ( par.AsParallel ( ).Select ( p => CreateParameter ( p ) ) );
 		public List<OleDbParameter> CreateParameter ( Dictionary<string, object> parameters )
 		{
-			var param = new List<(string name, object value)> ( );
-			foreach ( var k in parameters.Keys )
+			var param = new List<OleDbParameter> ( );
+			Parallel.ForEach ( parameters.Keys, k => param.Add ( CreateParameter ( k, parameters [ k ] ) ) );
+/*			foreach ( var k in parameters.Keys )
 			{
-				param.Add ( (k, parameters [ k ]) );
-			}
-			return CreateParameter ( param );
+				param.Add ( CreateParameter ( k, parameters [ k ] ) );
+			}*/
+			return param;
 		}
 		#endregion
 		public void Dispose ( ) => CloseAndClear ( );

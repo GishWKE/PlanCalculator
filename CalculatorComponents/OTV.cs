@@ -62,11 +62,13 @@
 			{
 				return;
 			}
-			Value = ( double? ) sql.GetValue ( SQL.OTV, new (string name, object value) [ ] {
-				(SQL.OTV_Depth, Depth.Value),
-				(SQL.OTV_B, BB),
-				(SQL.OTV_A, AA)
-			} );
+			var prop = new Dictionary<string, object>
+			{
+				[ SQL.OTV_A ] = AA,
+				[ SQL.OTV_B ] = BB,
+				[ SQL.OTV_Depth ] = Depth.Value
+			};
+			Value = ( double? ) sql.GetValue ( SQL.OTV, prop );
 		}
 		public OTV ( )
 		{

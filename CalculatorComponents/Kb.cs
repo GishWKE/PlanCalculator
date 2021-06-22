@@ -68,12 +68,13 @@
 				return;
 			}
 
-			Value = ( double? ) sql.GetValue ( SQL.Kb, new (string name, object value) [ ]
+			var prop = new Dictionary<string, object>
 			{
-				(SQL.Kb_SCD, SCD),
-				(SQL.Kb_A, AA),
-				(SQL.Kb_B, BB)
-			} );
+				[ SQL.Kb_SCD ] = SCD,
+				[ SQL.Kb_A ] = AA,
+				[ SQL.Kb_B ] = BB
+			};
+			Value = ( double? ) sql.GetValue ( SQL.Kb, prop );
 		}
 	}
 }

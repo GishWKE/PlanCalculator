@@ -58,11 +58,12 @@
 				return;
 			}
 
-			Value = ( double? ) sql.GetValue ( SQL.Lung, new (string name, object value) [ ]
+			var prop = new Dictionary<string, object>
 			{
-				(SQL.Lung_Thickness, TT),
-				(SQL.Lung_Distance, DD)
-			} );
+				[ SQL.Lung_Thickness ] = TT,
+				[ SQL.Lung_Distance ] = DD
+			};
+			Value = ( double? ) sql.GetValue ( SQL.Lung, prop );
 		}
 		private void IsLung_CheckedChanged ( object sender, EventArgs e )
 		{

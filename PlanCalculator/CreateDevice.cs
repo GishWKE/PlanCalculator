@@ -8,7 +8,6 @@
 
 	using DB_Worker;
 
-	using Resource;
 	using Resource.Properties;
 
 	public partial class CreateDevice : Form
@@ -55,13 +54,15 @@
 					return;
 			}
 		}
-		private void CreateDeviceSQL ( ) => sql.ExecuteQuery ( SQL.CreateDevice, new List<(string name, object value)>
-			{
-				(SQL.DeviceName_Table, DeviceName.Text),
-				(SQL.DevicePower_Table, Power.Value),
-				(SQL.DeviceSCD_Table, SCD.Value),
-				(SQL.DeviceTime_Table, Minutes.Checked),
-				(SQL.DeviceCheckPower_Table, dateTimePicker1.Value)
-			} );
+		private void CreateDeviceSQL ( )
+		{
+			var prop = new Dictionary<string, object> ( );
+			prop [ SQL.DeviceName_Table ] = DeviceName.Text;
+			prop [ SQL.DevicePower_Table ] = Power.Value;
+			prop [ SQL.DeviceSCD_Table ] = SCD.Value;
+			prop [ SQL.DeviceTime_Table ] = Minutes.Checked;
+			prop [ SQL.DeviceCheckPower_Table ] = dateTimePicker1.Value;
+			sql.ExecuteQuery ( SQL.CreateDevice, prop );
+		}
 	}
 }

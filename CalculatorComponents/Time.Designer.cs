@@ -66,7 +66,6 @@
 			this.Time_value.BackColor = System.Drawing.SystemColors.Window;
 			this.Time_value.CanBeNegative = false;
 			this.Time_value.Correct_tooltip = "";
-			this.Time_value.FractionalPlaces = -1;
 			this.Time_value.Location = new System.Drawing.Point(33, 0);
 			this.Time_value.MaxLength = 8;
 			this.Time_value.Name = "Time_value";

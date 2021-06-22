@@ -59,15 +59,14 @@
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
 			Devices.Selected [ "Мощность" ] = Devices.Power.Value;
+			var par = new Dictionary<string, object> ( );
 			foreach ( var dev in Devices )
 			{
 				var d = dev as DataRowView;
-				sql.ExecuteQuery ( SQL.UpdateDevice, new (string name, object value) [ ]
-				{
-					( SQL.DevicePower_Table, d["Мощность"] ),
-					( SQL.DeviceCheckPower_Table, DateTime.Today ),
-					( SQL.DeviceName_Table, d["Аппарат"] )
-				} );
+				par [ SQL.DevicePower_Table ] = d [ "Мощность" ];
+				par [ SQL.DeviceCheckPower_Table ] = DateTime.Today;
+				par [ SQL.DeviceName_Table ] = d [ "Аппарат" ];
+				sql.ExecuteQuery ( SQL.UpdateDevice, par );
 			}
 			Cursor = tmp;
 		}

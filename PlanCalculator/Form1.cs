@@ -100,7 +100,7 @@
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
 			var mult = new double [ ] { ( double ) D.Value, 100, 100, ( double ) N.Value };
-			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Power.Value, ( double ) FieldsCount.Value, ( double ) f.Kb, ( double ) f.OTV };
+			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Selected [ "Мощность" ], ( double ) FieldsCount.Value, ( double ) f.Kb, ( double ) f.OTV };
 			if ( f.IsLung )
 			{
 				div.Add ( ( double ) f.L );

@@ -61,7 +61,10 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO Аппараты (Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности]) VALUES(?,?,?,?,?);.
+        ///   Looks up a localized string similar to INSERT INTO Аппараты
+        ///(Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности])
+        ///VALUES
+        ///(?,?,?,?,?);.
         /// </summary>
         public static string CreateDevice {
             get {

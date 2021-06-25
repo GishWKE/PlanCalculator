@@ -5,6 +5,8 @@
 	using System.Data;
 	using System.Data.OleDb;
 	using System.IO;
+	using System.Linq;
+	using System.Text.RegularExpressions;
 
 	using BaseComponents;
 
@@ -75,8 +77,7 @@
 			{
 				return null;
 			}
-
-			command.CommandText = sql;
+			command.CommandText = sql.Replace ( Environment.NewLine, " " );
 			command.Connection.Open ( );
 			var dt = new DataTable ( );
 			using ( var reader = command.ExecuteReader ( ) )
@@ -149,7 +150,7 @@
 				return;
 			}
 
-			command.CommandText = sql;
+			command.CommandText = sql.Replace ( Environment.NewLine, " " );
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			Close ( );
@@ -196,7 +197,7 @@
 		}
 		#endregion
 		#region Create Parameters Lists
-		public void AddParameter ( string name, object value ) => command.Parameters.Add ( new OleDbParameter ( name, value ) );
+		public void AddParameter ( string name, object value ) => command.Parameters.AddWithValue ( name, value );
 		public void AddParameter ( (string name, object value) par ) => AddParameter ( par.name, par.value );
 		public void AddParameter ( IEnumerable<(string name, object value)> par )
 		{

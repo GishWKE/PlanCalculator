@@ -138,7 +138,6 @@
 			this.Power.BackColor = SystemColors.Window;
 			this.Power.CanBeNegative = false;
 			this.Power.Correct_tooltip = "Мощность аппарата";
-			this.Power.FractionalPlaces = -1;
 			this.Power.Location = new Point(148, 62);
 			this.Power.Name = "Power";
 			this.Power.Regex = "";

@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CreateDevice" xml:space="preserve">
-    <value>INSERT INTO Аппараты (Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности]) VALUES(?,?,?,?,?);</value>
+    <value>INSERT INTO Аппараты
+(Аппараты.Аппарат,Аппараты.Мощность,Аппараты.РИЦ,Аппараты.[Время в минутах],Аппараты.[Дата замера мощности])
+VALUES
+(?,?,?,?,?);</value>
     <comment>SQL запрос с параметрами для добавления 1 аппарата в БД</comment>
   </data>
   <data name="Device" xml:space="preserve">

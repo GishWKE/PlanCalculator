@@ -1,7 +1,6 @@
 ﻿namespace PlanCalculator
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Data;
 	using System.Windows.Forms;
 
@@ -15,10 +14,7 @@
 		public string FileName
 		{
 			get => sql.DataSource;
-			set
-			{
-				Devices.FileName = sql.DataSource = value;
-			}
+			set => Devices.FileName = sql.DataSource = value;
 		}
 		public EditDevices ( )
 		{
@@ -59,14 +55,12 @@
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
 			Devices.Selected [ "Мощность" ] = Devices.Power.Value;
-			var par = new Dictionary<string, object> ( );
 			foreach ( var dev in Devices )
 			{
 				var d = dev as DataRowView;
-				par [ SQL.DevicePower_Table ] = d [ "Мощность" ];
-				par [ SQL.DeviceCheckPower_Table ] = DateTime.Today;
-				par [ SQL.DeviceName_Table ] = d [ "Аппарат" ];
-				sql.ExecuteQuery ( SQL.UpdateDevice, par );
+				sql.AddParameter ( SQL.DeviceName_Table, d [ "Аппарат" ] );
+				sql.AddParameter ( SQL.DevicePower_Table, d [ "Мощность" ] );
+				sql.ExecuteQuery ( SQL.UpdateDevice );
 			}
 			Cursor = tmp;
 		}

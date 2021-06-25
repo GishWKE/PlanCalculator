@@ -128,10 +128,7 @@
 			get => SCD_value.Value;
 			set => SCD_value.Value = value;
 		}
-		public Device ( )
-		{
-			InitializeComponent ( );
-		}
+		public Device ( ) => InitializeComponent ( );
 		public void UpdateData ( ) => FillDevicesList ( );
 		IEnumerator IEnumerable.GetEnumerator ( ) => DeviceList.Items.GetEnumerator ( );
 	}

@@ -10,10 +10,7 @@
 			get => FieldPanel.Text;
 			set => FieldPanel.Text = value;
 		}
-		public bool IsLung
-		{
-			get => L_value.Visible;
-		}
+		public bool IsLung => L_value.Visible;
 		public bool IsInSeconds
 		{
 			get => Time_value.IsInSeconds;
@@ -40,25 +37,17 @@
 		public int SCD
 		{
 			get => Kb_value.SCD;
-			set => Kb_value.SCD = value;
+			set => OTV_value.SCD = Kb_value.SCD = value;
 		}
 		public int? A
 		{
 			get => Kb_value.A;
-			set
-			{
-				Kb_value.A = value;
-				OTV_value.A = value;
-			}
+			set => OTV_value.A = Kb_value.A = value;
 		}
 		public int? B
 		{
 			get => Kb_value.B;
-			set
-			{
-				Kb_value.B = value;
-				OTV_value.B = value;
-			}
+			set => OTV_value.B = Kb_value.B = value;
 		}
 		public Field ( ) => InitializeComponent ( );
 		private void Field_Leave ( object sender, EventArgs e )
@@ -70,18 +59,15 @@
 
 		private void Kb_Leave ( object sender, EventArgs e )
 		{
+			OTV_value.A = Kb_value.A;
+			OTV_value.B = Kb_value.B;
 			OTV_value.Recalculate ( );
-			TimeCalculator?.Invoke ( this );
+			Recalculate ( );
 		}
 
-		private void OTV_Leave ( object sender, EventArgs e )
-		{
-			TimeCalculator?.Invoke ( this );
-		}
+		private void OTV_Leave ( object sender, EventArgs e ) => Recalculate ( );
 
-		private void L_Leave ( object sender, EventArgs e )
-		{
-			TimeCalculator?.Invoke ( this );
-		}
+		private void L_Leave ( object sender, EventArgs e ) => Recalculate ( );
+		private void Recalculate() => TimeCalculator?.Invoke ( this );
 	}
 }

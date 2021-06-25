@@ -1,14 +1,13 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Windows.Forms;
 
 	using BaseComponents;
 
-	using Resource.Properties;
-
 	using DB_Worker;
+
+	using Resource.Properties;
 
 	public partial class Kb_Control : UserControl
 	{
@@ -31,10 +30,7 @@
 		}
 		public double? Value
 		{
-			get
-			{
-				return A != null && B != null ? Kb.Value : null;
-			}
+			get => A != null && B != null ? Kb.Value : null;
 			private set => Kb.Value = value;
 		}
 		public int? A
@@ -67,14 +63,10 @@
 			{
 				return;
 			}
-
-			var prop = new Dictionary<string, object>
-			{
-				[ SQL.Kb_SCD ] = SCD,
-				[ SQL.Kb_A ] = AA,
-				[ SQL.Kb_B ] = BB
-			};
-			Value = ( double? ) sql.GetValue ( SQL.Kb, prop );
+			sql.AddParameter ( SQL.Kb_SCD, SCD );
+			sql.AddParameter ( SQL.Kb_A, AA );
+			sql.AddParameter ( SQL.Kb_B, BB );
+			Value = ( double? ) sql.GetValue ( SQL.Kb );
 		}
 	}
 }

@@ -9,7 +9,6 @@
 
 	using CalculatorComponents;
 
-	using Resource;
 	using Resource.Properties;
 
 	public partial class Form1 : Form
@@ -34,6 +33,7 @@
 			var scd = ( int ) sel [ "РИЦ" ];
 			var sec = ( bool ) sel [ "Время в минутах" ];
 			var tmp = scd / 10;
+			var tmp0 = scd % 10;
 			/// C#>=8.0
 			/// Рекурсивный шаблон
 			/// C#>=9.0
@@ -49,13 +49,13 @@
 			*/
 			switch ( scd )
 			{
-				case var _ when scd >= 40 && scd <= 100 && scd % 10 == 0: // 40,50,60,70,80,90,100
+				case var _ when scd >= 40 && scd <= 100 && tmp0 == 0: // 40,50,60,70,80,90,100
 					{
 						var temp = string.Format ( RegEx.Format_end0, tmp - 1, scd );
 						Distance.Regex = string.Format ( regex_fmt, temp );
 						break;
 					}
-				case var _ when scd >= 45 && scd <= 95 && scd % 10 == 5: // 45,55,65,75,85,95
+				case var _ when scd >= 45 && scd <= 95 && tmp0 == 5: // 45,55,65,75,85,95
 					{
 						var temp = string.Format ( RegEx.Format_end5, tmp - 1, tmp, scd );
 						Distance.Regex = string.Format ( regex_fmt, temp );
@@ -127,8 +127,7 @@
 				AllFields.SuspendLayout ( );
 				AllFields.Controls.Clear ( );
 				fields.Clear ( );
-				AllFields.ResumeLayout ( false );
-				AllFields.PerformLayout ( );
+				AllFields.ResumeLayout ( );
 			}
 			else if ( cnt < fields.Count )
 			{
@@ -138,16 +137,16 @@
 					AllFields.Controls.Remove ( fields [ i ] );
 					fields.RemoveAt ( i );
 				}
-				AllFields.ResumeLayout ( true );
-				AllFields.PerformLayout ( );
+				AllFields.ResumeLayout ( );
 				Calculate ( );
 			}
 			else
 			{
 				AllFields.SuspendLayout ( );
+				var fld = new List<Field> ( );
 				for ( var i = fields.Count; i < cnt; i++ )
 				{
-					fields.Add ( new Field
+					fld.Add ( new Field
 					{
 						Text = $@"№{i + 1}:",
 						Dock = DockStyle.Top,
@@ -158,17 +157,17 @@
 						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ],
 						TimeCalculator = Calculate
 					} );
-					AllFields.Controls.Add ( fields [ i ] );
 				}
-				AllFields.ResumeLayout ( true );
-				AllFields.PerformLayout ( );
+				fields.AddRange ( fld );
+				AllFields.Controls.AddRange ( fld.ToArray ( ) );
+				AllFields.ResumeLayout ( );
 				Calculate ( );
 			}
 			Cursor = tmp;
 		}
 		private void AB_ValueChanged ( object sender, EventArgs e )
 		{
-			var obj = ( sender as NumericUpDown );
+			var obj = sender as NumericUpDown;
 			var isA = obj.Name == "A";
 			foreach ( var f in fields )
 			{
@@ -199,7 +198,7 @@
 		private void CalcSSD ( )
 		{
 			var DST = Distance.Value;
-			double? SCD = Devices.SCD;
+			var SCD = Devices.SCD;
 			SSD.Clear ( );
 			if ( SSD == null || DST > SCD )
 			{

@@ -5,10 +5,6 @@
 	using System.Data;
 	using System.Data.OleDb;
 	using System.IO;
-	using System.Linq;
-	using System.Linq.Expressions;
-using System.Security.Cryptography;
-	using System.Threading.Tasks;
 
 	using BaseComponents;
 
@@ -75,6 +71,11 @@ using System.Security.Cryptography;
 		}
 		public DataTable GetTable ( string sql )
 		{
+			if ( command == null || command.Connection == null )
+			{
+				return null;
+			}
+
 			command.CommandText = sql;
 			command.Connection.Open ( );
 			var dt = new DataTable ( );
@@ -83,62 +84,133 @@ using System.Security.Cryptography;
 				dt.Load ( reader );
 			}
 			Close ( );
-			return dt.Copy ( );
+			return dt;
 		}
 		#region GetValue functions
-		public object GetValue ( string sql, IEnumerable<OleDbParameter> parameters = null )
+		public object GetValue ( string sql )
 		{
-			command.CommandText = sql;
-			AddParameters ( parameters );
+			if ( command == null || command.Connection == null )
+			{
+				return null;
+			}
+
+			command.CommandText = sql.Replace(Environment.NewLine," ");
 			command.Connection.Open ( );
-			var value = command.ExecuteScalar ( );
+			var ret = command.ExecuteScalar ( );
 			Close ( );
-			return value;
+			return ret;
 		}
-		public object GetValue ( string sql, OleDbParameter parameter ) => GetValue ( sql, new [ ] { parameter } );
-		public object GetValue ( string sql, (string name, object value) parameter ) => GetValue ( sql, CreateParameter ( parameter ) );
-		public object GetValue ( string sql, IEnumerable<(string name, object value)> parameters ) => GetValue ( sql, CreateParameter ( parameters ) );
-		public object GetValue ( string sql, Dictionary<string, object> parameters ) => GetValue ( sql, CreateParameter ( parameters ) );
+		public object GetValue ( string sql, string name, object value )
+		{
+			if ( command == null || command.Connection == null )
+			{
+				return null;
+			}
+
+			AddParameter ( name, value );
+			return GetValue ( sql );
+		}
+		public object GetValue ( string sql, (string name, object value) par )
+		{
+			if ( command == null || command.Connection == null )
+			{
+				return null;
+			}
+
+			AddParameter ( par );
+			return GetValue ( sql );
+		}
+		public object GetValue ( string sql, IEnumerable<(string name, object value)> par )
+		{
+			if ( command == null || command.Connection == null )
+			{
+				return null;
+			}
+
+			AddParameter ( par );
+			return GetValue ( sql );
+		}
+		public object GetValue ( string sql, Dictionary<string, object> par )
+		{
+			if ( command == null || command.Connection == null )
+			{
+				return null;
+			}
+
+			AddParameter ( par );
+			return GetValue ( sql );
+		}
 		#endregion
 		#region ExecuteQuery functions
-		public void ExecuteQuery ( string sql, IEnumerable<OleDbParameter> parameters = null )
+		public void ExecuteQuery ( string sql )
 		{
+			if ( command == null || command.Connection == null )
+			{
+				return;
+			}
+
 			command.CommandText = sql;
-			AddParameters ( parameters );
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			Close ( );
 		}
-		public void ExecuteQuery ( string sql, OleDbParameter parameter )
+		public void ExecuteQuery ( string sql, string name, object value )
 		{
-			ExecuteQuery ( sql, new List<OleDbParameter> { parameter } );
+			if ( command == null || command.Connection == null )
+			{
+				return;
+			}
+
+			AddParameter ( name, value );
+			ExecuteQuery ( sql );
 		}
-		public void ExecuteQuery ( string sql, (string name, object value) parameter )
+		public void ExecuteQuery ( string sql, (string name, object value) par )
 		{
-			ExecuteQuery ( sql, CreateParameter ( parameter ) );
+			if ( command == null || command.Connection == null )
+			{
+				return;
+			}
+
+			AddParameter ( par );
+			ExecuteQuery ( sql );
 		}
-		public void ExecuteQuery ( string sql, IEnumerable<(string name, object value)> parameters )
+		public void ExecuteQuery ( string sql, IEnumerable<(string name, object value)> par )
 		{
-			ExecuteQuery ( sql, CreateParameter ( parameters ) );
+			if ( command == null || command.Connection == null )
+			{
+				return;
+			}
+
+			AddParameter ( par );
+			ExecuteQuery ( sql );
 		}
-		public void ExecuteQuery ( string sql, Dictionary<string, object> parameters )
+		public void ExecuteQuery ( string sql, Dictionary<string, object> par )
 		{
-			ExecuteQuery ( sql, CreateParameter ( parameters ) );
+			if ( command == null || command.Connection == null )
+			{
+				return;
+			}
+
+			AddParameter ( par );
+			ExecuteQuery ( sql );
 		}
 		#endregion
 		#region Create Parameters Lists
-		public OleDbParameter CreateParameter ( string name, object value ) => new OleDbParameter ( name, value );
-		public OleDbParameter CreateParameter ( (string name, object value) par ) => CreateParameter ( par.name, par.value );
-		public List<OleDbParameter> CreateParameter ( IEnumerable<(string name, object value)> par ) => new List<OleDbParameter> ( par.AsParallel ( ).Select ( p => CreateParameter ( p ) ) );
-		public List<OleDbParameter> CreateParameter ( Dictionary<string, object> parameters )
+		public void AddParameter ( string name, object value ) => command.Parameters.Add ( new OleDbParameter ( name, value ) );
+		public void AddParameter ( (string name, object value) par ) => AddParameter ( par.name, par.value );
+		public void AddParameter ( IEnumerable<(string name, object value)> par )
 		{
-			var param = new List<OleDbParameter> ( );
-			Parallel.ForEach ( parameters.Keys, k => param.Add ( CreateParameter ( k, parameters [ k ] ) ) );
-/*			foreach ( var k in parameters.Keys )
+			foreach ( var p in par )
 			{
-				param.Add ( CreateParameter ( k, parameters [ k ] ) );
-			}*/
-			return param;
+				AddParameter ( p );
+			}
+		}
+		public void AddParameter ( Dictionary<string, object> par )
+		{
+			foreach ( var k in par.Keys )
+			{
+				AddParameter ( k, par [ k ] );
+			}
 		}
 		#endregion
 		public void Dispose ( ) => CloseAndClear ( );
@@ -155,14 +227,6 @@ using System.Security.Cryptography;
 			command?.Connection?.Close ( );
 			command?.CommandText?.Clear ( );
 			command?.Parameters?.Clear ( );
-		}
-		private void AddParameters ( IEnumerable<OleDbParameter> parameters = null )
-		{
-			command?.Parameters?.Clear ( );
-			if ( parameters != null )
-			{
-				command.Parameters.AddRange ( parameters.ToArray ( ) );
-			}
 		}
 	}
 }

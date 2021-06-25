@@ -124,7 +124,14 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT Кб.Кб FROM Кб WHERE Кб.РИЦ=? AND Кб.A=? AND Кб.B=?;.
+        ///   Looks up a localized string similar to SELECT Кб.Кб
+        ///FROM Кб
+        ///WHERE
+        ///Кб.РИЦ=?
+        ///AND
+        ///Кб.A=?
+        ///AND
+        ///Кб.B=?;.
         /// </summary>
         public static string Kb {
             get {
@@ -160,7 +167,12 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;.
+        ///   Looks up a localized string similar to SELECT [Легочная ткань].L
+        ///FROM [Легочная ткань]
+        ///WHERE
+        ///[Легочная ткань].[Толщина легкого]=?
+        ///AND
+        ///[Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;.
         /// </summary>
         public static string Lung {
             get {
@@ -187,7 +199,9 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина=? AND ОТВ.B=? AND ОТВ.A=?;.
+        ///   Looks up a localized string similar to SELECT ОТВ.ОТВ
+        ///FROM ОТВ
+        ///WHERE (((ОТВ.A)=?) AND ((ОТВ.B)=?) AND ((ОТВ.Глубина)=?));.
         /// </summary>
         public static string OTV {
             get {
@@ -223,7 +237,11 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UPDATE Аппараты SET Аппараты.Мощность=?, Аппараты.[Дата замера мощности]=? WHERE Аппараты.Аппарат=?;.
+        ///   Looks up a localized string similar to UPDATE Аппараты
+        ///SET
+        ///Аппараты.Мощность=?,
+        ///Аппараты.[Дата замера мощности]=Date()
+        ///WHERE Аппараты.Аппарат=?;.
         /// </summary>
         public static string UpdateDevice {
             get {

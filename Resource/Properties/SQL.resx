@@ -146,7 +146,14 @@
     <comment>Имя столбца в БД с требуемой единицей расчетов для аппарата</comment>
   </data>
   <data name="Kb" xml:space="preserve">
-    <value>SELECT Кб.Кб FROM Кб WHERE Кб.РИЦ=? AND Кб.A=? AND Кб.B=?;</value>
+    <value>SELECT Кб.Кб
+FROM Кб
+WHERE
+Кб.РИЦ=?
+AND
+Кб.A=?
+AND
+Кб.B=?;</value>
     <comment>SQL запрос для получения значения коэффициента Кб из БД</comment>
   </data>
   <data name="Kb_A" xml:space="preserve">
@@ -162,7 +169,12 @@
     <comment>Имя столбца со значением РИЦ в таблице Кб в БД</comment>
   </data>
   <data name="Lung" xml:space="preserve">
-    <value>SELECT [Легочная ткань].L FROM [Легочная ткань] WHERE [Легочная ткань].[Толщина легкого]=? AND [Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;</value>
+    <value>SELECT [Легочная ткань].L
+FROM [Легочная ткань]
+WHERE
+[Легочная ткань].[Толщина легкого]=?
+AND
+[Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;</value>
     <comment>SQL запрос для получения значения коэффициента L из БД</comment>
   </data>
   <data name="Lung_Distance" xml:space="preserve">
@@ -174,7 +186,9 @@
     <comment>Имя столбца со значением [Толщина легкого] в таблице [Легочная ткань] в БД</comment>
   </data>
   <data name="OTV" xml:space="preserve">
-    <value>SELECT ОТВ.ОТВ FROM ОТВ WHERE ОТВ.Глубина=? AND ОТВ.B=? AND ОТВ.A=?;</value>
+    <value>SELECT ОТВ.ОТВ
+FROM ОТВ
+WHERE (((ОТВ.A)=?) AND ((ОТВ.B)=?) AND ((ОТВ.Глубина)=?));</value>
     <comment>SQL запрос для получения значения коэффициента ОТВ из БД</comment>
   </data>
   <data name="OTV_A" xml:space="preserve">
@@ -190,7 +204,11 @@
     <comment>Имя столбца со значением Глубина в таблице ОТВ в БД</comment>
   </data>
   <data name="UpdateDevice" xml:space="preserve">
-    <value>UPDATE Аппараты SET Аппараты.Мощность=?, Аппараты.[Дата замера мощности]=? WHERE Аппараты.Аппарат=?;</value>
+    <value>UPDATE Аппараты
+SET
+Аппараты.Мощность=?,
+Аппараты.[Дата замера мощности]=Date()
+WHERE Аппараты.Аппарат=?;</value>
     <comment>SQL запрос с параметрами для редактирования мощности 1 аппарата в БД</comment>
   </data>
 </root>

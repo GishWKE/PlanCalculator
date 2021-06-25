@@ -57,13 +57,9 @@
 			{
 				return;
 			}
-
-			var prop = new Dictionary<string, object>
-			{
-				[ SQL.Lung_Thickness ] = TT,
-				[ SQL.Lung_Distance ] = DD
-			};
-			Value = ( double? ) sql.GetValue ( SQL.Lung, prop );
+			sql.AddParameter ( SQL.Lung_Thickness, TT );
+			sql.AddParameter ( SQL.Lung_Distance, DD );
+			Value = ( double? ) sql.GetValue ( SQL.Lung );
 		}
 		private void IsLung_CheckedChanged ( object sender, EventArgs e )
 		{

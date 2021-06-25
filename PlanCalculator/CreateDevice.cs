@@ -1,7 +1,6 @@
 ﻿namespace PlanCalculator
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -56,13 +55,12 @@
 		}
 		private void CreateDeviceSQL ( )
 		{
-			var prop = new Dictionary<string, object> ( );
-			prop [ SQL.DeviceName_Table ] = DeviceName.Text;
-			prop [ SQL.DevicePower_Table ] = Power.Value;
-			prop [ SQL.DeviceSCD_Table ] = SCD.Value;
-			prop [ SQL.DeviceTime_Table ] = Minutes.Checked;
-			prop [ SQL.DeviceCheckPower_Table ] = dateTimePicker1.Value;
-			sql.ExecuteQuery ( SQL.CreateDevice, prop );
+			sql.AddParameter ( SQL.DeviceName_Table, DeviceName.Text );
+			sql.AddParameter ( SQL.DevicePower_Table, Power.Value );
+			sql.AddParameter ( SQL.DeviceSCD_Table, SCD.Value );
+			sql.AddParameter ( SQL.DeviceTime_Table, Minutes.Checked );
+			sql.AddParameter ( SQL.DevicePower_Table, dateTimePicker1.Value );
+			sql.ExecuteQuery ( SQL.CreateDevice );
 		}
 	}
 }

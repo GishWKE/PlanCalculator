@@ -5,9 +5,10 @@
 	using System.Windows.Forms;
 
 	using BaseComponents;
-	using Resource.Properties;
 
 	using DB_Worker;
+
+	using Resource.Properties;
 
 	public partial class OTV : UserControl
 	{
@@ -18,7 +19,7 @@
 		public string FileName
 		{
 			get => sql.DataSource;
-			set => sql.DataSource = value;
+			set => Kb.FileName = sql.DataSource = value;
 		}
 		public int? A
 		{
@@ -30,6 +31,11 @@
 			get => Kb.B;
 			set => Kb.B = value;
 		}
+		public int SCD
+		{
+			get => Kb.SCD;
+			set => Kb.SCD = value;
+		}
 		public double? D
 		{
 			get => Depth.Value;
@@ -37,10 +43,7 @@
 		}
 		public double? Value
 		{
-			get
-			{
-				return A != null && B != null && D != null ? OTV_value.Value : null;
-			}
+			get => A != null && B != null && D != null ? OTV_value.Value : null;
 			private set => OTV_value.Value = value;
 		}
 		private void AB_Depth_Changed_Leave ( object sender, EventArgs e ) => Recalculate ( );
@@ -48,7 +51,10 @@
 		private void UpdateOTV ( )
 		{
 			if ( Parent == null ) // Не размещен на форме/компоненте
+			{
 				return;
+			}
+
 			OTV_value.ResetText ( );
 			if ( !Visible )
 			{
@@ -62,13 +68,10 @@
 			{
 				return;
 			}
-			var prop = new Dictionary<string, object>
-			{
-				[ SQL.OTV_A ] = AA,
-				[ SQL.OTV_B ] = BB,
-				[ SQL.OTV_Depth ] = Depth.Value
-			};
-			Value = ( double? ) sql.GetValue ( SQL.OTV, prop );
+			sql.AddParameter ( SQL.OTV_A, AA );
+			sql.AddParameter ( SQL.OTV_B, BB );
+			sql.AddParameter ( SQL.OTV_Depth, DD );
+			Value = ( double? ) sql.GetValue ( SQL.OTV );
 		}
 		public OTV ( )
 		{

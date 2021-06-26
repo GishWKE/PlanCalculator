@@ -25,7 +25,7 @@
 			Text = DateTime.Today.ToString ( "d" );
 		}
 
-		private static readonly string regex_fmt = $"{RegEx.Empty}|{RegEx.Begin}({RegEx.Values_0__9_9}|{{0}}){RegEx.End}";
+		private static readonly string regex_fmt = $"{RegEx.Begin}({RegEx.Values_0__9_9}|{{0}})?{RegEx.End}";
 
 		private void DeviceChanged ( object sender, EventArgs e )
 		{
@@ -34,36 +34,27 @@
 			var sec = ( bool ) sel [ "Время в минутах" ];
 			var tmp = scd / 10;
 			var tmp0 = scd % 10;
-			/// C#>=8.0
-			/// Рекурсивный шаблон
-			/// C#>=9.0
-			/// Реляционный шаблон
-			/// Пример:
-			/*
-			Distance.Regex = scd switch
-			{
-				var _ when scd >= 40 && scd <= 100 && scd % 10 == 0 => $"{empty}|{str_beg}({r_0_10}|{string.Format ( formatter_div10, tmp - 1, scd )}){str_end}",
-				var _ when scd >= 45 && scd <= 95 && scd % 10 == 5 => $"{empty}|{str_beg}({r_0_10}|{string.Format ( formatter_div5, tmp - 1, tmp, scd )}){str_end}",
-				_ => string.Empty
-			};
-			*/
+			var regex_str = string.Empty;
 			switch ( scd )
 			{
 				case var _ when scd >= 40 && scd <= 100 && tmp0 == 0: // 40,50,60,70,80,90,100
 					{
-						var temp = string.Format ( RegEx.Format_end0, tmp - 1, scd );
-						Distance.Regex = string.Format ( regex_fmt, temp );
+						regex_str = RegEx.Format_end0;
 						break;
 					}
 				case var _ when scd >= 45 && scd <= 95 && tmp0 == 5: // 45,55,65,75,85,95
 					{
-						var temp = string.Format ( RegEx.Format_end5, tmp - 1, tmp, scd );
-						Distance.Regex = string.Format ( regex_fmt, temp );
+						regex_str = RegEx.Format_end5;
 						break;
 					}
 				default:
 					Distance.Regex.Clear ( );
 					break;
+			}
+			if (!regex_str.IsEmpty())
+			{
+				var temp = string.Format ( regex_str, tmp - 1, tmp );
+				Distance.Regex = string.Format ( regex_fmt, temp );
 			}
 			CalcSSD ( );
 			foreach ( var f in fields )

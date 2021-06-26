@@ -61,7 +61,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^([4-9]|1\d|20)$.
+        ///   Looks up a localized string similar to ^([4-9]|1\d|20)?$.
         /// </summary>
         public static string AB {
             get {
@@ -79,7 +79,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^(0?[,.][5-9]|[1-9]|[1-2]\d|30|[1-9][,.]\d?|[1-2]\d[,.]\d?|30[,.]0?)$.
+        ///   Looks up a localized string similar to ^(0?[,.][5-9]|[1-9]([,.]\d?)?|[1-2]\d([,.]\d?)?|30([,.]0?)?)?$.
         /// </summary>
         public static string Depth {
             get {
@@ -97,7 +97,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^([1-9]|1[0-4])$.
+        ///   Looks up a localized string similar to ^([1-9]|1[0-4])?$.
         /// </summary>
         public static string Distance {
             get {
@@ -124,7 +124,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[,.]?|{1}[,.]0?.
+        ///   Looks up a localized string similar to ^([1-{0}]\d([,.]\d?)?|{1}0([,.]0?)?)$.
         /// </summary>
         public static string Format_end0 {
             get {
@@ -133,7 +133,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [1-{0}]\d[,.]?|[1-{0}]\d[,.]\d?|{1}[0-4][,.]?|{1}[0-4][,.]\d?|{2}[,.]?|{2}[,.]0?.
+        ///   Looks up a localized string similar to ^([1-{0}]\d([,.]\d?)?|{1}[0-4]([,.]\d?)?|{1}5([,.]0?)?)$.
         /// </summary>
         public static string Format_end5 {
             get {
@@ -142,7 +142,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^(0?[,.][5-9]|[1-9]|1[0-1]|12|[1-9][,.]\d?|1[0-1][,.]\d?|12[,.]0?)$.
+        ///   Looks up a localized string similar to ^(0?[,.][5-9]|[1-9]([,.]\d?)?|1[0-1]([,.]\d?)?|12([,.]0?)?)?$.
         /// </summary>
         public static string Thickness {
             get {
@@ -151,7 +151,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \d?|\d[,.]?|\d[,.]\d?|[,.]\d.
+        ///   Looks up a localized string similar to ^(\d([,.]\d?)?|[,.]\d)?$.
         /// </summary>
         public static string Values_0__9_9 {
             get {
@@ -160,7 +160,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^$|^([1-9]|[1-9]\d|100)$.
+        ///   Looks up a localized string similar to ^([1-9]|[1-9]\d|100)?$.
         /// </summary>
         public static string Values_1_100 {
             get {

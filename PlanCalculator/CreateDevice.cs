@@ -17,9 +17,9 @@
 			get => sql.DataSource;
 			set => sql.DataSource = value;
 		}
-		private bool IsEmpty => DeviceName.IsEmpty ( ) || SCD.Value == null || Power.Value == null;
-		private bool IsNotEmpty => !DeviceName.IsEmpty ( ) || SCD.Value != null || Power.Value != null;
-		private bool IsFull => !DeviceName.IsEmpty ( ) && SCD.Value != null && Power.Value != null;
+		private bool IsEmpty => DeviceName.IsEmpty ( ) || Power.Value == null;
+		private bool IsNotEmpty => !DeviceName.IsEmpty ( ) || Power.Value != null;
+		private bool IsFull => !IsEmpty;
 		public CreateDevice ( )
 		{
 			InitializeComponent ( );
@@ -38,6 +38,7 @@
 					if ( IsFull && MessageBox.Show ( "Сохранить введенные данные?", string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
 					{
 						CreateDeviceSQL ( );
+						DialogResult = DialogResult.Yes;
 					}
 
 					if ( IsNotEmpty && MessageBox.Show ( "Отменить внесенные изменения?", string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.No )
@@ -57,7 +58,7 @@
 		{
 			sql.AddParameter ( SQL.DeviceName_Table, DeviceName.Text );
 			sql.AddParameter ( SQL.DevicePower_Table, Power.Value );
-			sql.AddParameter ( SQL.DeviceSCD_Table, SCD.Value );
+			sql.AddParameter ( SQL.DeviceSCD_Table, ( int ) SCD.Value );
 			sql.AddParameter ( SQL.DeviceTime_Table, Minutes.Checked );
 			sql.AddParameter ( SQL.DeviceCheckPower_Table, dateTimePicker1.Value );
 			sql.ExecuteQuery ( SQL.CreateDevice );

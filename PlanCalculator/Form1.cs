@@ -49,7 +49,7 @@
 					Distance.Regex.Clear ( );
 					break;
 			}
-			if (!regex_str.IsEmpty())
+			if ( !regex_str.IsEmpty ( ) )
 			{
 				var tmp = scd / 10;
 				var temp = string.Format ( regex_str, tmp - 1, tmp );

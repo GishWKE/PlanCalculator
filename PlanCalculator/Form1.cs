@@ -32,17 +32,15 @@
 			var sel = Devices.Selected;
 			var scd = ( int ) sel [ "РИЦ" ];
 			var sec = ( bool ) sel [ "Время в минутах" ];
-			var tmp = scd / 10;
-			var tmp0 = scd % 10;
 			var regex_str = string.Empty;
 			switch ( scd )
 			{
-				case var _ when scd >= 40 && scd <= 100 && tmp0 == 0: // 40,50,60,70,80,90,100
+				case var _ when scd >= 40 && scd <= 100 && scd % 10 == 0: // 40,50,60,70,80,90,100
 					{
 						regex_str = RegEx.Format_end0;
 						break;
 					}
-				case var _ when scd >= 45 && scd <= 95 && tmp0 == 5: // 45,55,65,75,85,95
+				case var _ when scd >= 45 && scd <= 95 && scd % 10 == 5: // 45,55,65,75,85,95
 					{
 						regex_str = RegEx.Format_end5;
 						break;
@@ -53,6 +51,7 @@
 			}
 			if (!regex_str.IsEmpty())
 			{
+				var tmp = scd / 10;
 				var temp = string.Format ( regex_str, tmp - 1, tmp );
 				Distance.Regex = string.Format ( regex_fmt, temp );
 			}

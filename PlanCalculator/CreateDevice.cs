@@ -60,7 +60,7 @@
 			sql.AddParameter ( SQL.DevicePower_Table, Power.Value );
 			sql.AddParameter ( SQL.DeviceSCD_Table, ( int ) SCD.Value );
 			sql.AddParameter ( SQL.DeviceTime_Table, Minutes.Checked );
-			sql.AddParameter ( SQL.DeviceCheckPower_Table, dateTimePicker1.Value );
+			sql.AddParameter ( SQL.DeviceCheckPower_Table, dateTimePicker1.Value.Date );
 			sql.ExecuteQuery ( SQL.CreateDevice );
 		}
 	}

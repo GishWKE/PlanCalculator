@@ -106,11 +106,13 @@
 
 		private void RecalculatePower ( DataTable dt )
 		{
+			// var now = new DateTime ( DateTime.Now.Year, DateTime.Now.Month, 1 );
 			foreach ( var r in dt.AsEnumerable ( ) )
 			{
 				var pow = ( double ) r [ "Мощность" ];
 				var date = ( DateTime ) r [ "Дата замера мощности" ];
-				double diff = ( DateTime.Now - date ).Days;
+				double diff = ( DateTime.Now - date ).Days; // разница дат на сегодня
+				// double diff = ( now - date ).Days; // разница дат на 1 число текущего месяца
 				r [ "Мощность" ] = pow / Math.Pow ( 2, diff * Cobalt60_1 );
 			}
 		}

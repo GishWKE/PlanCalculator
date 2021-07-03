@@ -61,6 +61,16 @@ namespace Resource.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] _0 {
+            get {
+                object obj = ResourceManager.GetObject("_0", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Число полей.
         /// </summary>
         public static string Fld_Num {

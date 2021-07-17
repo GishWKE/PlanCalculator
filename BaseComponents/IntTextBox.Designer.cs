@@ -40,6 +40,8 @@
 			this.toolTip1.IsBalloon = true;
 			this.toolTip1.ReshowDelay = 100;
 			this.toolTip1.ShowAlways = true;
+			this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			this.toolTip1.ToolTipTitle = "Информация о поле ввода";
 			// 
 			// IntTextBox
 			// 

@@ -141,7 +141,9 @@
 		private void DoubleTextBox_TextChanged ( object sender, EventArgs e ) => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
 		private void DoubleTextBox_BackColorChanged ( object sender, EventArgs e )
 		{
-			var txt = BackColor != DefaultBackColor ? Wrong_tooltip : Correct_tooltip;
+			var err = BackColor != DefaultBackColor;
+			var txt = err ? Wrong_tooltip : Correct_tooltip;
+			toolTip1.ToolTipIcon = err ? ToolTipIcon.Error : ToolTipIcon.Info;
 			toolTip1.RemoveAll ( );
 			if ( !txt.IsEmpty ( ) )
 			{

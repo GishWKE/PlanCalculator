@@ -418,7 +418,7 @@
 			// Devices
 			// 
 			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Devices.Editable = true;
+			this.Devices.Editable = false;
 			this.Devices.FileName = null;
 			this.Devices.Location = new System.Drawing.Point(0, 0);
 			this.Devices.Name = "Devices";
@@ -441,6 +441,8 @@
 			this.toolTip1.InitialDelay = 200;
 			this.toolTip1.IsBalloon = true;
 			this.toolTip1.ReshowDelay = 100;
+			this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			this.toolTip1.ToolTipTitle = "Информация о поле ввода";
 			// 
 			// menuStrip1
 			// 

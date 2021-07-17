@@ -4,6 +4,7 @@
 	using System.Collections.Generic;
 	using System.Drawing;
 	using System.Linq;
+	using System.Text;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -27,6 +28,58 @@
 			Devices.Add ( new EventHandler ( DeviceChanged ) );
 			Devices.FileName = FileName;
 			Text = DateTime.Today.ToString ( "d" );
+			//DB_test ( );
+		}
+		private void DB_test ( )
+		{
+			var sb = new StringBuilder ( );
+			var _KB = new Kb_Control ( );
+			var _L = new Lung ( );
+			var _OTV = new OTV ( );
+			_KB.FileName = FileName;
+			_L.FileName = FileName;
+			_L.Visible = true;
+			_OTV.FileName = FileName;
+			for ( var dst = 1; dst <= 14; dst++ )
+			{
+				_L.D = dst;
+				for ( var t = 0.5; t <= 12; t += 0.1 )
+				{
+					_L.T = t;
+					if ( _L.Value == null )
+					{
+						sb.AppendLine ( $@"L - D: {dst}; T: {t}" );
+					}
+				}
+			}
+			for ( var a = 4; a <= 20; a++ )
+			{
+				_KB.SCD = 75;
+				_OTV.SCD = 75;
+				_KB.A = a;
+				_OTV.A = a;
+				for ( var b = 4; b <= 20; b++ )
+				{
+					_KB.B = b;
+					_OTV.B = b;
+					if ( _KB.Value == null )
+					{
+						sb.AppendLine ( $@"KB - A: {a}; B: {b}" );
+					}
+					for ( var d = 0.5; d <= 30; d += 0.1 )
+					{
+						_OTV.D = d;
+						if ( _OTV.Value == null )
+						{
+							sb.AppendLine ( $@"ОТВ - A: {a}; B: {b}; Глубина: {d}" );
+						}
+					}
+				}
+			}
+			if ( !sb.IsEmpty ( ) )
+			{
+				MessageBox.Show ( sb.ToString ( ) );
+			}
 		}
 
 		private static readonly string regex_fmt = $"{RegEx.Begin}({RegEx.Values_0__9_9}|{{0}})?{RegEx.End}";

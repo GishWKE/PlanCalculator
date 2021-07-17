@@ -20,8 +20,16 @@
 			get => sql.DataSource;
 			set => sql.DataSource = value;
 		}
-		public int? D => Distance.Value;
-		public double? T => Thickness.Value;
+		public int? D
+		{
+			get => Distance.Value;
+			set => Distance.Value = value;
+		}
+		public double? T
+		{
+			get => Thickness.Value;
+			set => Thickness.Value = value;
+		}
 		public double? Value
 		{
 			get => D != null && T != null ? L.Value : null;

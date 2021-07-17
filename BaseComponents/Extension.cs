@@ -6,6 +6,7 @@
 	using System.Globalization;
 	using System.IO;
 	using System.Linq;
+	using System.Text;
 	using System.Windows.Forms;
 	public static class Extension
 	{
@@ -67,6 +68,7 @@
 		}
 
 		public static bool IsEmpty ( this string s ) => string.IsNullOrWhiteSpace ( s );
+		public static bool IsEmpty ( this StringBuilder sb ) => sb.ToString ( ).IsEmpty ( );
 
 		public static bool IsEmpty ( this DataTable dt )
 		{

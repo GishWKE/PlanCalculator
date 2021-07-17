@@ -1,18 +1,19 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Windows.Forms;
 
 	using BaseComponents;
 
-	using Resource.Properties;
-
 	using DB_Worker;
 
+	using Resource.Properties;
 	public partial class Lung : UserControl
 	{
-		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
+		private event EventHandler RecalculationNeed;
+		protected virtual void OnRecalculationNeed ( EventArgs e ) => RecalculationNeed?.Invoke ( this, e );
+		public event EventHandler ValueChanged;
+		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName
 		{
@@ -23,10 +24,7 @@
 		public double? T => Thickness.Value;
 		public double? Value
 		{
-			get
-			{
-				return D != null && T != null ? L.Value : null;
-			}
+			get => D != null && T != null ? L.Value : null;
 			private set => L.Value = value;
 		}
 		public new bool Visible
@@ -35,22 +33,14 @@
 			set => IsLung.Checked = value;
 		}
 		public Lung ( ) => InitializeComponent ( );
-		private void DT_Leave ( object sender, EventArgs e ) => Recalculate ( );
-		private void Lung_Leave ( object sender, EventArgs e ) => UpdateL ( );
-
-		private void UpdateL ( )
+		private void L_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
+		private void Lung_RecalculationNeed ( object sender, EventArgs e )
 		{
-			if ( Parent == null ) // Не размещен на форме/компоненте
-			{
-				return;
-			}
-
 			L.ResetText ( );
 			if ( !Visible )
 			{
 				return;
 			}
-
 			var TT = T;
 			var DD = D;
 			if ( TT == null || DD == null || FileName.IsEmpty ( ) )
@@ -64,7 +54,7 @@
 		private void IsLung_CheckedChanged ( object sender, EventArgs e )
 		{
 			Lung_parameters.Visible = Visible;
-			Recalculate ( );
+			OnValueChanged ( EventArgs.Empty );
 		}
 	}
 }

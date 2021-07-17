@@ -76,8 +76,7 @@
 			this.Depth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Depth.Value = null;
 			this.Depth.Wrong_tooltip = ToolTips.OTV_Depth_wrong;
-			this.Depth.TextChanged += new System.EventHandler(this.AB_Depth_Changed_Leave);
-			this.Depth.Leave += new System.EventHandler(this.AB_Depth_Changed_Leave);
+			this.Depth.ValueChanged += new System.EventHandler(this.OTV_RecalculationNeed );
 			// 
 			// OTV_value
 			// 
@@ -97,6 +96,7 @@
 			this.OTV_value.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.OTV_value.Value = null;
 			this.OTV_value.Wrong_tooltip = null;
+			this.OTV_value.ValueChanged += new System.EventHandler ( this.OTV_value_ValueChanged );
 			// 
 			// OTV
 			// 
@@ -109,7 +109,7 @@
 			this.MinimumSize = new System.Drawing.Size(150, 20);
 			this.Name = "OTV";
 			this.Size = new System.Drawing.Size(150, 20);
-			this.Leave += new System.EventHandler(this.OTV_Leave);
+			//this.Leave += new System.EventHandler(this.OTV_RecalculationNeed );
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

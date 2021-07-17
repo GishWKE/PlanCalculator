@@ -2,18 +2,18 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Drawing;
 	using System.Linq;
 	using System.Windows.Forms;
-	using Melanchall.DryWetMidi.Devices;
-	using Melanchall.DryWetMidi.Core;
 
 	using BaseComponents;
 
 	using CalculatorComponents;
 
+	using Melanchall.DryWetMidi.Core;
+	using Melanchall.DryWetMidi.Devices;
+
 	using Resource.Properties;
-	using System.IO;
-	using System.Drawing;
 
 	public partial class Form1 : Form
 	{
@@ -86,7 +86,8 @@
 
 			var f = fld as Field;
 			f.Time = null;
-			if ( D.Value == null || P.Value == null || f.Kb == null || f.OTV == null || ( f.IsLung && f.L == null ) )
+
+			if ( new [ ] { D.Value, P.Value, f.Kb, f.OTV }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
 			{
 				return;
 			}
@@ -140,7 +141,7 @@
 				var fld = new List<Field> ( );
 				for ( var i = fields.Count; i < cnt; i++ )
 				{
-					fld.Add ( new Field
+					var f = new Field
 					{
 						Text = $@"№{i + 1}:",
 						Dock = DockStyle.Top,
@@ -148,9 +149,10 @@
 						SCD = ( int ) Devices.SCD,
 						A = ( int ) A.Value,
 						B = ( int ) B.Value,
-						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ],
-						TimeCalculator = Calculate
-					} );
+						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ]
+					};
+					f.RecalculationNeed += RecalculationNeed;
+					fld.Add ( f );
 				}
 				fields.AddRange ( fld );
 				AllFields.Controls.AddRange ( fld.ToArray ( ) );
@@ -159,6 +161,9 @@
 			}
 			Cursor = tmp;
 		}
+
+		private void RecalculationNeed ( object sender, EventArgs e ) => Calculate ( sender );
+
 		private void AB_ValueChanged ( object sender, EventArgs e )
 		{
 			var obj = sender as NumericUpDown;
@@ -275,7 +280,8 @@
 					playback.Loop = true;
 					playback.Start ( );
 					while ( !audio.CancellationPending )
-					{ }
+					{
+					}
 					playback.Stop ( );
 				}
 			}

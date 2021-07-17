@@ -90,6 +90,7 @@
 			this.L.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.L.Value = null;
 			this.L.Wrong_tooltip = null;
+			this.L.ValueChanged += new System.EventHandler ( this.L_ValueChanged );
 			// 
 			// Thickness
 			// 
@@ -106,7 +107,7 @@
 			this.Thickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Thickness.Value = null;
 			this.Thickness.Wrong_tooltip = ToolTips.Lung_Thickness_wrong;
-			this.Thickness.Leave += new System.EventHandler(this.DT_Leave);
+			this.Thickness.ValueChanged += new System.EventHandler(this.Lung_RecalculationNeed );
 			// 
 			// Distance
 			// 
@@ -122,7 +123,7 @@
 			this.Distance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.Distance.Value = null;
 			this.Distance.Wrong_tooltip = ToolTips.Lung_Distance_wrong;
-			this.Distance.Leave += new System.EventHandler(this.DT_Leave);
+			this.Distance.ValueChanged += new System.EventHandler(this.Lung_RecalculationNeed );
 			// 
 			// L_label2
 			// 
@@ -160,7 +161,8 @@
 			this.MinimumSize = new System.Drawing.Size(290, 20);
 			this.Name = "Lung";
 			this.Size = new System.Drawing.Size(290, 20);
-			this.Leave += new System.EventHandler(this.Lung_Leave);
+			//this.Leave += new System.EventHandler ( this.DT_Leave );
+			this.RecalculationNeed += new System.EventHandler ( this.Lung_RecalculationNeed);
 			this.Lung_parameters.ResumeLayout(false);
 			this.Lung_parameters.PerformLayout();
 			this.ResumeLayout(false);

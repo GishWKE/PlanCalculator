@@ -5,16 +5,14 @@
 	using System.Linq;
 	using System.Text.RegularExpressions;
 	using System.Windows.Forms;
-
 	public partial class IntTextBox : TextBox
 	{
+		public event EventHandler ValueChanged;
+		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private new readonly Color DefaultBackColor;
 		public int? Value
 		{
-			get
-			{
-				return this.IsEmpty ( ) || !IsCorrect ? null : ( int? ) this.ToInt ( );
-			}
+			get => this.IsEmpty ( ) || !IsCorrect ? null : ( int? ) this.ToInt ( );
 			set
 			{
 				if ( value == null )
@@ -26,6 +24,7 @@
 					Text = value.ToString ( );
 				}
 				SelectionStart = Text.Length;
+				OnValueChanged ( EventArgs.Empty );
 			}
 		}
 		private string default_tooltip = string.Empty;
@@ -84,7 +83,6 @@
 				e.Handled = true;
 			}
 		}
-
 		public IntTextBox ( ) : base ( )
 		{
 			DefaultBackColor = base.BackColor;
@@ -98,7 +96,6 @@
 				SelectionStart = Text.Length;
 			}
 		}
-
 		private void IntTextBox_KeyPress ( object sender, KeyPressEventArgs e )
 		{
 			switch ( e.KeyChar )
@@ -110,7 +107,7 @@
 					}
 					break;
 				case ( char ) Keys.Enter:
-					OnLeave ( new EventArgs ( ) );
+					OnLeave ( EventArgs.Empty );
 					break;
 			}
 			if ( !char.IsDigit ( e.KeyChar ) && !char.IsControl ( e.KeyChar ) )
@@ -118,9 +115,7 @@
 				e.Handled = true;
 			}
 		}
-
 		private void IntTextBox_TextChanged ( object sender, EventArgs e ) => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
-
 		private void IntTextBox_BackColorChanged ( object sender, EventArgs e )
 		{
 			var txt = BackColor != DefaultBackColor ? Wrong_tooltip : Correct_tooltip;
@@ -130,7 +125,6 @@
 				toolTip1.SetToolTip ( this, txt );
 			}
 		}
-
 		private void IntTextBox_Leave ( object sender, EventArgs e )
 		{
 			if ( Text == "-" )

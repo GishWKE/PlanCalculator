@@ -4,7 +4,8 @@
 	using System.Windows.Forms;
 	public partial class Field : UserControl
 	{
-		public Action<object> TimeCalculator;
+		public event EventHandler RecalculationNeed;
+		protected virtual void OnRecalculationNeed ( EventArgs e ) => RecalculationNeed?.Invoke ( this, e );
 		public new string Text
 		{
 			get => FieldPanel.Text;
@@ -42,32 +43,24 @@
 		public int? A
 		{
 			get => Kb_value.A;
-			set => OTV_value.A = Kb_value.A = value;
+			set
+			{
+				OTV_value.A = value;
+				Kb_value.A = value;
+			}
 		}
 		public int? B
 		{
 			get => Kb_value.B;
-			set => OTV_value.B = Kb_value.B = value;
+			set
+			{
+				OTV_value.B = value;
+				Kb_value.B = value;
+			}
 		}
-		public Field ( ) => InitializeComponent ( );
-		private void Field_Leave ( object sender, EventArgs e )
-		{
-			Kb_value.Recalculate ( );
-			OTV_value.Recalculate ( );
-			L_value.Recalculate ( );
-		}
+		public Field ( ) : base ( ) => InitializeComponent ( );
 
-		private void Kb_Leave ( object sender, EventArgs e )
-		{
-			OTV_value.A = Kb_value.A;
-			OTV_value.B = Kb_value.B;
-			OTV_value.Recalculate ( );
-			Recalculate ( );
-		}
+		private void Any_ValueChanged ( object sender, EventArgs e ) => OnRecalculationNeed ( EventArgs.Empty );
 
-		private void OTV_Leave ( object sender, EventArgs e ) => Recalculate ( );
-
-		private void L_Leave ( object sender, EventArgs e ) => Recalculate ( );
-		private void Recalculate() => TimeCalculator?.Invoke ( this );
 	}
 }

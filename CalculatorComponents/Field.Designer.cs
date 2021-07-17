@@ -72,7 +72,7 @@
 			this.L_value.Size = new System.Drawing.Size(292, 20);
 			this.L_value.TabIndex = 2;
 			this.L_value.Visible = false;
-			this.L_value.Leave += new System.EventHandler(this.L_Leave);
+			this.L_value.ValueChanged += new System.EventHandler ( this.Any_ValueChanged );
 			// 
 			// OTV_value
 			// 
@@ -85,7 +85,7 @@
 			this.OTV_value.Name = "OTV_value";
 			this.OTV_value.Size = new System.Drawing.Size(150, 20);
 			this.OTV_value.TabIndex = 1;
-			this.OTV_value.Leave += new System.EventHandler(this.OTV_Leave);
+			this.OTV_value.ValueChanged += new System.EventHandler ( this.Any_ValueChanged );
 			// 
 			// Kb_value
 			// 
@@ -98,7 +98,7 @@
 			this.Kb_value.SCD = 0;
 			this.Kb_value.Size = new System.Drawing.Size(184, 20);
 			this.Kb_value.TabIndex = 0;
-			this.Kb_value.Leave += new System.EventHandler(this.Kb_Leave);
+			this.Kb_value.ValueChanged += new System.EventHandler ( this.Any_ValueChanged );
 			// 
 			// Field
 			// 
@@ -108,7 +108,6 @@
 			this.MinimumSize = new System.Drawing.Size(650, 70);
 			this.Name = "Field";
 			this.Size = new System.Drawing.Size(650, 70);
-			this.Leave += new System.EventHandler(this.Field_Leave);
 			this.FieldPanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 

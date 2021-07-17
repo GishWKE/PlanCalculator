@@ -69,8 +69,7 @@
 			this.A_size.TextAlign = HorizontalAlignment.Right;
 			this.A_size.Value = null;
 			this.A_size.Wrong_tooltip = ToolTips.AB_wrong;
-			this.A_size.TextChanged += new EventHandler(this.AB_Changed_Leave);
-			this.A_size.Leave += new EventHandler(this.AB_Changed_Leave);
+			this.A_size.ValueChanged += new EventHandler(this.Kb_RecalculationNeed );
 			// 
 			// B_size
 			// 
@@ -86,8 +85,7 @@
 			this.B_size.TextAlign = HorizontalAlignment.Right;
 			this.B_size.Value = null;
 			this.B_size.Wrong_tooltip = ToolTips.AB_wrong;
-			this.B_size.TextChanged += new EventHandler(this.AB_Changed_Leave);
-			this.B_size.Leave += new EventHandler(this.AB_Changed_Leave);
+			this.B_size.ValueChanged += new EventHandler ( this.Kb_RecalculationNeed );
 			// 
 			// Kb_label1
 			// 
@@ -124,6 +122,7 @@
 			this.Kb.TextAlign = HorizontalAlignment.Right;
 			this.Kb.Value = null;
 			this.Kb.Wrong_tooltip = null;
+			this.Kb.ValueChanged += new EventHandler(this.Kb_ValueChanged);
 			// 
 			// Kb_Control
 			// 
@@ -138,7 +137,7 @@
 			this.MinimumSize = new Size(184, 20);
 			this.Name = "Kb_Control";
 			this.Size = new Size(184, 20);
-			this.Leave += new EventHandler(this.Kb_Control_Leave);
+			//this.Leave += new EventHandler(this.Kb_RecalculationNeed );
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

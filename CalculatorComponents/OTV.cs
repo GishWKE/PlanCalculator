@@ -1,7 +1,6 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
-	using System.Collections.Generic;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -12,7 +11,8 @@
 
 	public partial class OTV : UserControl
 	{
-		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
+		public event EventHandler ValueChanged;
+		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 
 		private readonly Kb_Control Kb = new Kb_Control ( );
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
@@ -46,21 +46,17 @@
 			get => A != null && B != null && D != null ? OTV_value.Value : null;
 			private set => OTV_value.Value = value;
 		}
-		private void AB_Depth_Changed_Leave ( object sender, EventArgs e ) => Recalculate ( );
-		private void OTV_Leave ( object sender, EventArgs e ) => UpdateOTV ( );
-		private void UpdateOTV ( )
+		public OTV ( )
 		{
-			if ( Parent == null ) // Не размещен на форме/компоненте
-			{
-				return;
-			}
+			InitializeComponent ( );
+			this.Kb.ValueChanged += new EventHandler ( this.OTV_RecalculationNeed );
+		}
 
+		private void OTV_value_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
+
+		private void OTV_RecalculationNeed ( object sender, EventArgs e )
+		{
 			OTV_value.ResetText ( );
-			if ( !Visible )
-			{
-				return;
-			}
-
 			var AA = A;
 			var BB = B;
 			var DD = D;
@@ -72,11 +68,6 @@
 			sql.AddParameter ( SQL.OTV_B, BB );
 			sql.AddParameter ( SQL.OTV_Depth, DD );
 			Value = ( double? ) sql.GetValue ( SQL.OTV );
-		}
-		public OTV ( )
-		{
-			Kb.Leave += new EventHandler ( AB_Depth_Changed_Leave );
-			InitializeComponent ( );
 		}
 	}
 }

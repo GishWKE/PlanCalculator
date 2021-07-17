@@ -8,10 +8,12 @@
 	using DB_Worker;
 
 	using Resource.Properties;
-
 	public partial class Kb_Control : UserControl
 	{
-		public void Recalculate ( ) => OnLeave ( new EventArgs ( ) );
+		private event EventHandler RecalculationNeed;
+		protected virtual void OnRecalculationNeed ( EventArgs e ) => RecalculationNeed?.Invoke ( this, e );
+		public event EventHandler ValueChanged;
+		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private int scd_val = 0;
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
 		public string FileName
@@ -25,7 +27,7 @@
 			set
 			{
 				scd_val = value;
-				Recalculate ( );
+				OnRecalculationNeed ( EventArgs.Empty );
 			}
 		}
 		public double? Value
@@ -43,19 +45,14 @@
 			get => B_size.Value;
 			set => B_size.Value = value;
 		}
-
-		public Kb_Control ( ) => InitializeComponent ( );
-		private void AB_Changed_Leave ( object sender, EventArgs e ) => Recalculate ( );
-
-		private void Kb_Control_Leave ( object sender, EventArgs e ) => UpdateKb ( );
-
-		private void UpdateKb ( )
+		public Kb_Control ( )
 		{
-			if ( Parent == null ) // Не размещен на форме/компоненте
-			{
-				return;
-			}
-
+			InitializeComponent ( );
+			RecalculationNeed += new EventHandler ( Kb_RecalculationNeed );
+		}
+		private void Kb_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
+		private void Kb_RecalculationNeed ( object sender, EventArgs e )
+		{
 			Kb.ResetText ( );
 			var AA = A;
 			var BB = B;

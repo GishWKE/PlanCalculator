@@ -52,26 +52,29 @@
 					}
 				}
 			}
-			for ( var a = 4; a <= 20; a++ )
+			for ( var scd = 40; scd <= 100; scd += 5 )
 			{
-				_KB.SCD = 75;
-				_OTV.SCD = 75;
-				_KB.A = a;
-				_OTV.A = a;
-				for ( var b = 4; b <= 20; b++ )
+				_KB.SCD = scd;
+				_OTV.SCD = scd;
+				for ( var a = 4; a <= 20; a++ )
 				{
-					_KB.B = b;
-					_OTV.B = b;
-					if ( _KB.Value == null )
+					_KB.A = a;
+					_OTV.A = a;
+					for ( var b = 4; b <= 20; b++ )
 					{
-						sb.AppendLine ( $@"KB - A: {a}; B: {b}" );
-					}
-					for ( var d = 0.5; d <= 30; d += 0.1 )
-					{
-						_OTV.D = d;
-						if ( _OTV.Value == null )
+						_KB.B = b;
+						_OTV.B = b;
+						if ( _KB.Value == null )
 						{
-							sb.AppendLine ( $@"ОТВ - A: {a}; B: {b}; Глубина: {d}" );
+							sb.AppendLine ( $@"KB - SCD: {scd}; A: {a}; B: {b}" );
+						}
+						for ( var d = 0.5; d <= 30; d += 0.1 )
+						{
+							_OTV.D = d;
+							if ( _OTV.Value == null )
+							{
+								sb.AppendLine ( $@"ОТВ - SCD: {scd}; A: {a}; B: {b}; Глубина: {d}" );
+							}
 						}
 					}
 				}

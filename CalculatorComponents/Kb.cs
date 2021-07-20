@@ -45,11 +45,7 @@
 			get => B_size.Value;
 			set => B_size.Value = value;
 		}
-		public Kb_Control ( )
-		{
-			InitializeComponent ( );
-			RecalculationNeed += new EventHandler ( Kb_RecalculationNeed );
-		}
+		public Kb_Control ( ) : base ( ) => InitializeComponent ( );
 		private void Kb_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
 		private void Kb_RecalculationNeed ( object sender, EventArgs e )
 		{
@@ -60,9 +56,9 @@
 			{
 				return;
 			}
-			sql.AddParameter ( SQL.Kb_SCD, SCD );
 			sql.AddParameter ( SQL.Kb_A, AA );
 			sql.AddParameter ( SQL.Kb_B, BB );
+			sql.AddParameter ( SQL.Kb_SCD, SCD );
 			Value = ( double? ) sql.GetValue ( SQL.Kb );
 		}
 	}

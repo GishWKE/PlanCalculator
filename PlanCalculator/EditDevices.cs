@@ -19,7 +19,7 @@
 		public EditDevices ( )
 		{
 			InitializeComponent ( );
-			Devices.Add ( SelIndCH );
+			Devices.DeviceChanged += SelIndCH;
 		}
 		private void SelIndCH ( object sender, EventArgs e )
 		{

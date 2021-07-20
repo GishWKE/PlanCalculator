@@ -25,7 +25,7 @@
 			FileName = @".\Resources\DB.accdb";
 			fields = new List<Field> ( );
 			InitializeComponent ( );
-			Devices.Add ( new EventHandler ( DeviceChanged ) );
+			Devices.DeviceChanged += DeviceChanged;
 			Devices.FileName = FileName;
 			Text = DateTime.Today.ToString ( "d" );
 			//DB_test ( );
@@ -90,6 +90,7 @@
 		private void DeviceChanged ( object sender, EventArgs e )
 		{
 			var sel = Devices.Selected;
+			// var scd = sel [ "РИЦ" ].ToString ( ).ToInt(); // ППерестал работать cast object->int
 			var scd = ( int ) sel [ "РИЦ" ];
 			var sec = ( bool ) sel [ "Время в минутах" ];
 			var regex_str = string.Empty;

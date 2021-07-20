@@ -51,16 +51,12 @@
 		/// Число аппаратов
 		/// </summary>
 		public int Count => DeviceList.Items.Count;
-		/// <summary>
-		/// Дабаить обработчик при измении выбранного элемента 
-		/// </summary>
-		/// <param name="add">Обработчик</param>
-		public void Add ( EventHandler add ) => DeviceList.SelectedIndexChanged += add;
-		/// <summary>
-		/// Удалить обработчик при измении выбранного элемента 
-		/// </summary>
-		/// <param name="add">Обработчик</param>
-		public void Del ( EventHandler del ) => DeviceList.SelectedIndexChanged -= del;
+
+		public event EventHandler DeviceChanged
+		{
+			add => DeviceList.SelectedIndexChanged += value;
+			remove => DeviceList.SelectedIndexChanged -= value;
+		}
 		/// <summary>
 		/// Обработчик запросов к БД
 		/// </summary>
@@ -112,7 +108,7 @@
 				var pow = ( double ) r [ "Мощность" ];
 				var date = ( DateTime ) r [ "Дата замера мощности" ];
 				double diff = ( DateTime.Now - date ).Days; // разница дат на сегодня
-				// double diff = ( now - date ).Days; // разница дат на 1 число текущего месяца
+															// double diff = ( now - date ).Days; // разница дат на 1 число текущего месяца
 				r [ "Мощность" ] = pow / Math.Pow ( 2, diff * Cobalt60_1 );
 			}
 		}
@@ -122,6 +118,7 @@
 			PreviousPower = Power.Value;
 			CurrentIndex = DeviceList.SelectedIndex;
 			var sel = Selected;
+			//SCD = sel [ "РИЦ" ].ToString ( ).ToInt ( );
 			SCD = ( int ) sel [ "РИЦ" ];
 			Power.Value = ( double ) sel [ "Мощность" ];
 		}

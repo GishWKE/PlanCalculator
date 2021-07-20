@@ -19,7 +19,7 @@ namespace Resource.Properties {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class SQL {
@@ -70,7 +70,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на SELECT * FROM Аппараты;.
+        ///   Ищет локализованную строку, похожую на SELECT Аппараты.* FROM Аппараты;.
         /// </summary>
         public static string Device {
             get {
@@ -126,12 +126,7 @@ namespace Resource.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на SELECT Кб.Кб
         ///FROM Кб
-        ///WHERE
-        ///Кб.РИЦ=?
-        ///AND
-        ///Кб.A=?
-        ///AND
-        ///Кб.B=?;.
+        ///WHERE ((Кб.A=?) AND (Кб.B=?) AND (Кб.РИЦ=?));.
         /// </summary>
         public static string Kb {
             get {
@@ -167,12 +162,9 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на SELECT [Легочная ткань].L
-        ///FROM [Легочная ткань]
-        ///WHERE
-        ///[Легочная ткань].[Толщина легкого]=?
-        ///AND
-        ///[Легочная ткань].[Расстояние от точки расчета до легкого (не более)]=?;.
+        ///   Ищет локализованную строку, похожую на SELECT Легочная_ткань.L
+        ///FROM Легочная_ткань
+        ///WHERE ((Легочная_ткань.[Толщина легкого]=?) AND (Легочная_ткань.[Расстояние от точки расчета до легкого (не более)]=?));.
         /// </summary>
         public static string Lung {
             get {
@@ -181,7 +173,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на [Легочная ткань].[Расстояние от точки расчета до легкого (не более)].
+        ///   Ищет локализованную строку, похожую на Легочная_ткань.[Расстояние от точки расчета до легкого (не более)].
         /// </summary>
         public static string Lung_Distance {
             get {
@@ -190,7 +182,7 @@ namespace Resource.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на [Легочная ткань].[Толщина легкого].
+        ///   Ищет локализованную строку, похожую на Легочная_ткань.[Толщина легкого].
         /// </summary>
         public static string Lung_Thickness {
             get {
@@ -201,7 +193,7 @@ namespace Resource.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на SELECT ОТВ.ОТВ
         ///FROM ОТВ
-        ///WHERE (((ОТВ.A)=?) AND ((ОТВ.B)=?) AND ((ОТВ.Глубина)=?));.
+        ///WHERE ((ОТВ.A=?) AND (ОТВ.B=?) AND (ОТВ.Глубина=?));.
         /// </summary>
         public static string OTV {
             get {
@@ -238,9 +230,7 @@ namespace Resource.Properties {
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на UPDATE Аппараты
-        ///SET
-        ///Аппараты.Мощность=?,
-        ///Аппараты.[Дата замера мощности]=Date()
+        ///SET Аппараты.Мощность=?, Аппараты.[Дата замера мощности]=Date()
         ///WHERE Аппараты.Аппарат=?;.
         /// </summary>
         public static string UpdateDevice {

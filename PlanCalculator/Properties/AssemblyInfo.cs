@@ -8,10 +8,14 @@ using System.Runtime.InteropServices;
 // связанных со сборкой.
 [assembly: AssemblyTitle ( "PlanCalculator" )]
 [assembly: AssemblyDescription ( "Дозиметрическое планирование для гамма-аппаратов для дистанционной терапии (2D – планирование)." )]
-[assembly: AssemblyConfiguration ( "" )]
-[assembly: AssemblyCompany ( "" )]
+#if DEBUG
+[assembly: AssemblyConfiguration ( "Отладочная версия" )]
+#else
+[assembly: AssemblyConfiguration ( "Финальная версия" )]
+#endif
+[assembly: AssemblyCompany ( "Antipov Roman (https://github.com/GishWKE)\nTsys' Alexandr (https://github.com/AlexTsys256)" )]
 [assembly: AssemblyProduct ( "PlanCalculator" )]
-[assembly: AssemblyCopyright ( "Copyright ©  2021" )]
+[assembly: AssemblyCopyright ( "Copyright © 2021\n\tAntipov Roman (https://github.com/GishWKE)\n\tTsys' Alexandr (https://github.com/AlexTsys256)\n\nLicensed under the Apache License, Version 2.0 ( the \"License\" );\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n\thttp://www.apache.org/licenses/LICENSE-2.0 \n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License." )]
 [assembly: AssemblyTrademark ( "" )]
 [assembly: AssemblyCulture ( "" )]
 

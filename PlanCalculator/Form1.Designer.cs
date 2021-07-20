@@ -73,6 +73,7 @@
 			this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.audio = new System.ComponentModel.BackgroundWorker();
+			this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -418,7 +419,7 @@
 			// Devices
 			// 
 			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Devices.Editable = false;
+			this.Devices.Editable = true;
 			this.Devices.FileName = null;
 			this.Devices.Location = new System.Drawing.Point(0, 0);
 			this.Devices.Name = "Devices";
@@ -449,6 +450,7 @@
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.изменениеМощностиАппаратовToolStripMenuItem,
             this.добавлениеАппаратовToolStripMenuItem,
+            this.оПрограммеToolStripMenuItem,
             this.выходToolStripMenuItem,
             this.toolStripMenuItem1});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -483,20 +485,15 @@
 			// 
 			// toolStripMenuItem1
 			// 
-			this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.toolStripMenuItem1.CheckOnClick = true;
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(29, 20);
-			this.toolStripMenuItem1.Text = "♫";
-			this.toolStripMenuItem1.ToolTipText = "Включить музыку";
-			this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(12, 20);
 			// 
-			// audio
+			// оПрограммеToolStripMenuItem
 			// 
-			this.audio.WorkerReportsProgress = true;
-			this.audio.WorkerSupportsCancellation = true;
-			this.audio.DoWork += new System.ComponentModel.DoWorkEventHandler(this.audio_DoWork);
+			this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+			this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+			this.оПрограммеToolStripMenuItem.Text = "О программе";
+			this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
 			// 
 			// Form1
 			// 
@@ -568,6 +565,7 @@
 		private Label label3;
 		private ToolStripMenuItem toolStripMenuItem1;
 		private BackgroundWorker audio;
+		private ToolStripMenuItem оПрограммеToolStripMenuItem;
 	}
 }
 

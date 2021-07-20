@@ -5,8 +5,6 @@
 	using System.Data;
 	using System.Data.OleDb;
 	using System.IO;
-	using System.Linq;
-	using System.Text.RegularExpressions;
 
 	using BaseComponents;
 
@@ -95,7 +93,7 @@
 				return null;
 			}
 
-			command.CommandText = sql.Replace(Environment.NewLine," ");
+			command.CommandText = sql.Replace ( Environment.NewLine, " " );
 			command.Connection.Open ( );
 			var ret = command.ExecuteScalar ( );
 			Close ( );

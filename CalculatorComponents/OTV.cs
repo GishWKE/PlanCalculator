@@ -49,7 +49,7 @@
 		public OTV ( )
 		{
 			InitializeComponent ( );
-			this.Kb.ValueChanged += new EventHandler ( this.OTV_RecalculationNeed );
+			Kb.ValueChanged += new EventHandler ( OTV_RecalculationNeed );
 		}
 
 		private void OTV_value_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );

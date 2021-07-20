@@ -11,9 +11,6 @@
 
 	using CalculatorComponents;
 
-	using Melanchall.DryWetMidi.Core;
-	using Melanchall.DryWetMidi.Devices;
-
 	using Resource.Properties;
 
 	public partial class Form1 : Form
@@ -275,91 +272,9 @@
 			Cursor = tmp;
 		}
 
-		private void toolStripMenuItem1_Click ( object sender, EventArgs e )
+		private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
-			if ( toolStripMenuItem1.Checked )
-			{
-				audio.RunWorkerAsync ( );
-				toolStripMenuItem1.BackColor = ( ( SolidBrush ) Brushes.LightGreen ).Color;
-			}
-			else
-			{
-				audio.CancelAsync ( );
-				toolStripMenuItem1.BackColor = выходToolStripMenuItem.BackColor;
-			}
-		}
-		/*private class LoopStream : WaveStream
-		{
-			WaveStream sourceStream;
-			public LoopStream ( WaveStream sourceStream )
-			{
-				this.sourceStream = sourceStream;
-				this.EnableLooping = true;
-			}
-			public bool EnableLooping;
-			public override WaveFormat WaveFormat=>sourceStream.WaveFormat;
-			public override long Length=>sourceStream.Length;
-			public override long Position
-			{
-				get=>sourceStream.Position;
-				set=>sourceStream.Position = value;
-			}
-			public override int Read ( byte [ ] buffer, int offset, int count )
-			{
-				var totalBytesRead = 0;
-				while ( totalBytesRead < count )
-				{
-					var bytesRead = sourceStream.Read ( buffer, offset + totalBytesRead, count - totalBytesRead );
-					if ( bytesRead == 0 )
-					{
-						if ( sourceStream.Position == 0 || !EnableLooping )
-						{
-							// something wrong with the source stream
-							break;
-						}
-						// loop
-						sourceStream.Position = 0;
-					}
-					totalBytesRead += bytesRead;
-				}
-				return totalBytesRead;
-			}
-		}*/
-		private void audio_DoWork ( object sender, System.ComponentModel.DoWorkEventArgs e )
-		{
-			var outputDevices = OutputDevice.GetAll ( );
-			using ( var outputDevice = outputDevices.First ( ) )
-			{
-				var midiFile = MidiFile.Read ( @".\Resources\0.mid" );
-
-				using ( var playback = midiFile.GetPlayback ( outputDevice ) )
-				{
-					playback.Loop = true;
-					playback.Start ( );
-					while ( !audio.CancellationPending )
-					{
-					}
-					playback.Stop ( );
-				}
-			}
-			//var bytes = Resources._0;
-			//using ( var provider = new RawSourceWaveStream ( new MemoryStream ( bytes ), new WaveFormat ( 48000, 16, 1 ) ) )
-			/*var file = new MidiFile ( @".\Resources\0.mid" );
-			using ( var provider = new RawSourceWaveStream ( new MemoryStream ( Resources._0 ), new WaveFormat ( 48000, 16, 1 ) ) )
-			{
-				using ( var loopStream = new LoopStream ( provider ) )
-				{
-					using ( var _waveOut = new WaveOut ( ) )
-					{
-						_waveOut.Init ( loopStream );
-						_waveOut.Play ( );
-						while ( !audio.CancellationPending )
-						{
-						}
-						_waveOut.Stop ( );
-					}
-				}
-			}*/
+			new AboutBox1 ( ).ShowDialog ( this );
 		}
 	}
 }

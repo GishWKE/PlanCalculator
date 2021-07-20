@@ -79,11 +79,11 @@
 			catch { throw; }
 		}
 
-		public static bool IsEmpty <T> ( this IEnumerable<T> l )
+		public static bool IsEmpty<T> ( this IEnumerable<T> l )
 		{
 			try
 			{
-				return l == null || l.Count () == 0;
+				return l == null || l.Count ( ) == 0;
 			}
 			catch { throw; }
 		}

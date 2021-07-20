@@ -60,7 +60,10 @@
 				OrderByDescending ( p => regex.Match ( p.provider ).Value.ToInt ( ) ).
 				 Where ( p => names.Any ( pp => pp.Equals ( p.provider, StringComparison.InvariantCultureIgnoreCase ) ) );
 			if ( tmp.IsEmpty ( ) )
+			{
 				return;
+			}
+
 			selectedPrivider = tmp.First ( ).index;
 		}
 	}

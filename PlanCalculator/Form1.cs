@@ -2,8 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
-using System.ComponentModel;
-	using System.Drawing;
+	using System.ComponentModel;
 	using System.Linq;
 	using System.Text;
 	using System.Windows.Forms;
@@ -273,9 +272,6 @@ using System.ComponentModel;
 			Cursor = tmp;
 		}
 
-		private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e )
-		{
-			new AboutBox1 ( ).ShowDialog ( this );
-		}
+		private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e ) => new AboutBox1 ( ).ShowDialog ( this );
 	}
 }

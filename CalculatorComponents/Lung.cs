@@ -1,6 +1,7 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
+using System.ComponentModel;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -15,26 +16,31 @@
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		[DefaultValue ( "" )]
 		public string FileName
 		{
 			get => sql.DataSource;
 			set => sql.DataSource = value;
 		}
+		[DefaultValue ( null )]
 		public int? D
 		{
 			get => Distance.Value;
 			set => Distance.Value = value;
 		}
+		[DefaultValue ( null )]
 		public double? T
 		{
 			get => Thickness.Value;
 			set => Thickness.Value = value;
 		}
+		[DefaultValue ( null )]
 		public double? Value
 		{
 			get => D != null && T != null ? L.Value : null;
 			private set => L.Value = value;
 		}
+		[DefaultValue ( false )]
 		public new bool Visible
 		{
 			get => IsLung.Checked;

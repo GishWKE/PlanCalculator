@@ -1,6 +1,7 @@
 ﻿namespace PlanCalculator
 {
 	using System;
+using System.ComponentModel;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -12,6 +13,7 @@
 	public partial class CreateDevice : Form
 	{
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		[DefaultValue ( "" )]
 		public string FileName
 		{
 			get => sql.DataSource;

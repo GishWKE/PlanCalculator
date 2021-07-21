@@ -1,6 +1,7 @@
 ﻿namespace BaseComponents
 {
 	using System;
+	using System.ComponentModel;
 	using System.Drawing;
 	using System.Linq;
 	using System.Text.RegularExpressions;
@@ -10,6 +11,7 @@
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private new readonly Color DefaultBackColor;
+		[DefaultValue(null)]
 		public int? Value
 		{
 			get => this.IsEmpty ( ) || !IsCorrect ? null : ( int? ) this.ToInt ( );
@@ -28,6 +30,7 @@
 			}
 		}
 		private string default_tooltip = string.Empty;
+		[DefaultValue ( "" )]
 		public string Correct_tooltip
 		{
 			get => default_tooltip;
@@ -40,6 +43,7 @@
 				}
 			}
 		}
+		[DefaultValue ( "" )]
 		public string Wrong_tooltip
 		{
 			get;
@@ -47,6 +51,7 @@
 		}
 		public bool IsCorrect => this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
 		private bool can_neg = false;
+		[DefaultValue ( false )]
 		public bool CanBeNegative
 		{
 			get => can_neg;
@@ -65,6 +70,7 @@
 			}
 		}
 		private Regex Checker = null;
+		[DefaultValue ( "" )]
 		public string Regex
 		{
 			get => ( Checker == null ) ? string.Empty : Checker.ToString ( );

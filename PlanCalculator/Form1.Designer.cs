@@ -418,7 +418,7 @@
 			// Devices
 			// 
 			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Devices.Editable = true;
+			this.Devices.Editable = false;
 			this.Devices.FileName = null;
 			this.Devices.Location = new System.Drawing.Point(0, 0);
 			this.Devices.Name = "Devices";

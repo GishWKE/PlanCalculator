@@ -1,6 +1,7 @@
 ﻿namespace BaseComponents
 {
 	using System;
+using System.ComponentModel;
 	using System.Drawing;
 	using System.Globalization;
 	using System.Linq;
@@ -25,6 +26,7 @@
 			}
 		}
 		private readonly NumberFormatInfo nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
+		[DefaultValue ( null )]
 		public double? Value
 		{
 			get => this.IsEmpty ( ) || !IsCorrect ? null : ( double? ) this.ToDouble ( );
@@ -43,6 +45,7 @@
 			}
 		}
 		private string default_tooltip = string.Empty;
+		[DefaultValue ( "" )]
 		public string Correct_tooltip
 		{
 			get => default_tooltip;
@@ -55,12 +58,14 @@
 				}
 			}
 		}
+		[DefaultValue ( "" )]
 		public string Wrong_tooltip
 		{
 			get;
 			set;
 		}
 		private bool can_neg = false;
+		[DefaultValue ( false )]
 		public bool CanBeNegative
 		{
 			get => can_neg;
@@ -79,6 +84,7 @@
 			}
 		}
 		private Regex Checker = null;
+		[DefaultValue ( "" )]
 		public string Regex
 		{
 			get => ( Checker == null ) ? string.Empty : Checker.ToString ( );

@@ -1,6 +1,7 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
+using System.ComponentModel;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -16,11 +17,13 @@
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private int scd_val = 0;
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		[DefaultValue ( "" )]
 		public string FileName
 		{
 			get => sql.DataSource;
 			set => sql.DataSource = value;
 		}
+		[DefaultValue ( 0 )]
 		public int SCD
 		{
 			get => scd_val;
@@ -30,16 +33,19 @@
 				OnRecalculationNeed ( EventArgs.Empty );
 			}
 		}
+		[DefaultValue ( null )]
 		public double? Value
 		{
 			get => A != null && B != null ? Kb.Value : null;
 			private set => Kb.Value = value;
 		}
+		[DefaultValue ( null )]
 		public int? A
 		{
 			get => A_size.Value;
 			set => A_size.Value = value;
 		}
+		[DefaultValue ( null )]
 		public int? B
 		{
 			get => B_size.Value;

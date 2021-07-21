@@ -98,7 +98,7 @@
 			this.Kb_value.SCD = 0;
 			this.Kb_value.Size = new System.Drawing.Size(184, 20);
 			this.Kb_value.TabIndex = 0;
-			this.Kb_value.ValueChanged += new System.EventHandler ( this.UpdateOTV);
+			this.Kb_value.ValueChanged += new System.EventHandler ( this.UpdateOTV_AB);
 			this.Kb_value.ValueChanged += new System.EventHandler ( this.Any_ValueChanged );
 			// 
 			// Field

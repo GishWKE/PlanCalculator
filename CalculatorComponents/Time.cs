@@ -1,5 +1,6 @@
 ﻿namespace CalculatorComponents
 {
+using System.ComponentModel;
 	using System.Windows.Forms;
 
 	using Resource.Properties;
@@ -7,11 +8,13 @@
 	public partial class Time : UserControl
 	{
 		private bool is_sec = true;
+		[DefaultValue ( false )]
 		public bool IsInMinutes
 		{
 			get => !IsInSeconds;
 			set => IsInSeconds = !value;
 		}
+		[DefaultValue ( true )]
 		public bool IsInSeconds
 		{
 			get => is_sec;
@@ -23,6 +26,7 @@
 				Value = Value;
 			}
 		}
+		[DefaultValue ( null )]
 		public double? Value
 		{
 			get => Time_value.Value;

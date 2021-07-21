@@ -1,6 +1,7 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
+using System.ComponentModel;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -16,31 +17,37 @@
 
 		private readonly Kb_Control Kb = new Kb_Control ( );
 		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		[DefaultValue ( "" )]
 		public string FileName
 		{
 			get => sql.DataSource;
 			set => Kb.FileName = sql.DataSource = value;
 		}
+		[DefaultValue ( null )]
 		public int? A
 		{
 			get => Kb.A;
 			set => Kb.A = value;
 		}
+		[DefaultValue ( null )]
 		public int? B
 		{
 			get => Kb.B;
 			set => Kb.B = value;
 		}
+		[DefaultValue ( 0 )]
 		public int SCD
 		{
 			get => Kb.SCD;
 			set => Kb.SCD = value;
 		}
+		[DefaultValue ( null )]
 		public double? D
 		{
 			get => Depth.Value;
 			set => Depth.Value = value;
 		}
+		[DefaultValue ( null )]
 		public double? Value
 		{
 			get => A != null && B != null && D != null ? OTV_value.Value : null;

@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+using System.ComponentModel;
 	using System.Drawing;
 	using System.Linq;
 	using System.Text;
@@ -15,12 +16,12 @@
 
 	public partial class Form1 : Form
 	{
+		[DefaultValue ( @".\Resources\DB.accdb" )]
 		private readonly string FileName;
-		private readonly List<Field> fields;
+		private readonly List<Field> fields = new List<Field> ( );
 		public Form1 ( )
 		{
 			FileName = @".\Resources\DB.accdb";
-			fields = new List<Field> ( );
 			InitializeComponent ( );
 			Devices.DeviceChanged += DeviceChanged;
 			Devices.FileName = FileName;

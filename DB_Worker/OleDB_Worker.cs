@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.ComponentModel;
 	using System.Data;
 	using System.Data.OleDb;
 	using System.IO;
@@ -14,6 +15,7 @@
 	{
 		private OleDbCommand command = null;
 		private string fileName = null;
+		[DefaultValue ( "" )]
 		public string DataSource
 		{
 			get => fileName;
@@ -49,6 +51,7 @@
 				}
 			}
 		}
+		[DefaultValue ( "" )]
 		public string ConnectionString
 		{
 			get

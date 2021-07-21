@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections;
+using System.ComponentModel;
 	using System.Data;
 	using System.Linq;
 	using System.Windows.Forms;
@@ -28,6 +29,7 @@
 		/// Выбранный для отображения аппарат
 		/// </summary>
 		public DataRowView Selected => DeviceList.SelectedItem as DataRowView;
+		[DefaultValue ( null )]
 		public DataRowView Previous
 		{
 			get
@@ -51,7 +53,6 @@
 		/// Число аппаратов
 		/// </summary>
 		public int Count => DeviceList.Items.Count;
-
 		public event EventHandler DeviceChanged
 		{
 			add => DeviceList.SelectedIndexChanged += value;
@@ -64,6 +65,7 @@
 		/// <summary>
 		/// Путь к файлу, в котором собержится БД
 		/// </summary>
+		[DefaultValue("")]
 		public string FileName
 		{
 			get => sql.DataSource;
@@ -84,9 +86,10 @@
 
 			UpdateDeviesList ( sql.GetTable ( SQL.Device ) );
 		}
+		[DefaultValue ( false )]
 		public bool Editable
 		{
-			get => Power.ReadOnly;
+			get => !Power.ReadOnly;
 			set => Power.ReadOnly = !value;
 		}
 		private void UpdateDeviesList ( DataTable dt )
@@ -122,6 +125,7 @@
 			SCD = ( int ) sel [ "РИЦ" ];
 			Power.Value = ( double ) sel [ "Мощность" ];
 		}
+		[DefaultValue ( null )]
 		public int? SCD
 		{
 			get => SCD_value.Value;

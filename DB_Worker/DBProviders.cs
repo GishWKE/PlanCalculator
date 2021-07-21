@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+using System.ComponentModel;
 	using System.Data;
 	using System.Data.OleDb;
 	using System.Linq;
@@ -27,10 +28,12 @@
 		/// <summary>
 		/// Индекс последнего (по дате создания) зарегестрированного в системе провайдера
 		/// </summary>
+		[DefaultValue ( -2 )]
 		private static int selectedPrivider = -2;
 		/// <summary>
 		/// Свойства для получения строки с провайдером для подключения к БД
 		/// </summary>
+		[DefaultValue ( "" )]
 		public static string Provider
 		{
 			get

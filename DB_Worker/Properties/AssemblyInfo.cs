@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные со сборкой.
 [assembly: AssemblyTitle ( "OleDB_Worker" )]
-[assembly: AssemblyDescription ( "" )]
+[assembly: AssemblyDescription ( "Библиотека-прослойка, необходимая для работы с БД" )]
 [assembly: AssemblyConfiguration ( "" )]
-[assembly: AssemblyCompany ( "" )]
+[assembly: AssemblyCompany ( "\nCreated by\n\tAntipov Roman (https://github.com/GishWKE)\n\tTsys' Alexandr (https://github.com/AlexTsys256)" )]
 [assembly: AssemblyProduct ( "OleDB_Worker" )]
 [assembly: AssemblyCopyright ( "Copyright ©  2021" )]
 [assembly: AssemblyTrademark ( "" )]

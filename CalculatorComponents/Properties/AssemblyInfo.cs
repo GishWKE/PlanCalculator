@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle ( "CalculatorComponents" )]
-[assembly: AssemblyDescription ( "" )]
+[assembly: AssemblyDescription ( "Компоненты для размещения на форме" )]
 [assembly: AssemblyConfiguration ( "" )]
-[assembly: AssemblyCompany ( "" )]
+[assembly: AssemblyCompany ( "\nCreated by\n\tAntipov Roman (https://github.com/GishWKE)\n\tTsys' Alexandr (https://github.com/AlexTsys256)" )]
 [assembly: AssemblyProduct ( "CalculatorComponents" )]
 [assembly: AssemblyCopyright ( "Copyright ©  2021" )]
 [assembly: AssemblyTrademark ( "" )]

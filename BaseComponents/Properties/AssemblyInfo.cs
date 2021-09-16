@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle ( "BaseComponents" )]
-[assembly: AssemblyDescription ( "" )]
+[assembly: AssemblyDescription ( "Базовые классы для компонентов приложения" )]
 [assembly: AssemblyConfiguration ( "" )]
-[assembly: AssemblyCompany ( "" )]
+[assembly: AssemblyCompany ( "\nCreated by\n\tAntipov Roman (https://github.com/GishWKE)\n\tTsys' Alexandr (https://github.com/AlexTsys256)" )]
 [assembly: AssemblyProduct ( "BaseComponents" )]
 [assembly: AssemblyCopyright ( "Copyright ©  2021" )]
 [assembly: AssemblyTrademark ( "" )]

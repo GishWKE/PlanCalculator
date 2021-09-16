@@ -72,8 +72,8 @@
 			this.добавлениеАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.audio = new System.ComponentModel.BackgroundWorker();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+			this.dateTitle = new System.ComponentModel.BackgroundWorker ( );
+			( (System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -489,8 +489,18 @@
 			this.выходToolStripMenuItem.Text = "Выход";
 			this.выходToolStripMenuItem.Click += new System.EventHandler(this.Exit_Button_Click);
 			// 
+			// 
+			// 
+			this.dateTitle.DoWork += DateTitle_DoWork;
+			this.dateTitle.ProgressChanged += DateTitle_ProgressChanged;
+			this.dateTitle.WorkerSupportsCancellation = true;
+			this.dateTitle.WorkerReportsProgress = true;
+			this.dateTitle.RunWorkerCompleted += DateTitle_RunWorkerCompleted;
+			this.components.Add ( this.dateTitle );
+			// 
 			// Form1
 			// 
+			this.FormClosing += Form1_FormClosing;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1084, 461);
 			this.Controls.Add(this.splitContainer1);
@@ -525,6 +535,7 @@
 
 		}
 
+
 		#endregion
 
 		private SplitContainer splitContainer1;
@@ -557,7 +568,7 @@
 		private Label label4;
 		private DoubleTextBox SSD;
 		private Label label3;
-		private BackgroundWorker audio;
+		private BackgroundWorker dateTitle;
 		private ToolStripMenuItem оПрограммеToolStripMenuItem;
 	}
 }

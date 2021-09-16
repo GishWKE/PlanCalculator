@@ -4,7 +4,8 @@
 	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.Linq;
-	using System.Text;
+	using System.Threading;
+	using System.Threading.Tasks;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -16,16 +17,50 @@
 	public partial class Form1 : Form
 	{
 		[DefaultValue ( @".\Resources\DB.accdb" )]
-		private readonly string FileName;
+		private readonly string FileName = @".\Resources\DB.accdb";
 		private readonly List<Field> fields = new List<Field> ( );
 		public Form1 ( )
 		{
-			FileName = @".\Resources\DB.accdb";
 			InitializeComponent ( );
+			Text.Clear ( );
 			Devices.DeviceChanged += DeviceChanged;
 			Devices.FileName = FileName;
-			Text = DateTime.Today.ToString ( "d" );
+			dateTitle.RunWorkerAsync ( );
 		}
+		private void Form1_FormClosing ( object sender, FormClosingEventArgs e ) => dateTitle.CloseAndWait ( );
+
+
+		private void DateTitle_ProgressChanged ( object sender, ProgressChangedEventArgs e ) => Text = ( ( DateTime ) e.UserState ).ToString ( "d" );
+
+		private void DateTitle_RunWorkerCompleted ( object sender, RunWorkerCompletedEventArgs e ) => cToken.Cancel ( );
+
+		private readonly CancellationTokenSource cToken = new CancellationTokenSource ( );
+		private void DateTitle_DoWork ( object sender, DoWorkEventArgs e )
+		{
+			var bw = ( ( BackgroundWorker ) sender );
+			var dateToday = DateTime.Now;
+			if ( Text.IsEmpty ( ) )
+			{
+				bw.ReportProgress ( 0, dateToday );
+			}
+			while ( !bw.CancellationPending )
+			{
+				var dateTomorrow = DateTime.Today.AddDays ( 1 );
+				var diff = dateTomorrow - dateToday;
+				cToken.CancelAfter ( diff );
+				new Task ( ( ) => Thread.Sleep ( Timeout.Infinite ), cToken.Token ).Start ( );
+				while ( !cToken.IsCancellationRequested )
+				{
+					if ( bw.CancellationPending )
+					{
+						return;
+					}
+				}
+				dateToday = DateTime.Now;
+				bw.ReportProgress ( 0, dateToday );
+			}
+		}
+
 		private static readonly string regex_fmt = $"{RegEx.Begin}({RegEx.Values_0__9_9}|{{0}})?{RegEx.End}";
 
 		private void DeviceChanged ( object sender, EventArgs e )

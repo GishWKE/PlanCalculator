@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+using System.ComponentModel;
 	using System.Data;
 	using System.Globalization;
 	using System.IO;
@@ -20,6 +21,14 @@
 			catch
 			{
 				throw;
+			}
+		}
+		public static void CloseAndWait ( this BackgroundWorker bw )
+		{
+			bw.CancelAsync ( );
+			while ( bw.IsBusy )
+			{
+				Application.DoEvents ( );
 			}
 		}
 		public static void Clear ( this string s ) => s = string.Empty;

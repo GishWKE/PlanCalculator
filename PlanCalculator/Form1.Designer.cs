@@ -309,7 +309,7 @@
 			this.Dose_label1.Name = "Dose_label1";
 			this.Dose_label1.Size = new System.Drawing.Size(22, 13);
 			this.Dose_label1.TabIndex = 2;
-			this.Dose_label1.Text = " ) =";
+			this.Dose_label1.Text = "% ) =";
 			// 
 			// P
 			// 

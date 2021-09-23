@@ -382,11 +382,11 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(87, 3);
+			this.label3.Location = new System.Drawing.Point(81, 3);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(19, 13);
 			this.label3.TabIndex = 2;
-			this.label3.Text = ") =";
+			this.label3.Text = "см) =";
 			// 
 			// Distance
 			// 

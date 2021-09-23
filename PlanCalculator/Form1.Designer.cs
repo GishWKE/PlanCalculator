@@ -206,7 +206,7 @@
 			// 
 			this.FieldsCount.Location = new System.Drawing.Point(226, 0);
 			this.FieldsCount.Maximum = new decimal(new int[] {
-            360,
+            30,
             0,
             0,
             0});

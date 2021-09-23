@@ -319,7 +319,7 @@
 			this.P.Location = new System.Drawing.Point(45, 0);
 			this.P.MaxLength = 3;
 			this.P.Name = "P";
-			this.P.Regex = "^([1-9]|[1-9]\\d|100)?$";
+			this.P.Regex = "^([8-9]\\d|100)?$";
 			this.P.Size = new System.Drawing.Size(36, 20);
 			this.P.TabIndex = 1;
 			this.P.Text = "90";

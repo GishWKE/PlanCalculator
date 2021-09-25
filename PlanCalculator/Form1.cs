@@ -290,7 +290,7 @@ using System.Linq;
 			sb.AppendLine ( FieldsCount.Value.ToString ( ) );
 			var axb = new Func<dynamic, dynamic, string> ( ( A, B ) => $@"{A} x {B}" );
 			var diff = true;
-			if ( fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value ) )
+			if ( fields.Any ( ) && fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value ) )
 			{
 				diff = false;
 				var ab = axb ( A.Value, B.Value );
@@ -301,66 +301,81 @@ using System.Linq;
 				sb.Append ( ") = " );
 				sb.AppendLine ( fields [ 0 ].Kb.ToStringWithDecimalPlaces ( 3 ) );
 			}
+			sb.AppendLine ( );
+			var sb_t = new StringBuilder ( );
 			foreach ( var f in fields )
 			{
-				sb.AppendLine ( );
-				sb.Append ( "Поле " );
-				sb.AppendLine ( f.Text );
+				var fld = f.Text.Replace ( "№", string.Empty );
 				if ( diff )
 				{
+					sb.Append ( "Поле " );
+					sb.Append ( f.Text );
+					sb.Append ( " " );
 					var ab = axb ( f.A.Value, f.B.Value );
 					sb.Append ( "A x B = " );
 					sb.AppendLine ( ab );
-					sb.Append ( "Кб (" );
+					sb.Append ( "Кб" );
+					sb.Append ( fld );
+					sb.Append ( " (" );
 					sb.Append ( ab );
 					sb.Append ( ") = " );
 					sb.Append ( f.Kb.ToStringWithDecimalPlaces ( 3 ) );
-					sb.Append ( "; " );
+					sb.AppendLine ( "; " );
 				}
-				sb.Append ( "ОТВ (" );
+				sb.Append ( "ОТВ" );
+				sb.Append ( fld );
+				sb.Append ( " (" );
 				sb.Append ( f.Depth.ToStringWithDecimalPlaces ( 1 ) );
 				sb.Append ( ") = " );
 				sb.Append ( f.OTV.ToStringWithDecimalPlaces ( 3 ) );
 				if ( f.IsLung )
 				{
-					sb.Append ( "; L = " );
+					sb.AppendLine ( ";" );
+					sb.Append ( "L" );
+					sb.Append ( fld );
+					sb.Append ( " = " );
 					sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
 				}
 				sb.AppendLine ( );
-				sb.Append ( "t = " );
+				sb_t.Append ( "t" );
+				sb_t.Append ( fld );
+				sb_t.Append ( " = " );
 				if ( f.IsInMinutes )
 				{
-					sb.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
-					sb.AppendLine ( " минут" );
+					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
+					sb_t.AppendLine ( " минут" );
 				}
 				else
 				{
-					sb.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
-					sb.AppendLine ( " секунд" );
+					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
+					sb_t.AppendLine ( " секунд" );
 				}
 			}
+			sb.AppendLine ( );
+			sb.AppendLine ( sb_t.ToString ( ) );
 			sb.AppendLine ( );
 			sb.Append ( "РИП = " );
 			sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
 			sb.AppendLine ( " см" );
 			sb.AppendLine ( );
 			sb.AppendLine ( Text );
-			sb.AppendLine ( "инж.радиолог __________________" );
-			using ( var p = new PrintDocument ( ) )
+			sb.Append ( "инж.радиолог __________________" );
+			printString = sb.ToString ( );
+			printDocument1.DocumentName = DateTime.Now.ToString ( "G" );
+			printPreviewDialog1.Document = printDocument1;
+			try
 			{
-				p.PrintPage += delegate ( object sender1, PrintPageEventArgs e1 )
-				{
-					e1.Graphics.DrawString ( sb.ToString ( ), new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height ) );
-				};
-				try
-				{
-					p.Print ( );
-				}
-				catch ( Exception ex )
-				{
-					throw new Exception ( "Exception Occured While Printing", ex );
-				}
+				printPreviewDialog1.ShowDialog ( this );
 			}
+			catch ( Exception ex )
+			{
+				throw new Exception ( "Exception Occured While Printing", ex );
+			}
+		}
+		private string printString;
+		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e )
+		{
+			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
 		}
 	}
 }

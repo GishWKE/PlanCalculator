@@ -64,18 +64,20 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.P1 = new System.Windows.Forms.Panel();
 			this.Dose_label2 = new System.Windows.Forms.Label();
-			this.D = new BaseComponents.DoubleTextBox();
 			this.Dose_label1 = new System.Windows.Forms.Label();
-			this.P = new BaseComponents.IntTextBox();
 			this.Dose_label0 = new System.Windows.Forms.Label();
 			this.P0 = new System.Windows.Forms.Panel();
 			this.label4 = new System.Windows.Forms.Label();
-			this.SSD = new BaseComponents.DoubleTextBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.Distance = new BaseComponents.DoubleTextBox();
 			this.DST = new System.Windows.Forms.Label();
-			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
+			this.D = new BaseComponents.DoubleTextBox();
+			this.P = new BaseComponents.IntTextBox();
+			this.SSD = new BaseComponents.DoubleTextBox();
+			this.Distance = new BaseComponents.DoubleTextBox();
+			this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+			this.Devices = new CalculatorComponents.Device();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
@@ -374,21 +376,6 @@
 			this.Dose_label2.TabIndex = 4;
 			this.Dose_label2.Text = "Гр";
 			// 
-			// D
-			// 
-			this.D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.D.BackColor = System.Drawing.SystemColors.Window;
-			this.D.Correct_tooltip = "Разовая доза";
-			this.D.FractionalPlaces = 2;
-			this.D.Location = new System.Drawing.Point(112, 0);
-			this.D.Name = "D";
-			this.D.Size = new System.Drawing.Size(261, 20);
-			this.D.TabIndex = 3;
-			this.D.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.D.Wrong_tooltip = null;
-			this.D.Leave += new System.EventHandler(this.Dose_Changed);
-			// 
 			// Dose_label1
 			// 
 			this.Dose_label1.AutoSize = true;
@@ -397,22 +384,6 @@
 			this.Dose_label1.Size = new System.Drawing.Size(30, 13);
 			this.Dose_label1.TabIndex = 2;
 			this.Dose_label1.Text = "% ) =";
-			// 
-			// P
-			// 
-			this.P.BackColor = System.Drawing.SystemColors.Window;
-			this.P.Correct_tooltip = "Процентная разовая доза";
-			this.P.Location = new System.Drawing.Point(45, 0);
-			this.P.MaxLength = 3;
-			this.P.Name = "P";
-			this.P.Regex = "^([8-9]\\d|100)?$";
-			this.P.Size = new System.Drawing.Size(36, 20);
-			this.P.TabIndex = 1;
-			this.P.Text = "90";
-			this.P.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.P.Value = 90;
-			this.P.Wrong_tooltip = "Введено неверное значение";
-			this.P.Leave += new System.EventHandler(this.Dose_Changed);
 			// 
 			// Dose_label0
 			// 
@@ -446,6 +417,64 @@
 			this.label4.TabIndex = 4;
 			this.label4.Text = "см";
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(81, 3);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(33, 13);
+			this.label3.TabIndex = 2;
+			this.label3.Text = "см) =";
+			// 
+			// DST
+			// 
+			this.DST.AutoSize = true;
+			this.DST.Location = new System.Drawing.Point(3, 3);
+			this.DST.Name = "DST";
+			this.DST.Size = new System.Drawing.Size(36, 13);
+			this.DST.TabIndex = 0;
+			this.DST.Text = "РИП (";
+			// 
+			// AllFields
+			// 
+			this.AllFields.AutoScroll = true;
+			this.AllFields.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.AllFields.Location = new System.Drawing.Point(0, 0);
+			this.AllFields.Name = "AllFields";
+			this.AllFields.Size = new System.Drawing.Size(679, 437);
+			this.AllFields.TabIndex = 0;
+			// 
+			// D
+			// 
+			this.D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.D.BackColor = System.Drawing.SystemColors.Window;
+			this.D.Correct_tooltip = "Разовая доза";
+			this.D.FractionalPlaces = 2;
+			this.D.Location = new System.Drawing.Point(112, 0);
+			this.D.Name = "D";
+			this.D.Size = new System.Drawing.Size(261, 20);
+			this.D.TabIndex = 3;
+			this.D.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.D.Wrong_tooltip = null;
+			this.D.Leave += new System.EventHandler(this.Dose_Changed);
+			// 
+			// P
+			// 
+			this.P.BackColor = System.Drawing.SystemColors.Window;
+			this.P.Correct_tooltip = "Процентная разовая доза";
+			this.P.Location = new System.Drawing.Point(45, 0);
+			this.P.MaxLength = 3;
+			this.P.Name = "P";
+			this.P.Regex = "^([8-9]\\d|100)?$";
+			this.P.Size = new System.Drawing.Size(36, 20);
+			this.P.TabIndex = 1;
+			this.P.Text = "90";
+			this.P.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.P.Value = 90;
+			this.P.Wrong_tooltip = "Введено неверное значение";
+			this.P.Leave += new System.EventHandler(this.Dose_Changed);
+			// 
 			// SSD
 			// 
 			this.SSD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -462,15 +491,6 @@
 			this.SSD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.SSD.Wrong_tooltip = null;
 			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(81, 3);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(33, 13);
-			this.label3.TabIndex = 2;
-			this.label3.Text = "см) =";
-			// 
 			// Distance
 			// 
 			this.Distance.BackColor = System.Drawing.SystemColors.Window;
@@ -485,14 +505,18 @@
 			this.Distance.Wrong_tooltip = "Введено неверное значение";
 			this.Distance.ValueChanged += new System.EventHandler(this.Distance_Leave);
 			// 
-			// DST
+			// printPreviewDialog1
 			// 
-			this.DST.AutoSize = true;
-			this.DST.Location = new System.Drawing.Point(3, 3);
-			this.DST.Name = "DST";
-			this.DST.Size = new System.Drawing.Size(36, 13);
-			this.DST.TabIndex = 0;
-			this.DST.Text = "РИП (";
+			this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+			this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+			this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+			this.printPreviewDialog1.Document = this.printDocument1;
+			this.printPreviewDialog1.Enabled = true;
+			this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+			this.printPreviewDialog1.Name = "printPreviewDialog1";
+			this.printPreviewDialog1.ShowIcon = false;
+			this.printPreviewDialog1.UseAntiAlias = true;
+			this.printPreviewDialog1.Visible = false;
 			// 
 			// Devices
 			// 
@@ -503,14 +527,9 @@
 			this.Devices.Size = new System.Drawing.Size(401, 87);
 			this.Devices.TabIndex = 0;
 			// 
-			// AllFields
+			// printDocument1
 			// 
-			this.AllFields.AutoScroll = true;
-			this.AllFields.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.AllFields.Location = new System.Drawing.Point(0, 0);
-			this.AllFields.Name = "AllFields";
-			this.AllFields.Size = new System.Drawing.Size(679, 437);
-			this.AllFields.TabIndex = 0;
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
 			// 
 			// Form1
 			// 
@@ -586,6 +605,8 @@
 		private ToolStripMenuItem просмотрМощностейToolStripMenuItem;
 		private ToolStripMenuItem очиститьToolStripMenuItem;
 		private ToolStripMenuItem печататьToolStripMenuItem;
+		private PrintPreviewDialog printPreviewDialog1;
+		private System.Drawing.Printing.PrintDocument printDocument1;
 	}
 }
 

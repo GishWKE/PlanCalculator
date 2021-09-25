@@ -25,6 +25,8 @@ using System.ComponentModel;
 		}
 		public static string ToStringWithDecimalPlaces ( this double ? val, int dec )
 		{
+			if ( val == null )
+				return 0D.ToStringWithDecimalPlaces ( dec );
 			return val.Value.ToStringWithDecimalPlaces ( dec );
 		}
 		public static string ToStringWithDecimalPlaces ( this double val, int dec )

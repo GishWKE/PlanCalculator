@@ -75,9 +75,9 @@
 			this.P = new BaseComponents.IntTextBox();
 			this.SSD = new BaseComponents.DoubleTextBox();
 			this.Distance = new BaseComponents.DoubleTextBox();
-			this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-			this.Devices = new CalculatorComponents.Device();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+			this.printDialog1 = new System.Windows.Forms.PrintDialog();
+			this.Devices = new CalculatorComponents.Device();
 			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
@@ -505,18 +505,15 @@
 			this.Distance.Wrong_tooltip = "Введено неверное значение";
 			this.Distance.ValueChanged += new System.EventHandler(this.Distance_Leave);
 			// 
-			// printPreviewDialog1
+			// printDocument1
 			// 
-			this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-			this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-			this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
-			this.printPreviewDialog1.Document = this.printDocument1;
-			this.printPreviewDialog1.Enabled = true;
-			this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-			this.printPreviewDialog1.Name = "printPreviewDialog1";
-			this.printPreviewDialog1.ShowIcon = false;
-			this.printPreviewDialog1.UseAntiAlias = true;
-			this.printPreviewDialog1.Visible = false;
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+			// 
+			// printDialog1
+			// 
+			this.printDialog1.AllowPrintToFile = false;
+			this.printDialog1.Document = this.printDocument1;
+			this.printDialog1.ShowHelp = true;
 			// 
 			// Devices
 			// 
@@ -526,10 +523,6 @@
 			this.Devices.Name = "Devices";
 			this.Devices.Size = new System.Drawing.Size(401, 87);
 			this.Devices.TabIndex = 0;
-			// 
-			// printDocument1
-			// 
-			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
 			// 
 			// Form1
 			// 
@@ -605,8 +598,8 @@
 		private ToolStripMenuItem просмотрМощностейToolStripMenuItem;
 		private ToolStripMenuItem очиститьToolStripMenuItem;
 		private ToolStripMenuItem печататьToolStripMenuItem;
-		private PrintPreviewDialog printPreviewDialog1;
 		private System.Drawing.Printing.PrintDocument printDocument1;
+		private PrintDialog printDialog1;
 	}
 }
 

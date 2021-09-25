@@ -362,10 +362,13 @@ using System.Linq;
 			sb.Append ( "инж.радиолог __________________" );
 			printString = sb.ToString ( );
 			printDocument1.DocumentName = DateTime.Now.ToString ( "G" );
-			printPreviewDialog1.Document = printDocument1;
+			printDialog1.Document = printDocument1;
 			try
 			{
-				printPreviewDialog1.ShowDialog ( this );
+				if ( printDialog1.ShowDialog ( this ) == DialogResult.OK )
+				{
+					printDocument1.Print ( );
+				}
 			}
 			catch ( Exception ex )
 			{

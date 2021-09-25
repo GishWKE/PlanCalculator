@@ -3,7 +3,10 @@
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel;
-	using System.Linq;
+	using System.Drawing;
+	using System.Drawing.Printing;
+using System.Linq;
+	using System.Text;
 	using System.Threading;
 	using System.Threading.Tasks;
 	using System.Windows.Forms;
@@ -30,7 +33,12 @@
 		private void Form1_FormClosing ( object sender, FormClosingEventArgs e ) => dateTitle.CloseAndWait ( );
 
 
-		private void DateTitle_ProgressChanged ( object sender, ProgressChangedEventArgs e ) => Text = ( ( DateTime ) e.UserState ).ToString ( "d" );
+		private void DateTitle_ProgressChanged ( object sender, ProgressChangedEventArgs e )
+		{
+			Text = ( ( DateTime ) e.UserState ).ToString ( "d" );
+			Devices.FileName = FileName;
+			Calculate ( );
+		}
 
 		private void DateTitle_RunWorkerCompleted ( object sender, RunWorkerCompletedEventArgs e ) => cToken.Cancel ( );
 
@@ -39,10 +47,7 @@
 		{
 			var bw = ( ( BackgroundWorker ) sender );
 			var dateToday = DateTime.Now;
-			if ( Text.IsEmpty ( ) )
-			{
-				bw.ReportProgress ( 0, dateToday );
-			}
+			bw.ReportProgress ( 0, dateToday );
 			while ( !bw.CancellationPending )
 			{
 				var dateTomorrow = DateTime.Today.AddDays ( 1 );
@@ -219,7 +224,7 @@
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			if ( new EditDevices { FileName = FileName }.ShowDialog ( ) == DialogResult.OK )
+			if ( new EditDevices { FileName = FileName }.ShowDialog ( this ) == DialogResult.OK )
 			{
 				Devices.FileName = FileName;
 				Calculate ( );
@@ -232,7 +237,7 @@
 			var DST = Distance.Value;
 			var SCD = Devices.SCD;
 			SSD.Clear ( );
-			if ( SSD == null || DST > SCD )
+			if ( SSD == null || DST == null || SCD == null || DST > SCD )
 			{
 				return;
 			}
@@ -243,7 +248,7 @@
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			if ( new CreateDevice { FileName = FileName }.ShowDialog ( ) == DialogResult.Yes )
+			if ( new CreateDevice { FileName = FileName }.ShowDialog ( this ) == DialogResult.Yes )
 			{
 				Devices.FileName = FileName;
 				Calculate ( );
@@ -252,5 +257,110 @@
 		}
 
 		private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e ) => new AboutBox1 ( ).ShowDialog ( this );
+
+		private void очиститьToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			FieldsCount.Value = 0;
+			A.Value = 4;
+			B.Value = 4;
+			D.Value = null;
+			Distance.Value = null;
+			Devices.FileName = FileName;
+		}
+
+		private void просмотрМощностейToolStripMenuItem_Click ( object sender, EventArgs e ) => new PowerTable { FileName = FileName }.ShowDialog ( this );
+		private void печататьToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			var sb = new StringBuilder ( );
+			sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
+			sb.Append ( "РИЦ = " );
+			sb.Append ( ( int ) Devices.Selected [ "РИЦ" ] );
+			sb.AppendLine ( " см" );
+			sb.Append ( "P = " );
+			sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 2 ) );
+			sb.AppendLine ( " сГр/с" );
+			sb.Append ( "D (" );
+			sb.Append ( P.Value );
+			sb.Append ( "%) = " );
+			sb.Append ( D.Value.ToStringWithDecimalPlaces ( 1 ) );
+			sb.AppendLine ( " Гр" );
+			sb.Append ( "N = " );
+			sb.Append ( N.Value.ToString() );
+			sb.Append ( "; n = " );
+			sb.AppendLine ( FieldsCount.Value.ToString ( ) );
+			var axb = new Func<dynamic, dynamic, string> ( ( A, B ) => $@"{A} x {B}" );
+			var diff = true;
+			if ( fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value ) )
+			{
+				diff = false;
+				var ab = axb ( A.Value, B.Value );
+				sb.Append ( "A x B = " );
+				sb.AppendLine ( ab );
+				sb.Append ( "Кб (" );
+				sb.Append ( ab );
+				sb.Append ( ") = " );
+				sb.AppendLine ( fields [ 0 ].Kb.ToStringWithDecimalPlaces ( 3 ) );
+			}
+			foreach ( var f in fields )
+			{
+				sb.AppendLine ( );
+				sb.Append ( "Поле " );
+				sb.AppendLine ( f.Text );
+				if ( diff )
+				{
+					var ab = axb ( f.A.Value, f.B.Value );
+					sb.Append ( "A x B = " );
+					sb.AppendLine ( ab );
+					sb.Append ( "Кб (" );
+					sb.Append ( ab );
+					sb.Append ( ") = " );
+					sb.Append ( f.Kb.ToStringWithDecimalPlaces ( 3 ) );
+					sb.Append ( "; " );
+				}
+				sb.Append ( "ОТВ (" );
+				sb.Append ( f.Depth.ToStringWithDecimalPlaces ( 1 ) );
+				sb.Append ( ") = " );
+				sb.Append ( f.OTV.ToStringWithDecimalPlaces ( 3 ) );
+				if ( f.IsLung )
+				{
+					sb.Append ( "; L = " );
+					sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
+				}
+				sb.AppendLine ( );
+				sb.Append ( "t = " );
+				if ( f.IsInMinutes )
+				{
+					sb.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
+					sb.AppendLine ( " минут" );
+				}
+				else
+				{
+					sb.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
+					sb.AppendLine ( " секунд" );
+				}
+			}
+			sb.AppendLine ( );
+			sb.Append ( "РИП = " );
+			sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
+			sb.AppendLine ( " см" );
+			sb.AppendLine ( );
+			sb.AppendLine ( Text );
+			sb.AppendLine ( "инж.радиолог __________________" );
+			using ( var p = new PrintDocument ( ) )
+			{
+				p.PrintPage += delegate ( object sender1, PrintPageEventArgs e1 )
+				{
+					e1.Graphics.DrawString ( sb.ToString ( ), new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height ) );
+				};
+				try
+				{
+					p.Print ( );
+				}
+				catch ( Exception ex )
+				{
+					throw new Exception ( "Exception Occured While Printing", ex );
+				}
+			}
+		}
 	}
 }

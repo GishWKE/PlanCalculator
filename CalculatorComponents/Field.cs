@@ -1,7 +1,7 @@
 ﻿namespace CalculatorComponents
 {
 	using System;
-using System.ComponentModel;
+	using System.ComponentModel;
 	using System.Windows.Forms;
 	public partial class Field : UserControl
 	{
@@ -67,6 +67,7 @@ using System.ComponentModel;
 				Kb_value.B = value;
 			}
 		}
+		public double? Depth => OTV_value.D;
 		public Field ( ) : base ( ) => InitializeComponent ( );
 		private void UpdateOTV_AB ( object sender, EventArgs e )
 		{

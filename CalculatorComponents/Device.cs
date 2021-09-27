@@ -2,7 +2,7 @@
 {
 	using System;
 	using System.Collections;
-using System.ComponentModel;
+	using System.ComponentModel;
 	using System.Data;
 	using System.Linq;
 	using System.Windows.Forms;
@@ -19,12 +19,17 @@ using System.ComponentModel;
 		/// Период полураспада кобальта-60 в днях
 		/// </summary>
 		private static readonly double Cobalt60 = 5.271388888888888888888888888888D * 365.2425D;
-		/// <summary>
-		/// 1/период полураспада кобальта-60
-		/// </summary>
-		private static readonly double Cobalt60_1 = 1D / Cobalt60;
 		public double? PreviousPower = null;
 		private int PreviousIndex = -1, CurrentIndex = -1;
+		public static double GetPower ( double pow, DateTime First, DateTime rezult )
+		{
+			return Device.GetPower ( Device.Cobalt60, pow, First, rezult );
+		}
+		public static double GetPower ( double hL, double pow, DateTime First, DateTime rezult )
+		{
+			var diff = ( rezult - First ).Days;
+			return pow / Math.Pow ( 2, diff / hL );
+		}
 		/// <summary>
 		/// Выбранный для отображения аппарат
 		/// </summary>
@@ -112,7 +117,7 @@ using System.ComponentModel;
 				var date = ( DateTime ) r [ "Дата замера мощности" ];
 				double diff = ( DateTime.Now - date ).Days; // разница дат на сегодня
 															// double diff = ( now - date ).Days; // разница дат на 1 число текущего месяца
-				r [ "Мощность" ] = pow / Math.Pow ( 2, diff * Cobalt60_1 );
+				r [ "Мощность" ] = Device.GetPower ( pow, date, DateTime.Now ); // pow / Math.Pow ( 2, diff * Cobalt60_1 );
 			}
 		}
 		private void DeviceList_SelectedIndexChanged ( object sender, EventArgs e )

@@ -23,6 +23,18 @@ using System.ComponentModel;
 				throw;
 			}
 		}
+		public static string ToStringWithDecimalPlaces ( this double ? val, int dec )
+		{
+			if ( val == null )
+				return 0D.ToStringWithDecimalPlaces ( dec );
+			return val.Value.ToStringWithDecimalPlaces ( dec );
+		}
+		public static string ToStringWithDecimalPlaces ( this double val, int dec )
+		{
+			var nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
+			nfi.NumberDecimalDigits = dec;
+			return val.ToString ( "F", nfi );
+		}
 		public static void CloseAndWait ( this BackgroundWorker bw )
 		{
 			bw.CancelAsync ( );

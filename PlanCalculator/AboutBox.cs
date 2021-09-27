@@ -3,9 +3,9 @@
 	using System.Reflection;
 	using System.Windows.Forms;
 
-	internal partial class AboutBox1 : Form
+	internal partial class AboutBox : Form
 	{
-		public AboutBox1 ( )
+		public AboutBox ( )
 		{
 			InitializeComponent ( );
 			Text = string.Format ( "О программе {0}", AssemblyTitle );

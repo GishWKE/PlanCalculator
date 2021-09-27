@@ -17,12 +17,12 @@
 
 	using Resource.Properties;
 
-	public partial class Form1 : Form
+	public partial class MainForm : Form
 	{
 		[DefaultValue ( @".\Resources\DB.accdb" )]
 		private readonly string FileName = @".\Resources\DB.accdb";
 		private readonly List<Field> fields = new List<Field> ( );
-		public Form1 ( )
+		public MainForm ( )
 		{
 			InitializeComponent ( );
 			Text.Clear ( );
@@ -256,7 +256,7 @@
 			Cursor = tmp;
 		}
 
-		private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e ) => new AboutBox1 ( ).ShowDialog ( this );
+		private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e ) => new AboutBox ( ).ShowDialog ( this );
 
 		private void очиститьToolStripMenuItem_Click ( object sender, EventArgs e )
 		{

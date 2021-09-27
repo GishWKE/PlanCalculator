@@ -5,7 +5,7 @@
 	using System.ComponentModel;
 	using System.Drawing;
 	using System.Drawing.Printing;
-using System.Linq;
+	using System.Linq;
 	using System.Text;
 	using System.Threading;
 	using System.Threading.Tasks;
@@ -381,10 +381,7 @@ using System.Linq;
 			}
 		}
 		private string printString;
-		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e )
-		{
-			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
-		}
+		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e ) => e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
 
 		private void предварителоьныйПросмотрToolStripMenuItem_Click ( object sender, EventArgs e )
 		{

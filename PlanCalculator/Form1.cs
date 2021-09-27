@@ -269,8 +269,9 @@ using System.Linq;
 		}
 
 		private void просмотрМощностейToolStripMenuItem_Click ( object sender, EventArgs e ) => new PowerTable { FileName = FileName }.ShowDialog ( this );
-		private void печататьToolStripMenuItem_Click ( object sender, EventArgs e )
+		private string PreparePrintData ( )
 		{
+
 			var sb = new StringBuilder ( );
 			sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
 			sb.Append ( "РИЦ = " );
@@ -285,7 +286,7 @@ using System.Linq;
 			sb.Append ( D.Value.ToStringWithDecimalPlaces ( 1 ) );
 			sb.AppendLine ( " Гр" );
 			sb.Append ( "N = " );
-			sb.Append ( N.Value.ToString() );
+			sb.Append ( N.Value.ToString ( ) );
 			sb.Append ( "; n = " );
 			sb.AppendLine ( FieldsCount.Value.ToString ( ) );
 			var axb = new Func<dynamic, dynamic, string> ( ( A, B ) => $@"{A} x {B}" );
@@ -360,7 +361,11 @@ using System.Linq;
 			sb.AppendLine ( );
 			sb.AppendLine ( Text );
 			sb.Append ( "инж.радиолог __________________" );
-			printString = sb.ToString ( );
+			return sb.ToString ( );
+		}
+		private void печататьToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			printString = PreparePrintData ( );
 			printDocument1.DocumentName = DateTime.Now.ToString ( "G" );
 			printDialog1.Document = printDocument1;
 			try
@@ -379,6 +384,15 @@ using System.Linq;
 		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e )
 		{
 			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
+		}
+
+		private void предварителоьныйПросмотрToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			printString = PreparePrintData ( );
+			if ( new PrintPreview ( printString ).ShowDialog ( ) == DialogResult.OK )
+			{
+				печататьToolStripMenuItem_Click ( sender, EventArgs.Empty );
+			}
 		}
 	}
 }

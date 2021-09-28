@@ -261,11 +261,12 @@
 		private void очиститьToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
 			FieldsCount.Value = 0;
+			D.Value = null;
 			A.Value = 4;
 			B.Value = 4;
-			D.Value = null;
 			Distance.Value = null;
 			Devices.FileName = FileName;
+			P.Value = 90;
 		}
 
 		private void просмотрМощностейToolStripMenuItem_Click ( object sender, EventArgs e ) => new PowerTable { FileName = FileName }.ShowDialog ( this );

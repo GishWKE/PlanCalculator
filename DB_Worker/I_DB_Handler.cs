@@ -14,19 +14,30 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-namespace PlanCalculator
+namespace DB_Worker
 {
-	using System.Windows.Forms;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.Data;
+	using System.IO;
+	using System.Linq;
+	using System.Text;
+	using System.Threading.Tasks;
 
-	public partial class PrintPreview : Form
+	using BaseComponents;
+
+	using Resource.Properties;
+
+	public interface I_DB_Handler <T> : I_DB_Worker, IDisposable
 	{
-		public PrintPreview ( ) : this ( string.Empty )
+		T command
 		{
+			get;set;
 		}
-		public PrintPreview ( string tb )
+		string DataSource
 		{
-			InitializeComponent ( );
-			richTextBox1.Text = tb;
+			get;set;
 		}
 	}
 }

@@ -20,18 +20,19 @@ namespace DB_Worker
 	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.Data;
-	using System.Data.OleDb;
+	using System.Data.Odbc;
 	using System.IO;
 
 	using BaseComponents;
 
 	using Resource.Properties;
 
-	public class OleDB_Worker : I_DB_Handler<OleDbCommand>
+	public class ODBC_Worker : I_DB_Handler<OdbcCommand>
 	{
-		public OleDbCommand command
+		public OdbcCommand command
 		{
-			get;set;
+			get;
+			set;
 		}
 		private string fileName = null;
 		[DefaultValue ( "" )]
@@ -49,14 +50,13 @@ namespace DB_Worker
 				{
 					return;
 				}
-
 				CloseAndClear ( );
 				fileName = new FileInfo ( value ).FullName;
 				try
 				{
-					command = new OleDbCommand
+					command = new OdbcCommand
 					{
-						Connection = new OleDbConnection ( ConnectionString )
+						Connection = new OdbcConnection ( ConnectionString )
 					};
 					if ( command == null || command.Connection == null )
 					{
@@ -77,13 +77,12 @@ namespace DB_Worker
 			{
 				try
 				{
-					return DataSource.IsEmpty ( ) ?
-						throw new Exception ( DB.No_filename ) :
-						new OleDbConnectionStringBuilder
-						{
-							DataSource = DataSource,
-							Provider = DBProviders.Provider
-						}.ConnectionString;
+					var tmp = new OdbcConnectionStringBuilder
+					{
+						Driver = "{Microsoft Access Driver (*.mdb, *.accdb)}"
+					};
+					tmp.Add ( "Dbq", DataSource );
+					return tmp.ConnectionString;
 				}
 				catch
 				{

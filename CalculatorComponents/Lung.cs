@@ -15,12 +15,12 @@ using System.ComponentModel;
 		protected virtual void OnRecalculationNeed ( EventArgs e ) => RecalculationNeed?.Invoke ( this, e );
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
-		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{
-			get => sql.DataSource;
-			set => sql.DataSource = value;
+			get => sql.FileName;
+			set => sql.FileName = value;
 		}
 		[DefaultValue ( null )]
 		public int? D

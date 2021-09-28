@@ -16,12 +16,12 @@ using System.ComponentModel;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 
 		private readonly Kb_Control Kb = new Kb_Control ( );
-		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{
-			get => sql.DataSource;
-			set => Kb.FileName = sql.DataSource = value;
+			get => sql.FileName;
+			set => Kb.FileName = sql.FileName = value;
 		}
 		[DefaultValue ( null )]
 		public int? A

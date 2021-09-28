@@ -12,12 +12,12 @@ using System.ComponentModel;
 
 	public partial class CreateDevice : Form
 	{
-		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{
-			get => sql.DataSource;
-			set => sql.DataSource = value;
+			get => sql.FileName;
+			set => sql.FileName = value;
 		}
 		private bool IsEmpty => DeviceName.IsEmpty ( ) || Power.Value == null;
 		private bool IsNotEmpty => !DeviceName.IsEmpty ( ) || Power.Value != null;

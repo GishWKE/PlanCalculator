@@ -66,17 +66,17 @@
 		/// <summary>
 		/// Обработчик запросов к БД
 		/// </summary>
-		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		private readonly DB_Worker sql = DB_Worker.Instance;
 		/// <summary>
 		/// Путь к файлу, в котором собержится БД
 		/// </summary>
 		[DefaultValue("")]
 		public string FileName
 		{
-			get => sql.DataSource;
+			get => sql.FileName;
 			set
 			{
-				sql.DataSource = value;
+				sql.FileName = value;
 				UpdateData ( );
 				PreviousIndex = -1;
 				PreviousPower = null;

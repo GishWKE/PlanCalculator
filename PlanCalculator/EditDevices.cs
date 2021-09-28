@@ -11,12 +11,12 @@ using System.ComponentModel;
 
 	public partial class EditDevices : Form
 	{
-		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{
-			get => sql.DataSource;
-			set => Devices.FileName = sql.DataSource = value;
+			get => sql.FileName;
+			set => Devices.FileName = sql.FileName = value;
 		}
 		public EditDevices ( )
 		{

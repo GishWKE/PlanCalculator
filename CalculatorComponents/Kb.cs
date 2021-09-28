@@ -16,12 +16,12 @@ using System.ComponentModel;
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private int scd_val = 0;
-		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{
-			get => sql.DataSource;
-			set => sql.DataSource = value;
+			get => sql.FileName;
+			set => sql.FileName = value;
 		}
 		[DefaultValue ( 0 )]
 		public int SCD

@@ -19,14 +19,14 @@
 	public partial class PowerTable : Form
 	{
 		private readonly List<int> selectedDate = new List<int> ( );
-		private readonly OleDB_Worker sql = new OleDB_Worker ( );
+		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{
-			get => sql.DataSource;
+			get => sql.FileName;
 			set
 			{
-				sql.DataSource = value;
+				sql.FileName = value;
 				tabControl1.TabPages.Clear ( );
 				var dt = sql.GetTable ( SQL.Device );
 				foreach ( var dr in dt.AsEnumerable ( ) )

@@ -541,7 +541,7 @@
 			this.предварителоьныйПросмотрToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.P)));
 			this.предварителоьныйПросмотрToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
-			this.предварителоьныйПросмотрToolStripMenuItem.Text = "Предварителоьный просмотр";
+			this.предварителоьныйПросмотрToolStripMenuItem.Text = "Предварительный просмотр";
 			this.предварителоьныйПросмотрToolStripMenuItem.Click += new System.EventHandler(this.предварителоьныйПросмотрToolStripMenuItem_Click);
 			// 
 			// Form1

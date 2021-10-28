@@ -307,15 +307,18 @@ namespace PlanCalculator
 			sb.AppendLine ( FieldsCount.Value.ToString ( ) );
 			var axb = new Func<dynamic, dynamic, string> ( ( A, B ) => $@"{A} x {B}" );
 			var diff = true;
+			var _axb = "A x B = ";
+			var eq0 = " = ";
+			var eq = $@"){eq0}";
 			if ( fields.Any ( ) && fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value ) )
 			{
 				diff = false;
 				var ab = axb ( A.Value, B.Value );
-				sb.Append ( "A x B = " );
+				sb.Append ( _axb );
 				sb.AppendLine ( ab );
 				sb.Append ( "Кб (" );
 				sb.Append ( ab );
-				sb.Append ( ") = " );
+				sb.Append ( eq );
 				sb.AppendLine ( fields [ 0 ].Kb.ToStringWithDecimalPlaces ( 3 ) );
 			}
 			sb.AppendLine ( );
@@ -329,13 +332,13 @@ namespace PlanCalculator
 					sb.Append ( f.Text );
 					sb.Append ( " " );
 					var ab = axb ( f.A.Value, f.B.Value );
-					sb.Append ( "A x B = " );
+					sb.Append ( _axb );
 					sb.AppendLine ( ab );
 					sb.Append ( "Кб" );
 					sb.Append ( fld );
 					sb.Append ( " (" );
 					sb.Append ( ab );
-					sb.Append ( ") = " );
+					sb.Append ( eq );
 					sb.Append ( f.Kb.ToStringWithDecimalPlaces ( 3 ) );
 					sb.AppendLine ( "; " );
 				}
@@ -343,30 +346,31 @@ namespace PlanCalculator
 				sb.Append ( fld );
 				sb.Append ( " (" );
 				sb.Append ( f.Depth.ToStringWithDecimalPlaces ( 1 ) );
-				sb.Append ( ") = " );
+				sb.Append ( eq );
 				sb.Append ( f.OTV.ToStringWithDecimalPlaces ( 3 ) );
 				if ( f.IsLung )
 				{
 					sb.AppendLine ( ";" );
 					sb.Append ( "L" );
 					sb.Append ( fld );
-					sb.Append ( " = " );
+					sb.Append ( eq0 );
 					sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
 				}
 				sb.AppendLine ( );
 				sb_t.Append ( "t" );
 				sb_t.Append ( fld );
-				sb_t.Append ( " = " );
+				sb_t.Append ( eq0 );
 				if ( f.IsInMinutes )
 				{
 					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
-					sb_t.AppendLine ( " минут" );
+					sb_t.Append ( " минут" );
 				}
 				else
 				{
 					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
-					sb_t.AppendLine ( " секунд" );
+					sb_t.Append ( " секунд" );
 				}
+				sb_t.AppendLine ( " (∠_____°)" );
 			}
 			sb.AppendLine ( );
 			sb.AppendLine ( sb_t.ToString ( ) );

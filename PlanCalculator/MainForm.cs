@@ -16,12 +16,6 @@
 */
 namespace PlanCalculator
 {
-	using BaseComponents;
-
-	using CalculatorComponents;
-
-	using Resource.Properties;
-
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel;
@@ -33,64 +27,69 @@ namespace PlanCalculator
 	using System.Threading.Tasks;
 	using System.Windows.Forms;
 
+	using BaseComponents;
+
+	using CalculatorComponents;
+
+	using Resource.Properties;
+
 	public partial class MainForm : Form
 	{
-		[DefaultValue(@".\Resources\DB.accdb")]
+		[DefaultValue ( @".\Resources\DB.accdb" )]
 		private readonly string FileName = @".\Resources\DB.accdb";
-		private readonly List<Field> fields = new List<Field>();
-		public MainForm()
+		private readonly List<Field> fields = new List<Field> ( );
+		public MainForm ( )
 		{
-			InitializeComponent();
-			Text.Clear();
+			InitializeComponent ( );
+			Text.Clear ( );
 			Devices.DeviceChanged += DeviceChanged;
 			Devices.FileName = FileName;
-			dateTitle.RunWorkerAsync();
+			dateTitle.RunWorkerAsync ( );
 		}
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e) => dateTitle.CloseAndWait();
+		private void Form1_FormClosing ( object sender, FormClosingEventArgs e ) => dateTitle.CloseAndWait ( );
 
-
-		private void DateTitle_ProgressChanged(object sender, ProgressChangedEventArgs e)
+		private void DateTitle_ProgressChanged ( object sender, ProgressChangedEventArgs e )
 		{
-			Text = ((DateTime)e.UserState).ToString("d");
+			Text = ( ( DateTime ) e.UserState ).ToString ( "d" );
 			Devices.FileName = FileName;
-			Calculate();
+			Calculate ( );
 		}
 
-		private void DateTitle_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) => cToken.Cancel();
+		private void DateTitle_RunWorkerCompleted ( object sender, RunWorkerCompletedEventArgs e ) => cToken.Cancel ( );
 
-		private readonly CancellationTokenSource cToken = new CancellationTokenSource();
-		private void DateTitle_DoWork(object sender, DoWorkEventArgs e)
+		private readonly CancellationTokenSource cToken = new CancellationTokenSource ( );
+		private void DateTitle_DoWork ( object sender, DoWorkEventArgs e )
 		{
-			var bw = ((BackgroundWorker)sender);
+			var bw = ( ( BackgroundWorker ) sender );
 			var dateToday = DateTime.Now;
-			bw.ReportProgress(0, dateToday);
-			while (!bw.CancellationPending)
+			bw.ReportProgress ( 0, dateToday );
+			while ( !bw.CancellationPending )
 			{
-				var dateTomorrow = DateTime.Today.AddDays(1);
+				var dateTomorrow = DateTime.Today.AddDays ( 1 );
 				var diff = dateTomorrow - dateToday;
-				cToken.CancelAfter(diff);
-				new Task(() => Thread.Sleep(Timeout.Infinite), cToken.Token).Start();
-				while (!cToken.IsCancellationRequested)
+				cToken.CancelAfter ( diff );
+				new Task ( ( ) => Thread.Sleep ( Timeout.Infinite ), cToken.Token ).Start ( );
+				while ( !cToken.IsCancellationRequested )
 				{
-					if (bw.CancellationPending)
+					if ( bw.CancellationPending )
 					{
 						return;
 					}
 				}
 				dateToday = DateTime.Now;
-				bw.ReportProgress(0, dateToday);
+				bw.ReportProgress ( 0, dateToday );
 			}
 		}
 
 		private static readonly string regex_fmt = $"{RegEx.Begin}({RegEx.Values_0__9_9}|{{0}})?{RegEx.End}";
 
-		private void DeviceChanged(object sender, EventArgs e)
+		private void DeviceChanged ( object sender, EventArgs e )
 		{
 			var sel = Devices.Selected;
-			var scd = (int)sel["РИЦ"];
-			var sec = (bool)sel["Время в минутах"];
+			var scd = ( int ) sel [ "РИЦ" ];
+			var sec = ( bool ) sel [ "Время в минутах" ];
 			var regex_str = string.Empty;
-			switch (scd)
+			switch ( scd )
 			{
 				case var _ when scd >= 40 && scd <= 100 && scd % 10 == 0: // 40,50,60,70,80,90,100
 					{
@@ -103,36 +102,37 @@ namespace PlanCalculator
 						break;
 					}
 				default:
-					Distance.Regex.Clear();
+					Distance.Regex.Clear ( );
 					break;
 			}
-			if (!regex_str.IsEmpty())
+			if ( !regex_str.IsEmpty ( ) )
 			{
 				var tmp = scd / 10;
-				var temp = string.Format(regex_str, tmp - 1, tmp);
-				Distance.Regex = string.Format(regex_fmt, temp);
+				var temp = string.Format ( regex_str, tmp - 1, tmp );
+				Distance.Regex = string.Format ( regex_fmt, temp );
 			}
-			CalcSSD();
-			foreach (var f in fields)
+			CalcSSD ( );
+			foreach ( var f in fields )
 			{
 				f.IsInMinutes = sec;
 				f.SCD = scd;
 			}
 		}
-		private void Dose_Changed(object sender, EventArgs e) => Calculate();
-		private void Calculate()
+		private void Dose_Changed ( object sender, EventArgs e ) => Calculate ( );
+
+		private void Calculate ( )
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			foreach (var f in fields)
+			foreach ( var f in fields )
 			{
-				Calculate(f);
+				Calculate ( f );
 			}
 			Cursor = tmp;
 		}
-		private void Calculate(object fld)
+		private void Calculate ( object fld )
 		{
-			if (!(fld is Field))
+			if ( !( fld is Field ) )
 			{
 				return;
 			}
@@ -140,140 +140,141 @@ namespace PlanCalculator
 			var f = fld as Field;
 			f.Time = null;
 
-			if (new[] { D.Value, P.Value, f.Kb, f.OTV }.Any(v => v == null) || (f.IsLung && f.L == null))
+			if ( new [ ] { D.Value, P.Value, f.Kb, f.OTV }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
 			{
 				return;
 			}
 
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			var mult = new double[] { (double)D.Value, 100, 100, (double)N.Value };
-			var div = new List<double> { (double)P.Value, (double)Devices.Selected["Мощность"], (double)FieldsCount.Value, (double)f.Kb, (double)f.OTV };
-			if (f.IsLung)
+			var mult = new double [ ] { ( double ) D.Value, 100, 100, ( double ) N.Value };
+			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Selected [ "Мощность" ], ( double ) FieldsCount.Value, ( double ) f.Kb, ( double ) f.OTV };
+			if ( f.IsLung )
 			{
-				div.Add((double)f.L);
+				div.Add ( ( double ) f.L );
 			}
 
-			if (f.IsInMinutes)
+			if ( f.IsInMinutes )
 			{
-				div.Add(60);
+				div.Add ( 60 );
 			}
 
-			var Numerator = mult.AsParallel().Aggregate(1D, (aggregator, current) => aggregator * current);
-			var Divisor = div.AsParallel().Aggregate(1D, (aggregator, current) => aggregator * current);
+			var Numerator = mult.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
+			var Divisor = div.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
 			f.Time = Numerator / Divisor;
 			Cursor = tmp;
 		}
 
-		private void FieldCount_ValueChanged(object sender, EventArgs e)
+		private void FieldCount_ValueChanged ( object sender, EventArgs e )
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			var cnt = (int)FieldsCount.Value;
-			if (cnt == 0)
+			var cnt = ( int ) FieldsCount.Value;
+			if ( cnt == 0 )
 			{
-				AllFields.SuspendLayout();
-				AllFields.Controls.Clear();
-				fields.Clear();
-				AllFields.ResumeLayout();
+				AllFields.SuspendLayout ( );
+				AllFields.Controls.Clear ( );
+				fields.Clear ( );
+				AllFields.ResumeLayout ( );
 			}
-			else if (cnt < fields.Count)
+			else if ( cnt < fields.Count )
 			{
-				AllFields.SuspendLayout();
-				for (var i = fields.Count - 1; i >= cnt; i--)
+				AllFields.SuspendLayout ( );
+				for ( var i = fields.Count - 1; i >= cnt; i-- )
 				{
-					AllFields.Controls.Remove(fields[i]);
-					fields.RemoveAt(i);
+					AllFields.Controls.Remove ( fields [ i ] );
+					fields.RemoveAt ( i );
 				}
-				AllFields.ResumeLayout();
-				Calculate();
+				AllFields.ResumeLayout ( );
+				Calculate ( );
 			}
 			else
 			{
-				AllFields.SuspendLayout();
-				var fld = new List<Field>();
-				for (var i = fields.Count; i < cnt; i++)
+				AllFields.SuspendLayout ( );
+				var fld = new List<Field> ( );
+				for ( var i = fields.Count; i < cnt; i++ )
 				{
 					var f = new Field
 					{
 						Text = $@"№{i + 1}:",
 						Dock = DockStyle.Top,
 						FileName = FileName,
-						SCD = (int)Devices.SCD,
-						A = (int)A.Value,
-						B = (int)B.Value,
-						IsInMinutes = (bool)Devices.Selected["Время в минутах"]
+						SCD = ( int ) Devices.SCD,
+						A = ( int ) A.Value,
+						B = ( int ) B.Value,
+						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ]
 					};
 					f.RecalculationNeed += RecalculationNeed;
-					fld.Add(f);
+					fld.Add ( f );
 				}
-				fields.AddRange(fld);
-				AllFields.Controls.AddRange(fld.ToArray());
-				AllFields.ResumeLayout();
-				Calculate();
+				fields.AddRange ( fld );
+				AllFields.Controls.AddRange ( fld.ToArray ( ) );
+				AllFields.ResumeLayout ( );
+				Calculate ( );
 			}
 			Cursor = tmp;
 		}
 
-		private void RecalculationNeed(object sender, EventArgs e) => Calculate(sender);
+		private void RecalculationNeed ( object sender, EventArgs e ) => Calculate ( sender );
 
-		private void AB_ValueChanged(object sender, EventArgs e)
+		private void AB_ValueChanged ( object sender, EventArgs e )
 		{
 			var obj = sender as NumericUpDown;
 			var isA = obj.Name == "A";
-			foreach (var f in fields)
+			foreach ( var f in fields )
 			{
-				if (isA)
+				if ( isA )
 				{
-					f.A = (int)obj.Value;
+					f.A = ( int ) obj.Value;
 				}
 				else
 				{
-					f.B = (int)obj.Value;
+					f.B = ( int ) obj.Value;
 				}
 			}
 		}
-		private void Exit_Button_Click(object sender, EventArgs e) => Application.Exit();
+		private void Exit_Button_Click ( object sender, EventArgs e ) => Application.Exit ( );
 
-		private void EditDevices_Click(object sender, EventArgs e)
+		private void EditDevices_Click ( object sender, EventArgs e )
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			if (new EditDevices { FileName = FileName }.ShowDialog(this) == DialogResult.OK)
+			if ( new EditDevices { FileName = FileName }.ShowDialog ( this ) == DialogResult.OK )
 			{
 				Devices.FileName = FileName;
-				Calculate();
+				Calculate ( );
 			}
 			Cursor = tmp;
 		}
-		private void Distance_Leave(object sender, EventArgs e) => CalcSSD();
-		private void CalcSSD()
+		private void Distance_Leave ( object sender, EventArgs e ) => CalcSSD ( );
+
+		private void CalcSSD ( )
 		{
 			var DST = Distance.Value;
 			var SCD = Devices.SCD;
-			SSD.Clear();
-			if (SSD == null || DST == null || SCD == null || DST > SCD)
+			SSD.Clear ( );
+			if ( SSD == null || DST == null || SCD == null || DST > SCD )
 			{
 				return;
 			}
 			SSD.Value = SCD - DST;
 		}
 
-		private void добавлениеАппаратовToolStripMenuItem_Click(object sender, EventArgs e)
+		private void добавлениеАппаратовToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			if (new CreateDevice { FileName = FileName }.ShowDialog(this) == DialogResult.Yes)
+			if ( new CreateDevice { FileName = FileName }.ShowDialog ( this ) == DialogResult.Yes )
 			{
 				Devices.FileName = FileName;
-				Calculate();
+				Calculate ( );
 			}
 			Cursor = tmp;
 		}
 
-		private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e) => new AboutBox().ShowDialog(this);
+		private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e ) => new AboutBox ( ).ShowDialog ( this );
 
-		private void очиститьToolStripMenuItem_Click(object sender, EventArgs e)
+		private void очиститьToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
 			FieldsCount.Value = 0;
 			D.Value = null;
@@ -284,142 +285,143 @@ namespace PlanCalculator
 			P.Value = 90;
 		}
 
-		private void просмотрМощностейToolStripMenuItem_Click(object sender, EventArgs e) => new PowerTable { FileName = FileName }.ShowDialog(this);
-		private string PreparePrintData()
+		private void просмотрМощностейToolStripMenuItem_Click ( object sender, EventArgs e ) => new PowerTable { FileName = FileName }.ShowDialog ( this );
+
+		private string PreparePrintData ( )
 		{
 
-			var sb = new StringBuilder();
-			sb.AppendLine((string)Devices.Selected["Аппарат"]);
-			sb.Append("РИЦ = ");
-			sb.Append((int)Devices.Selected["РИЦ"]);
-			sb.AppendLine(" см");
-			sb.Append("P = ");
-			sb.Append(((double)Devices.Selected["Мощность"]).ToStringWithDecimalPlaces(2));
-			sb.AppendLine(" сГр/с");
-			sb.Append("D (");
-			sb.Append(P.Value);
-			sb.Append("%) = ");
-			sb.Append(D.Value.ToStringWithDecimalPlaces(1));
-			sb.AppendLine(" Гр");
-			sb.Append("N = ");
-			sb.Append(N.Value.ToString());
-			sb.Append("; n = ");
-			sb.AppendLine(FieldsCount.Value.ToString());
-			var axb = new Func<dynamic, dynamic, string>((A, B) => $@"{A} x {B}");
+			var sb = new StringBuilder ( );
+			sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
+			sb.Append ( "РИЦ = " );
+			sb.Append ( ( int ) Devices.Selected [ "РИЦ" ] );
+			sb.AppendLine ( " см" );
+			sb.Append ( "P = " );
+			sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 2 ) );
+			sb.AppendLine ( " сГр/с" );
+			sb.Append ( "D (" );
+			sb.Append ( P.Value );
+			sb.Append ( "%) = " );
+			sb.Append ( D.Value.ToStringWithDecimalPlaces ( 1 ) );
+			sb.AppendLine ( " Гр" );
+			sb.Append ( "N = " );
+			sb.Append ( N.Value.ToString ( ) );
+			sb.Append ( "; n = " );
+			sb.AppendLine ( FieldsCount.Value.ToString ( ) );
+			var axb = new Func<dynamic, dynamic, string> ( ( A, B ) => $@"{A} x {B}" );
 			var diff = true;
 			var _axb = "A x B = ";
 			var eq0 = " = ";
 			var eq = $@"){eq0}";
-			if (fields.Any() && fields.All(f => f.A.Value == A.Value && f.B.Value == B.Value))
+			if ( fields.Any ( ) && fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value ) )
 			{
 				diff = false;
-				var ab = axb(A.Value, B.Value);
-				sb.Append(_axb);
-				sb.AppendLine(ab);
-				sb.Append("Кб (");
-				sb.Append(ab);
-				sb.Append(eq);
-				sb.AppendLine(fields[0].Kb.ToStringWithDecimalPlaces(3));
+				var ab = axb ( A.Value, B.Value );
+				sb.Append ( _axb );
+				sb.AppendLine ( ab );
+				sb.Append ( "Кб (" );
+				sb.Append ( ab );
+				sb.Append ( eq );
+				sb.AppendLine ( fields [ 0 ].Kb.ToStringWithDecimalPlaces ( 3 ) );
 			}
-			sb.AppendLine();
-			var sb_t = new StringBuilder();
-			foreach (var f in fields)
+			sb.AppendLine ( );
+			var sb_t = new StringBuilder ( );
+			foreach ( var f in fields )
 			{
-				var fld = f.Text.Replace("№", string.Empty);
-				if (diff)
+				var fld = f.Text.Replace ( "№", string.Empty );
+				if ( diff )
 				{
-					sb.Append("Поле ");
-					sb.Append(f.Text);
-					sb.Append(" ");
-					var ab = axb(f.A.Value, f.B.Value);
-					sb.Append(_axb);
-					sb.AppendLine(ab);
-					sb.Append("Кб");
-					sb.Append(fld);
-					sb.Append(" (");
-					sb.Append(ab);
-					sb.Append(eq);
-					sb.Append(f.Kb.ToStringWithDecimalPlaces(3));
-					sb.AppendLine("; ");
+					sb.Append ( "Поле " );
+					sb.Append ( f.Text );
+					sb.Append ( " " );
+					var ab = axb ( f.A.Value, f.B.Value );
+					sb.Append ( _axb );
+					sb.AppendLine ( ab );
+					sb.Append ( "Кб" );
+					sb.Append ( fld );
+					sb.Append ( " (" );
+					sb.Append ( ab );
+					sb.Append ( eq );
+					sb.Append ( f.Kb.ToStringWithDecimalPlaces ( 3 ) );
+					sb.AppendLine ( "; " );
 				}
-				sb.Append("ОТВ");
-				sb.Append(fld);
-				sb.Append(" (");
-				sb.Append(f.Depth.ToStringWithDecimalPlaces(1));
-				sb.Append(eq);
-				sb.Append(f.OTV.ToStringWithDecimalPlaces(3));
-				if (f.IsLung)
+				sb.Append ( "ОТВ" );
+				sb.Append ( fld );
+				sb.Append ( " (" );
+				sb.Append ( f.Depth.ToStringWithDecimalPlaces ( 1 ) );
+				sb.Append ( eq );
+				sb.Append ( f.OTV.ToStringWithDecimalPlaces ( 3 ) );
+				if ( f.IsLung )
 				{
-					sb.AppendLine(";");
-					sb.Append("L");
-					sb.Append(fld);
-					sb.Append(eq0);
-					sb.Append(f.L.ToStringWithDecimalPlaces(3));
+					sb.AppendLine ( ";" );
+					sb.Append ( "L" );
+					sb.Append ( fld );
+					sb.Append ( eq0 );
+					sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
 				}
-				sb.AppendLine();
-				sb_t.Append("t");
-				sb_t.Append(fld);
-				sb_t.Append(eq0);
-				if (f.IsInMinutes)
+				sb.AppendLine ( );
+				sb_t.Append ( "t" );
+				sb_t.Append ( fld );
+				sb_t.Append ( eq0 );
+				if ( f.IsInMinutes )
 				{
-					sb_t.Append(f.Time.ToStringWithDecimalPlaces(2));
-					sb_t.Append(" минут");
+					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
+					sb_t.Append ( " минут" );
 				}
 				else
 				{
-					sb_t.Append(f.Time.ToStringWithDecimalPlaces(1));
-					sb_t.Append(" секунд");
+					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
+					sb_t.Append ( " секунд" );
 				}
-				sb_t.AppendLine(" (∠_____°)");
+				sb_t.AppendLine ( " (∠_____°)" );
 			}
-			sb.AppendLine();
-			sb.AppendLine(sb_t.ToString());
-			sb.AppendLine();
-			sb.Append("РИП = ");
-			sb.Append(SSD.Value.ToStringWithDecimalPlaces(1));
-			sb.AppendLine(" см");
-			sb.AppendLine();
-			sb.AppendLine(Text);
-			sb.Append("инж.радиолог __________________");
-			return sb.ToString();
+			sb.AppendLine ( );
+			sb.AppendLine ( sb_t.ToString ( ) );
+			sb.AppendLine ( );
+			sb.Append ( "РИП = " );
+			sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
+			sb.AppendLine ( " см" );
+			sb.AppendLine ( );
+			sb.AppendLine ( Text );
+			sb.Append ( "инж.радиолог __________________" );
+			return sb.ToString ( );
 		}
-		private void печататьToolStripMenuItem_Click(object sender, EventArgs e)
+		private void печататьToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
-			if (!fromPreview)
-				printString = PreparePrintData();
+			if ( !fromPreview )
+			{
+				printString = PreparePrintData ( );
+			}
+
 			fromPreview = false;
-			printDocument1.DocumentName = DateTime.Now.ToString("G");
+			printDocument1.DocumentName = DateTime.Now.ToString ( "G" );
 			printDialog1.Document = printDocument1;
 			try
 			{
-				if (printDialog1.ShowDialog(this) == DialogResult.OK)
+				if ( printDialog1.ShowDialog ( this ) == DialogResult.OK )
 				{
-					printDocument1.Print();
+					printDocument1.Print ( );
 				}
 			}
-			catch (Exception ex)
+			catch ( Exception ex )
 			{
-				throw new Exception("Exception Occured While Printing", ex);
+				throw new Exception ( "Exception Occured While Printing", ex );
 			}
 		}
 		private bool fromPreview = false;
 		private string printString;
-		private void printDocument1_PrintPage(object sender, PrintPageEventArgs e) => e.Graphics.DrawString(printString, new Font("Arial", 14), new SolidBrush(Color.Black), new RectangleF(0, 0, ((PrintDocument)sender).DefaultPageSettings.PrintableArea.Width, ((PrintDocument)sender).DefaultPageSettings.PrintableArea.Height));
+		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e ) => e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
 
-		private void предварителоьныйПросмотрToolStripMenuItem_Click(object sender, EventArgs e)
+		private void предварителоьныйПросмотрToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
 			fromPreview = false;
-			printString = PreparePrintData();
-			if (new PrintPreview(printString).ShowDialog() == DialogResult.OK)
+			printString = PreparePrintData ( );
+			if ( new PrintPreview ( printString ).ShowDialog ( ) == DialogResult.OK )
 			{
 				fromPreview = true;
-				печататьToolStripMenuItem_Click(sender, EventArgs.Empty);
+				распечататьToolStripMenuItem.PerformClick ( );
 			}
 		}
 
-		private void среднемесячнаяToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			new MonthPowerTable { FileName = FileName }.ShowDialog(this);
-		}
+		private void среднемесячнаяToolStripMenuItem_Click ( object sender, EventArgs e ) => new MonthPowerTable { FileName = FileName }.ShowDialog ( this );
 	}
 }

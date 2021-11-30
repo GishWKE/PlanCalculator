@@ -91,6 +91,12 @@
     <Compile Include="EditDevices.Designer.cs">
       <DependentUpon>EditDevices.cs</DependentUpon>
     </Compile>
+    <Compile Include="MonthPowerTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthPowerTable.Designer.cs">
+      <DependentUpon>MonthPowerTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="PowerTable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthPowerTable.resx">
+      <DependentUpon>MonthPowerTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PowerTable.resx">
       <DependentUpon>PowerTable.cs</DependentUpon>

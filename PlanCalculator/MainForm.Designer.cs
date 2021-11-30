@@ -52,10 +52,12 @@
 			this.N = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.распечататьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.предварителоьныйПросмотрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.изменениеМощностиАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.добавлениеАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.просмотрМощностейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.очиститьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -77,9 +79,9 @@
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.printDialog1 = new System.Windows.Forms.PrintDialog();
-			this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.распечататьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.предварителоьныйПросмотрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.мощностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ежедневнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.среднемесячнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
@@ -246,7 +248,7 @@
             this.изменениеМощностиАппаратовToolStripMenuItem,
             this.добавлениеАппаратовToolStripMenuItem,
             this.оПрограммеToolStripMenuItem,
-            this.просмотрМощностейToolStripMenuItem,
+            this.мощностьToolStripMenuItem,
             this.очиститьToolStripMenuItem,
             this.выходToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -254,6 +256,32 @@
 			this.menuStrip1.Size = new System.Drawing.Size(1084, 24);
 			this.menuStrip1.TabIndex = 1;
 			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// печатьToolStripMenuItem
+			// 
+			this.печатьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.распечататьToolStripMenuItem,
+            this.предварителоьныйПросмотрToolStripMenuItem});
+			this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
+			this.печатьToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+			this.печатьToolStripMenuItem.Text = "Печать";
+			// 
+			// распечататьToolStripMenuItem
+			// 
+			this.распечататьToolStripMenuItem.Name = "распечататьToolStripMenuItem";
+			this.распечататьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+			this.распечататьToolStripMenuItem.Size = new System.Drawing.Size(306, 22);
+			this.распечататьToolStripMenuItem.Text = "Распечатать";
+			this.распечататьToolStripMenuItem.Click += new System.EventHandler(this.печататьToolStripMenuItem_Click);
+			// 
+			// предварителоьныйПросмотрToolStripMenuItem
+			// 
+			this.предварителоьныйПросмотрToolStripMenuItem.Name = "предварителоьныйПросмотрToolStripMenuItem";
+			this.предварителоьныйПросмотрToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.P)));
+			this.предварителоьныйПросмотрToolStripMenuItem.Size = new System.Drawing.Size(306, 22);
+			this.предварителоьныйПросмотрToolStripMenuItem.Text = "Предварительный просмотр";
+			this.предварителоьныйПросмотрToolStripMenuItem.Click += new System.EventHandler(this.предварителоьныйПросмотрToolStripMenuItem_Click);
 			// 
 			// изменениеМощностиАппаратовToolStripMenuItem
 			// 
@@ -278,13 +306,6 @@
 			this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
 			this.оПрограммеToolStripMenuItem.Text = "О программе";
 			this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
-			// 
-			// просмотрМощностейToolStripMenuItem
-			// 
-			this.просмотрМощностейToolStripMenuItem.Name = "просмотрМощностейToolStripMenuItem";
-			this.просмотрМощностейToolStripMenuItem.Size = new System.Drawing.Size(144, 20);
-			this.просмотрМощностейToolStripMenuItem.Text = "Просмотр мощностей";
-			this.просмотрМощностейToolStripMenuItem.Click += new System.EventHandler(this.просмотрМощностейToolStripMenuItem_Click);
 			// 
 			// очиститьToolStripMenuItem
 			// 
@@ -518,33 +539,30 @@
 			this.printDialog1.Document = this.printDocument1;
 			this.printDialog1.ShowHelp = true;
 			// 
-			// печатьToolStripMenuItem
+			// мощностьToolStripMenuItem
 			// 
-			this.печатьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.распечататьToolStripMenuItem,
-            this.предварителоьныйПросмотрToolStripMenuItem});
-			this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
-			this.печатьToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-			this.печатьToolStripMenuItem.Text = "Печать";
+			this.мощностьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ежедневнаяToolStripMenuItem,
+            this.среднемесячнаяToolStripMenuItem});
+			this.мощностьToolStripMenuItem.Name = "мощностьToolStripMenuItem";
+			this.мощностьToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+			this.мощностьToolStripMenuItem.Text = "Мощность";
 			// 
-			// распечататьToolStripMenuItem
+			// ежедневнаяToolStripMenuItem
 			// 
-			this.распечататьToolStripMenuItem.Name = "распечататьToolStripMenuItem";
-			this.распечататьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-			this.распечататьToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
-			this.распечататьToolStripMenuItem.Text = "Распечатать";
-			this.распечататьToolStripMenuItem.Click += new System.EventHandler(this.печататьToolStripMenuItem_Click);
+			this.ежедневнаяToolStripMenuItem.Name = "ежедневнаяToolStripMenuItem";
+			this.ежедневнаяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ежедневнаяToolStripMenuItem.Text = "Ежедневная";
+			this.ежедневнаяToolStripMenuItem.Click += new System.EventHandler(this.просмотрМощностейToolStripMenuItem_Click);
 			// 
-			// предварителоьныйПросмотрToolStripMenuItem
+			// среднемесячнаяToolStripMenuItem
 			// 
-			this.предварителоьныйПросмотрToolStripMenuItem.Name = "предварителоьныйПросмотрToolStripMenuItem";
-			this.предварителоьныйПросмотрToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.P)));
-			this.предварителоьныйПросмотрToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
-			this.предварителоьныйПросмотрToolStripMenuItem.Text = "Предварительный просмотр";
-			this.предварителоьныйПросмотрToolStripMenuItem.Click += new System.EventHandler(this.предварителоьныйПросмотрToolStripMenuItem_Click);
+			this.среднемесячнаяToolStripMenuItem.Name = "среднемесячнаяToolStripMenuItem";
+			this.среднемесячнаяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.среднемесячнаяToolStripMenuItem.Text = "Среднемесячная";
+			this.среднемесячнаяToolStripMenuItem.Click += new System.EventHandler(this.среднемесячнаяToolStripMenuItem_Click);
 			// 
-			// Form1
+			// MainForm
 			// 
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1084, 461);
@@ -556,7 +574,7 @@
 			this.MaximumSize = new System.Drawing.Size(1100, 500);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(1100, 215);
-			this.Name = "Form1";
+			this.Name = "MainForm";
 			((System.ComponentModel.ISupportInitialize)(this.B)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).EndInit();
@@ -615,13 +633,15 @@
 		private Label label3;
 		private BackgroundWorker dateTitle;
 		private ToolStripMenuItem оПрограммеToolStripMenuItem;
-		private ToolStripMenuItem просмотрМощностейToolStripMenuItem;
 		private ToolStripMenuItem очиститьToolStripMenuItem;
 		private System.Drawing.Printing.PrintDocument printDocument1;
 		private PrintDialog printDialog1;
 		private ToolStripMenuItem печатьToolStripMenuItem;
 		private ToolStripMenuItem распечататьToolStripMenuItem;
 		private ToolStripMenuItem предварителоьныйПросмотрToolStripMenuItem;
+		private ToolStripMenuItem мощностьToolStripMenuItem;
+		private ToolStripMenuItem ежедневнаяToolStripMenuItem;
+		private ToolStripMenuItem среднемесячнаяToolStripMenuItem;
 	}
 }
 

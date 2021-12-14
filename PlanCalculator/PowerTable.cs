@@ -33,6 +33,7 @@ namespace PlanCalculator
 
 	public partial class PowerTable : Form
 	{
+		private readonly int DecimalPlaces = 2;
 		private readonly List<int> selectedDate = new List<int> ( );
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
@@ -64,7 +65,7 @@ namespace PlanCalculator
 					dt0.Columns.Add ( new DataColumn ( "Мощность", typeof ( string ) ) );
 					var pow0 = ( double ) dr [ "Мощность" ];
 					var power = pow0;
-					var pow = power.ToStringWithDecimalPlaces ( 2 );
+					var pow = power.ToStringWithDecimalPlaces ( DecimalPlaces );
 					var date0 = ( DateTime ) dr [ "Дата замера мощности" ];
 					var date = date0;
 					var ind = ( DateTime.Today - date ).Days;
@@ -74,11 +75,11 @@ namespace PlanCalculator
 					{
 						var r = dt0.NewRow ( );
 						r [ "Дата" ] = date;
-						r [ "Мощность" ] = power.ToStringWithDecimalPlaces ( 2 );
+						r [ "Мощность" ] = power.ToStringWithDecimalPlaces ( DecimalPlaces );
 						dt0.Rows.Add ( r );
 						date = date.AddDays ( 1 );
 						power = Device.GetPower ( pow0, date0, date );
-						pow = power.ToStringWithDecimalPlaces ( 2 );
+						pow = power.ToStringWithDecimalPlaces ( DecimalPlaces );
 					}
 					dgv.DataSource = dt0.Copy ( );
 					var tp = new TabPage ( name );
@@ -112,6 +113,7 @@ namespace PlanCalculator
 			var tab = tabControl1.SelectedTab;
 			var tabInd = tabControl1.SelectedIndex;
 			var v = ( DataGridView ) tab.Controls [ 0 ];
+			v.Columns [ "Дата" ].DefaultCellStyle.Format = Resources.DateFormat;
 			var row = selectedDate [ tabInd ];
 			v.ClearSelection ( );
 			v.Rows [ row ].Selected = true;

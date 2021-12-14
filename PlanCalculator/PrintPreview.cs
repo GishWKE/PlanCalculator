@@ -20,13 +20,22 @@ namespace PlanCalculator
 
 	public partial class PrintPreview : Form
 	{
+		public string Preview
+		{
+			get => richTextBox1.Text;
+			set
+			{
+				richTextBox1.Text = value;
+				richTextBox1.Update ( );
+			}
+		}
 		public PrintPreview() : this(string.Empty)
 		{
 		}
 		public PrintPreview(string tb)
 		{
 			InitializeComponent();
-			richTextBox1.Text = tb;
+			Preview = tb;
 		}
 
 		private void PrintPreview_KeyDown(object sender, KeyEventArgs e)

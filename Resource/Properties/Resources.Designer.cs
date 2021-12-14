@@ -61,6 +61,15 @@ namespace Resource.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на dd.MM.yyyy.
+        /// </summary>
+        public static string DateFormat {
+            get {
+                return ResourceManager.GetString("DateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Число полей.
         /// </summary>
         public static string Fld_Num {

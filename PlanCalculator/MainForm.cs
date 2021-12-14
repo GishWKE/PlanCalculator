@@ -50,7 +50,7 @@ namespace PlanCalculator
 
 		private void DateTitle_ProgressChanged ( object sender, ProgressChangedEventArgs e )
 		{
-			Text = ( ( DateTime ) e.UserState ).ToString ( "d" );
+			Text = ( ( DateTime ) e.UserState ).ToString ( Resources.DateFormat );
 			Devices.FileName = FileName;
 			Calculate ( );
 		}
@@ -393,7 +393,7 @@ namespace PlanCalculator
 			}
 
 			fromPreview = false;
-			printDocument1.DocumentName = DateTime.Now.ToString ( "G" );
+			printDocument1.DocumentName = DateTime.Now.ToString ( Resources.DateFormat );
 			printDialog1.Document = printDocument1;
 			try
 			{
@@ -409,15 +409,18 @@ namespace PlanCalculator
 		}
 		private bool fromPreview = false;
 		private string printString;
-		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e ) => e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
+		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e ) =>
+			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
 
 		private void предварителоьныйПросмотрToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
 			fromPreview = false;
 			printString = PreparePrintData ( );
-			if ( new PrintPreview ( printString ).ShowDialog ( ) == DialogResult.OK )
+			var formPreview = new PrintPreview ( printString );
+			if (formPreview.ShowDialog ( ) == DialogResult.OK )
 			{
 				fromPreview = true;
+				printString = formPreview.Preview;
 				распечататьToolStripMenuItem.PerformClick ( );
 			}
 		}

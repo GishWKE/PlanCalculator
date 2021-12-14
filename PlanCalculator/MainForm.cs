@@ -124,11 +124,26 @@ namespace PlanCalculator
 		{
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
+			Weight = WeightSumm ( );
 			foreach ( var f in fields )
 			{
 				Calculate ( f );
 			}
 			Cursor = tmp;
+		}
+		private double? Weight = null;
+		private double? WeightSumm ( )
+		{
+			if ( fields.IsEmpty ( ) )
+			{
+				return null;
+			}
+			var fld = fields.AsParallel ( );
+			if ( fld.Any ( f => f.Weight == null ) )
+			{
+				return null;
+			}
+			return fld.Select ( f => ( double ) f.Weight ).Sum ( );
 		}
 		private void Calculate ( object fld )
 		{
@@ -140,15 +155,15 @@ namespace PlanCalculator
 			var f = fld as Field;
 			f.Time = null;
 
-			if ( new [ ] { D.Value, P.Value, f.Kb, f.OTV }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
+			if ( new [ ] { D.Value, P.Value, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
 			{
 				return;
 			}
 
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			var mult = new double [ ] { ( double ) D.Value, 100, 100, ( double ) N.Value };
-			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Selected [ "Мощность" ], ( double ) FieldsCount.Value, ( double ) f.Kb, ( double ) f.OTV };
+			var mult = new [ ] { ( double ) D.Value, 100, 100, ( double ) f.Weight };
+			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Selected [ "Мощность" ], ( double ) Weight, ( double ) f.Kb, ( double ) f.OTV };
 			if ( f.IsLung )
 			{
 				div.Add ( ( double ) f.L );
@@ -176,6 +191,7 @@ namespace PlanCalculator
 				AllFields.Controls.Clear ( );
 				fields.Clear ( );
 				AllFields.ResumeLayout ( );
+				GC.Collect ( );
 			}
 			else if ( cnt < fields.Count )
 			{
@@ -186,6 +202,7 @@ namespace PlanCalculator
 					fields.RemoveAt ( i );
 				}
 				AllFields.ResumeLayout ( );
+				GC.Collect ( );
 				Calculate ( );
 			}
 			else
@@ -197,14 +214,17 @@ namespace PlanCalculator
 					var f = new Field
 					{
 						Text = $@"№{i + 1}:",
+						Weight = 1,
 						Dock = DockStyle.Top,
 						FileName = FileName,
 						SCD = ( int ) Devices.SCD,
 						A = ( int ) A.Value,
 						B = ( int ) B.Value,
-						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ]
+						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ],
+						
 					};
 					f.RecalculationNeed += RecalculationNeed;
+					f.TotalRecalculationNeed += TotalRecalculationNeed;
 					fld.Add ( f );
 				}
 				fields.AddRange ( fld );
@@ -216,6 +236,7 @@ namespace PlanCalculator
 		}
 
 		private void RecalculationNeed ( object sender, EventArgs e ) => Calculate ( sender );
+		private void TotalRecalculationNeed ( object sender, EventArgs e ) => Calculate ( );
 
 		private void AB_ValueChanged ( object sender, EventArgs e )
 		{
@@ -393,7 +414,7 @@ namespace PlanCalculator
 			}
 
 			fromPreview = false;
-			printDocument1.DocumentName = DateTime.Now.ToString ( Resources.DateFormat );
+			printDocument1.DocumentName = DateTime.Now.ToString ( "U" );
 			printDialog1.Document = printDocument1;
 			try
 			{

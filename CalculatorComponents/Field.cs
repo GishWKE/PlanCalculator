@@ -22,12 +22,19 @@ namespace CalculatorComponents
 	public partial class Field : UserControl
 	{
 		public event EventHandler RecalculationNeed;
+		public event EventHandler TotalRecalculationNeed;
 		protected virtual void OnRecalculationNeed ( EventArgs e ) => RecalculationNeed?.Invoke ( this, e );
+		protected virtual void OnTotalRecalculationNeed ( EventArgs e ) => TotalRecalculationNeed?.Invoke ( this, e );
 		[DefaultValue ( "" )]
 		public new string Text
 		{
 			get => FieldPanel.Text;
 			set => FieldPanel.Text = value;
+		}
+		public double? Weight
+		{
+			get => WeightValue.Value;
+			set => WeightValue.Value = value;
 		}
 		public bool IsLung => L_value.Visible;
 		[DefaultValue ( true )]
@@ -93,6 +100,7 @@ namespace CalculatorComponents
 		}
 
 		private void Any_ValueChanged ( object sender, EventArgs e ) => OnRecalculationNeed ( EventArgs.Empty );
+		private void AllRecalculate ( object sender, EventArgs e ) => OnTotalRecalculationNeed ( EventArgs.Empty );
 
 	}
 }

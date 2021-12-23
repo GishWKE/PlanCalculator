@@ -41,13 +41,13 @@ namespace CalculatorComponents
 		[DefaultValue ( null )]
 		public int? D
 		{
-			get => Distance.Value;
+			get => Distance;
 			set => Distance.Value = value;
 		}
 		[DefaultValue ( null )]
 		public double? T
 		{
-			get => Thickness.Value;
+			get => Thickness;
 			set => Thickness.Value = value;
 		}
 		[DefaultValue ( null )]
@@ -56,12 +56,14 @@ namespace CalculatorComponents
 			get => D != null && T != null ? L.Value : null;
 			private set => L.Value = value;
 		}
+		public static implicit operator double? ( Lung l ) => l.Value;
 		[DefaultValue ( false )]
 		public new bool Visible
 		{
 			get => IsLung.Checked;
 			set => IsLung.Checked = value;
 		}
+		public static implicit operator bool ( Lung l ) => l.Visible;
 		public Lung ( ) => InitializeComponent ( );
 		private void L_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
 		private void Lung_RecalculationNeed ( object sender, EventArgs e )

@@ -45,9 +45,10 @@ namespace CalculatorComponents
 		[DefaultValue ( null )]
 		public double? Value
 		{
-			get => Time_value.Value;
+			get => Time_value;
 			set => Time_value.Value = value;
 		}
+		public static implicit operator double? ( Time t ) => t.Value;
 		public Time ( )
 		{
 			InitializeComponent ( );

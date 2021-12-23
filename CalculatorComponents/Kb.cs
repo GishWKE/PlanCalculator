@@ -55,16 +55,17 @@ namespace CalculatorComponents
 			get => A != null && B != null ? Kb.Value : null;
 			private set => Kb.Value = value;
 		}
+		public static implicit operator double? ( Kb_Control kb ) => kb.Value;
 		[DefaultValue ( null )]
 		public int? A
 		{
-			get => A_size.Value;
+			get => A_size;
 			set => A_size.Value = value;
 		}
 		[DefaultValue ( null )]
 		public int? B
 		{
-			get => B_size.Value;
+			get => B_size;
 			set => B_size.Value = value;
 		}
 		public Kb_Control ( ) : base ( ) => InitializeComponent ( );

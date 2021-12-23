@@ -38,9 +38,15 @@ namespace PlanCalculator
 		[DefaultValue ( @".\Resources\DB.accdb" )]
 		private readonly string FileName = @".\Resources\DB.accdb";
 		private readonly List<Field> fields = new List<Field> ( );
+		private void ClearFields ( )
+		{
+			fields.AsParallel ( ).Select ( f => { f.Dispose ( ); return true; } );
+			fields.Clear ( );
+		}
 		public MainForm ( )
 		{
 			InitializeComponent ( );
+			ClearFields ( );
 			Text.Clear ( );
 			Devices.DeviceChanged += DeviceChanged;
 			Devices.FileName = FileName;
@@ -155,15 +161,15 @@ namespace PlanCalculator
 			var f = fld as Field;
 			f.Time = null;
 
-			if ( new [ ] { D.Value, P.Value, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
+			if ( new double?[ ] { D, P, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
 			{
 				return;
 			}
 
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
-			var mult = new [ ] { ( double ) D.Value, 100, 100, ( double ) f.Weight };
-			var div = new List<double> { ( double ) P.Value, ( double ) Devices.Selected [ "Мощность" ], ( double ) Weight, ( double ) f.Kb, ( double ) f.OTV };
+			var mult = new [ ] { D, 100D, 100D, ( double ) f.Weight };
+			var div = new List<double> { P, ( double ) Devices.Selected [ "Мощность" ], ( double ) Weight, ( double ) f.Kb, ( double ) f.OTV };
 			if ( f.IsLung )
 			{
 				div.Add ( ( double ) f.L );
@@ -189,7 +195,7 @@ namespace PlanCalculator
 			{
 				AllFields.SuspendLayout ( );
 				AllFields.Controls.Clear ( );
-				fields.Clear ( );
+				ClearFields ( );
 				AllFields.ResumeLayout ( );
 				GC.Collect ( );
 			}
@@ -199,6 +205,7 @@ namespace PlanCalculator
 				for ( var i = fields.Count - 1; i >= cnt; i-- )
 				{
 					AllFields.Controls.Remove ( fields [ i ] );
+					fields [ i ].Dispose ( );
 					fields.RemoveAt ( i );
 				}
 				AllFields.ResumeLayout ( );

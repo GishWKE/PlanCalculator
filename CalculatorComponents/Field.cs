@@ -33,10 +33,10 @@ namespace CalculatorComponents
 		}
 		public double? Weight
 		{
-			get => WeightValue.Value;
+			get => WeightValue;
 			set => WeightValue.Value = value;
 		}
-		public bool IsLung => L_value.Visible;
+		public bool IsLung => L_value;
 		[DefaultValue ( true )]
 		public bool IsInSeconds
 		{
@@ -49,13 +49,13 @@ namespace CalculatorComponents
 			get => Time_value.IsInMinutes;
 			set => Time_value.IsInMinutes = value;
 		}
-		public double? Kb => Kb_value.Value;
-		public double? OTV => OTV_value.Value;
-		public double? L => L_value.Value;
+		public double? Kb => Kb_value;
+		public double? OTV => OTV_value;
+		public double? L => L_value;
 		[DefaultValue ( null )]
 		public double? Time
 		{
-			get => Time_value.Value;
+			get => Time_value;
 			set => Time_value.Value = value;
 		}
 		[DefaultValue ( "" )]

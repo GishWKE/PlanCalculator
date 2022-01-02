@@ -60,7 +60,7 @@ namespace CalculatorComponents
 		[DefaultValue ( null )]
 		public double? D
 		{
-			get => Depth;
+			get => Depth.Value;
 			set => Depth.Value = value;
 		}
 		[DefaultValue ( null )]
@@ -69,7 +69,6 @@ namespace CalculatorComponents
 			get => A != null && B != null && D != null ? OTV_value.Value : null;
 			private set => OTV_value.Value = value;
 		}
-		public static implicit operator double? ( OTV o ) => o.Value;
 		public OTV ( )
 		{
 			InitializeComponent ( );

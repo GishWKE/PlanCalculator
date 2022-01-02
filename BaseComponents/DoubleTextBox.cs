@@ -17,7 +17,7 @@
 namespace BaseComponents
 {
 	using System;
-	using System.ComponentModel;
+using System.ComponentModel;
 	using System.Drawing;
 	using System.Globalization;
 	using System.Linq;
@@ -60,8 +60,6 @@ namespace BaseComponents
 				OnValueChanged ( EventArgs.Empty );
 			}
 		}
-		public static implicit operator double? ( DoubleTextBox dtb ) => dtb.Value;
-		public static implicit operator double ( DoubleTextBox dtb ) => ( ( ( double? ) dtb ) ?? 0D );
 		private string default_tooltip = string.Empty;
 		[DefaultValue ( "" )]
 		public string Correct_tooltip

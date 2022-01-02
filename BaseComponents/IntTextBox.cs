@@ -45,22 +45,6 @@ namespace BaseComponents
 				OnValueChanged ( EventArgs.Empty );
 			}
 		}
-		public static implicit operator int? ( IntTextBox itb )
-		{
-			return itb.Value;
-		}
-		public static implicit operator double? ( IntTextBox itb )
-		{
-			return ( double? ) itb.Value;
-		}
-		public static implicit operator int ( IntTextBox itb )
-		{
-			return ( ( ( int? ) itb ) ?? 0 );
-		}
-		public static implicit operator double ( IntTextBox itb )
-		{
-			return ( ( ( double? ) itb ) ?? 0D );
-		}
 		private string default_tooltip = string.Empty;
 		[DefaultValue ( "" )]
 		public string Correct_tooltip

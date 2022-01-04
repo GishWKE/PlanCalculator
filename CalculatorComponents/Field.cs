@@ -43,6 +43,11 @@ namespace CalculatorComponents
 			get => Time_value.IsInSeconds;
 			set => Time_value.IsInSeconds = value;
 		}
+		public int? Degree
+		{
+			get => FieldDegree;
+			set => FieldDegree.Value = value;
+		}
 		[DefaultValue ( false )]
 		public bool IsInMinutes
 		{

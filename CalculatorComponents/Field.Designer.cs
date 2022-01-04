@@ -30,8 +30,11 @@
 		private void InitializeComponent ( )
 		{
 			this.FieldPanel = new System.Windows.Forms.GroupBox();
-			this.label1 = new System.Windows.Forms.Label();
 			this.WeightValue = new BaseComponents.DoubleTextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.FieldDegree = new BaseComponents.IntTextBox();
 			this.Time_value = new CalculatorComponents.Time();
 			this.L_value = new CalculatorComponents.Lung();
 			this.OTV_value = new CalculatorComponents.OTV();
@@ -41,6 +44,9 @@
 			// 
 			// FieldPanel
 			// 
+			this.FieldPanel.Controls.Add(this.FieldDegree);
+			this.FieldPanel.Controls.Add(this.label3);
+			this.FieldPanel.Controls.Add(this.label2);
 			this.FieldPanel.Controls.Add(this.WeightValue);
 			this.FieldPanel.Controls.Add(this.label1);
 			this.FieldPanel.Controls.Add(this.Time_value);
@@ -53,15 +59,6 @@
 			this.FieldPanel.Size = new System.Drawing.Size(650, 70);
 			this.FieldPanel.TabIndex = 0;
 			this.FieldPanel.TabStop = false;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(6, 51);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(26, 13);
-			this.label1.TabIndex = 4;
-			this.label1.Text = "Вес";
 			// 
 			// WeightValue
 			// 
@@ -77,6 +74,46 @@
 			this.WeightValue.Value = 1D;
 			this.WeightValue.Wrong_tooltip = null;
 			this.WeightValue.ValueChanged += new System.EventHandler(this.AllRecalculate);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(6, 51);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(26, 13);
+			this.label1.TabIndex = 4;
+			this.label1.Text = "Вес";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(575, 3);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(15, 13);
+			this.label2.TabIndex = 6;
+			this.label2.Text = "∠";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(633, 3);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(11, 13);
+			this.label3.TabIndex = 7;
+			this.label3.Text = "°";
+			// 
+			// FieldDegree
+			// 
+			this.FieldDegree.BackColor = System.Drawing.SystemColors.Window;
+			this.FieldDegree.Correct_tooltip = "Угол гантри для поля";
+			this.FieldDegree.FractionalPlaces = 0;
+			this.FieldDegree.Location = new System.Drawing.Point(596, 0);
+			this.FieldDegree.Name = "FieldDegree";
+			this.FieldDegree.Regex = "^([12]?\\d{0,2}|3[0-5]\\d|360)?$";
+			this.FieldDegree.Size = new System.Drawing.Size(31, 20);
+			this.FieldDegree.TabIndex = 8;
+			this.FieldDegree.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.FieldDegree.Wrong_tooltip = null;
 			// 
 			// Time_value
 			// 
@@ -96,6 +133,7 @@
 			this.L_value.Name = "L_value";
 			this.L_value.Size = new System.Drawing.Size(292, 20);
 			this.L_value.TabIndex = 2;
+			this.L_value.Visible = true;
 			this.L_value.ValueChanged += new System.EventHandler(this.Any_ValueChanged);
 			// 
 			// OTV_value
@@ -141,5 +179,8 @@
 		private Time Time_value;
 		private BaseComponents.DoubleTextBox WeightValue;
 		private System.Windows.Forms.Label label1;
+		private BaseComponents.IntTextBox FieldDegree;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label2;
 	}
 }

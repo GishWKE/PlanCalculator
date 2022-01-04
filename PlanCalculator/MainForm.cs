@@ -400,7 +400,7 @@ namespace PlanCalculator
 					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
 					sb_t.Append ( " секунд" );
 				}
-				sb_t.AppendLine ( " (∠_____°)" );
+				sb_t.AppendLine ( " (∠" + ( f.Degree != null ? f.Degree.ToString ( ) : @"_____" ) + "°)" );
 			}
 			sb.AppendLine ( );
 			sb.AppendLine ( sb_t.ToString ( ) );

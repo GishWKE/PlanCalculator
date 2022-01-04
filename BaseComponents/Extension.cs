@@ -27,12 +27,46 @@ namespace BaseComponents
 	using System.Windows.Forms;
 	public static class Extension
 	{
-		public static readonly char DblDot = char.Parse ( CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator );
+		public static NumberFormatInfo nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
+		public static readonly char DblDot = char.Parse ( nfi.NumberDecimalSeparator );
+		public static bool IsPathEquals ( this FileInfo s, FileInfo other )
+		{
+			try
+			{
+				return s.FullName.Equals ( other.FullName, StringComparison.InvariantCultureIgnoreCase );
+			}
+			catch
+			{
+				throw;
+			}
+		}
+		public static bool IsPathEquals ( this FileInfo s, string other )
+		{
+			try
+			{
+				return s.IsPathEquals ( new FileInfo ( other ) );
+			}
+			catch
+			{
+				throw;
+			}
+		}
+		public static bool IsPathEquals ( this string s, FileInfo other )
+		{
+			try
+			{
+				return other.IsPathEquals ( s );
+			}
+			catch
+			{
+				throw;
+			}
+		}
 		public static bool IsPathEquals ( this string s, string other )
 		{
 			try
 			{
-				return !s.IsEmpty ( ) && !other.IsEmpty ( ) && new FileInfo ( s ).FullName.Equals ( new FileInfo ( other ).FullName, StringComparison.InvariantCultureIgnoreCase );
+				return !s.IsEmpty ( ) && !other.IsEmpty ( ) && new FileInfo ( s ).IsPathEquals ( other );
 			}
 			catch
 			{
@@ -47,7 +81,6 @@ namespace BaseComponents
 		}
 		public static string ToStringWithDecimalPlaces ( this double val, int dec )
 		{
-			var nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
 			nfi.NumberDecimalDigits = dec;
 			return val.ToString ( "F", nfi );
 		}
@@ -60,6 +93,23 @@ namespace BaseComponents
 			}
 		}
 		public static void Clear ( this string s ) => s = string.Empty;
+		public static decimal ToDecimal ( this string s )
+		{
+			try
+			{
+				return decimal.Parse ( s );
+			}
+			catch { throw; }
+		}
+		public static decimal ToDecimal ( this TextBoxBase tb )
+		{
+			try
+			{
+				return tb.Text.ToDecimal ( );
+			}
+			catch { throw; }
+		}
+
 		public static double ToDouble ( this string s )
 		{
 			try
@@ -68,7 +118,7 @@ namespace BaseComponents
 			}
 			catch { throw; }
 		}
-		public static double ToDouble ( this TextBox tb )
+		public static double ToDouble ( this TextBoxBase tb )
 		{
 			try
 			{
@@ -86,7 +136,7 @@ namespace BaseComponents
 			catch { throw; }
 		}
 
-		public static int ToInt ( this TextBox tb )
+		public static int ToInt ( this TextBoxBase tb )
 		{
 			try
 			{
@@ -95,7 +145,7 @@ namespace BaseComponents
 			catch { throw; }
 		}
 
-		public static bool IsEmpty ( this TextBox tb )
+		public static bool IsEmpty ( this TextBoxBase tb )
 		{
 			try
 			{
@@ -111,7 +161,7 @@ namespace BaseComponents
 		{
 			try
 			{
-				return dt == null || dt.Rows == null || dt.Rows.Count == 0;
+				return dt == null || dt.Columns == null  || dt.Columns.Count == 0 || dt.Rows == null|| dt.Rows.Count == 0;
 			}
 			catch { throw; }
 		}
@@ -120,7 +170,7 @@ namespace BaseComponents
 		{
 			try
 			{
-				return l == null || l.Count ( ) == 0;
+				return l == null || !l.Any ( );
 			}
 			catch { throw; }
 		}

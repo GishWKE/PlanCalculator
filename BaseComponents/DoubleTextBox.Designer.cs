@@ -30,32 +30,10 @@
 		private void InitializeComponent ( )
 		{
 			this.components = new System.ComponentModel.Container();
-			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.SuspendLayout();
-			// 
-			// toolTip1
-			// 
-			this.toolTip1.AutoPopDelay = 5000;
-			this.toolTip1.InitialDelay = 200;
-			this.toolTip1.IsBalloon = true;
-			this.toolTip1.ReshowDelay = 100;
-			this.toolTip1.ShowAlways = true;
-			this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-			this.toolTip1.ToolTipTitle = "Информация о поле ввода";
-			// 
-			// DoubleTextBox
-			// 
-			this.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.BackColorChanged += new System.EventHandler(this.DoubleTextBox_BackColorChanged);
-			this.TextChanged += new System.EventHandler(this.DoubleTextBox_TextChanged);
-			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DoubleTextBox_KeyPress);
-			this.Leave += new System.EventHandler(this.DoubleTextBox_Leave);
-			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.ToolTip toolTip1;
 	}
 }

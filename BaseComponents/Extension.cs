@@ -33,6 +33,10 @@ namespace BaseComponents
 		{
 			try
 			{
+				if ( s == null || other == null )
+				{
+					return false;
+				}
 				return s.FullName.Equals ( other.FullName, StringComparison.InvariantCultureIgnoreCase );
 			}
 			catch
@@ -73,10 +77,13 @@ namespace BaseComponents
 				throw;
 			}
 		}
-		public static string ToStringWithDecimalPlaces ( this double ? val, int dec )
+		public static string ToStringWithDecimalPlaces ( this double? val, int dec )
 		{
 			if ( val == null )
+			{
 				return 0D.ToStringWithDecimalPlaces ( dec );
+			}
+
 			return val.Value.ToStringWithDecimalPlaces ( dec );
 		}
 		public static string ToStringWithDecimalPlaces ( this double val, int dec )
@@ -161,7 +168,7 @@ namespace BaseComponents
 		{
 			try
 			{
-				return dt == null || dt.Columns == null  || dt.Columns.Count == 0 || dt.Rows == null|| dt.Rows.Count == 0;
+				return dt == null || dt.Columns == null || dt.Columns.Count == 0 || dt.Rows == null || dt.Rows.Count == 0;
 			}
 			catch { throw; }
 		}

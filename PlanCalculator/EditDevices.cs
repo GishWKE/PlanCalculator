@@ -19,6 +19,7 @@ namespace PlanCalculator
 	using System;
 	using System.ComponentModel;
 	using System.Data;
+	using System.IO;
 	using System.Windows.Forms;
 
 	using DB_Worker;
@@ -29,7 +30,7 @@ namespace PlanCalculator
 	{
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
-		public string FileName
+		public FileInfo FileName
 		{
 			get => sql.FileName;
 			set => Devices.FileName = sql.FileName = value;

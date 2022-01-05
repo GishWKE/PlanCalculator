@@ -18,6 +18,7 @@ namespace CalculatorComponents
 {
 	using System;
 	using System.ComponentModel;
+	using System.IO;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -33,7 +34,7 @@ namespace CalculatorComponents
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
-		public string FileName
+		public FileInfo FileName
 		{
 			get => sql.FileName;
 			set => sql.FileName = value;
@@ -75,7 +76,7 @@ namespace CalculatorComponents
 			}
 			var TT = T;
 			var DD = D;
-			if ( TT == null || DD == null || FileName.IsEmpty ( ) )
+			if ( TT == null || DD == null || !FileName.Exists )
 			{
 				return;
 			}

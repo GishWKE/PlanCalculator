@@ -20,6 +20,7 @@ namespace PlanCalculator
 	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.Data;
+	using System.IO;
 	using System.Linq;
 	using System.Windows.Forms;
 
@@ -37,7 +38,7 @@ namespace PlanCalculator
 		private readonly List<int> selectedDate = new List<int> ( );
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
-		public string FileName
+		public FileInfo FileName
 		{
 			get => sql.FileName;
 			set

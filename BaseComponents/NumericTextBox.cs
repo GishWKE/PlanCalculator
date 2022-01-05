@@ -7,38 +7,91 @@
 	using System.Linq;
 	using System.Text.RegularExpressions;
 	using System.Windows.Forms;
+	public enum TextBoxType
+	{
+		Integer,
+		Double
+	}
 	[DefaultEvent ( "ValueChanged" )]
-	[DefaultBindingProperty ( "Number" )]
 	public partial class NumericTextBox : TextBox
 	{
+		private TextBoxType type = TextBoxType.Double;
+		[Description ( "Событие, генерируемое при изменении переменной в поле ввода" )]
+		[Browsable ( true )]
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private new readonly Color DefaultBackColor;
 		private static readonly Regex EmptyDBL = new Regex ( "^-?[,.]?$" );
 		private static readonly Regex EmptyINT = new Regex ( "^-?$" );
 		private Regex empty = EmptyDBL;
+		private bool settedFP = false;
+		private bool settedT = false;
+		[Description ( "Тип выводимых даннх (int или double)" )]
+		[Browsable ( true )]
+		public TextBoxType Type
+		{
+			get => type;
+			set
+			{
+				if ( type == value )
+				{
+					return;
+				}
+
+				type = value;
+				settedT = true;
+				switch ( type )
+				{
+					case TextBoxType.Integer:
+						empty = EmptyINT;
+						if ( !settedFP )
+						{
+							FractionalPlaces = 0;
+						}
+
+						break;
+					case TextBoxType.Double:
+						empty = EmptyDBL;
+						if ( !settedFP )
+						{
+							FractionalPlaces = NumberFormatInfo.CurrentInfo.NumberDecimalDigits;
+						}
+
+						break;
+				}
+				settedT = false;
+			}
+		}
+		[Description ( "Число символов, выводимых после запятой" )]
+		[Browsable ( true )]
 		public int FractionalPlaces
 		{
 			get => nfi.NumberDecimalDigits;
 			set
 			{
+				if ( value == FractionalPlaces )
+				{
+					return;
+				}
+
 				try
 				{
 					nfi.NumberDecimalDigits = value;
-					if ( value == 0 )
-					{
-						empty = EmptyINT;
-					}
-					else
-					{
-						empty = EmptyDBL;
-					}
+					settedFP = true;
 				}
 				catch { throw; }
+				if ( !settedT )
+				{
+					Type = ( value == 0 ) ? TextBoxType.Integer : TextBoxType.Double;
+				}
+
+				settedFP = false;
 			}
 		}
 		private readonly NumberFormatInfo nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
 		[DefaultValue ( null )]
+		[Description ( "Переменная, отображаемая в поле" )]
+		[Browsable ( true )]
 		public decimal? Value
 		{
 			get => this.IsEmpty ( ) || !IsCorrect ? null : ( decimal? ) this.ToDecimal ( );
@@ -50,16 +103,18 @@
 				}
 				else
 				{
-					Text = ( ( decimal ) value ).ToString ( "F", nfi );
+					Text = value.Value.ToString ( "F", nfi );
 				}
 				SelectionStart = Text.Length;
 				OnValueChanged ( EventArgs.Empty );
 			}
 		}
 		public static implicit operator decimal? ( NumericTextBox dtb ) => dtb.Value;
-		public static implicit operator decimal ( NumericTextBox dtb ) => ( ( ( decimal? ) dtb ) ?? decimal.Zero );
+		public static implicit operator decimal ( NumericTextBox dtb ) => ( ( decimal? ) dtb ).GetValueOrDefault ( );
 		private string default_tooltip = string.Empty;
 		[DefaultValue ( "" )]
+		[Description ( "Текст выпадающей подсказки" )]
+		[Browsable ( true )]
 		public string Correct_tooltip
 		{
 			get => default_tooltip;
@@ -73,6 +128,8 @@
 			}
 		}
 		[DefaultValue ( "" )]
+		[Description ( "Текст выпадающей подсказки для неправильного ввода данных" )]
+		[Browsable ( true )]
 		public string Wrong_tooltip
 		{
 			get;
@@ -80,6 +137,8 @@
 		}
 		private bool can_neg = false;
 		[DefaultValue ( false )]
+		[Description ( "Может ли вводимая переменная быть отрицательной" )]
+		[Browsable ( true )]
 		public bool CanBeNegative
 		{
 			get => can_neg;
@@ -99,6 +158,8 @@
 		}
 		private Regex Checker = null;
 		[DefaultValue ( "" )]
+		[Description ( "Регулярное выражение для проверки правильности ввода" )]
+		[Browsable ( true )]
 		public string Regex
 		{
 			get => ( Checker == null ) ? string.Empty : Checker.ToString ( );
@@ -110,6 +171,8 @@
 				}
 			}
 		}
+		[Description ( "Проверка на соответствие введенных данных регулярному выражению" )]
+		[Browsable ( true )]
 		public bool IsCorrect => this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
 		private void NumericTextBox_KeyPress_NoMinus ( object sender, KeyPressEventArgs e )
 		{
@@ -137,7 +200,7 @@
 			{
 				case '.':
 				case ',':
-					if ( FractionalPlaces != 0 ) // Если разрешена дробная часть
+					if ( Type != TextBoxType.Integer ) // Если разрешена дробная часть
 					{
 						e.KeyChar = Extension.DblDot; // Подменяем на лету дробный разделитель
 						if ( !Text.Contains ( e.KeyChar ) ) // Если дробный разделитель отсутсвует

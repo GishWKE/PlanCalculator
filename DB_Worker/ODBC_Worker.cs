@@ -34,14 +34,18 @@ namespace DB_Worker
 			get;
 			set;
 		}
-		private string fileName = null;
+		private FileInfo fileName = null;
 		[DefaultValue ( "" )]
-		public string DataSource
+		public FileInfo DataSource
 		{
 			get => fileName;
 			set
 			{
-				if ( value.IsEmpty ( ) )
+				if ( value == null )
+				{
+					return;
+				}
+				if ( !value.Exists )
 				{
 					CloseAndClear ( );
 					return;
@@ -51,7 +55,7 @@ namespace DB_Worker
 					return;
 				}
 				CloseAndClear ( );
-				fileName = new FileInfo ( value ).FullName;
+				fileName = value;
 				try
 				{
 					command = new OdbcCommand
@@ -81,7 +85,7 @@ namespace DB_Worker
 					{
 						Driver = "{Microsoft Access Driver (*.mdb, *.accdb)}"
 					};
-					tmp.Add ( "Dbq", DataSource );
+					tmp.Add ( "Dbq", DataSource.FullName );
 					return tmp.ConnectionString;
 				}
 				catch

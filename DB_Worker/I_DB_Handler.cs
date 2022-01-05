@@ -35,7 +35,7 @@ namespace DB_Worker
 		{
 			get;set;
 		}
-		string DataSource
+		FileInfo DataSource
 		{
 			get;set;
 		}

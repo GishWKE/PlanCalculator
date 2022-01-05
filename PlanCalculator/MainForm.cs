@@ -21,6 +21,7 @@ namespace PlanCalculator
 	using System.ComponentModel;
 	using System.Drawing;
 	using System.Drawing.Printing;
+	using System.IO;
 	using System.Linq;
 	using System.Text;
 	using System.Threading;
@@ -36,7 +37,7 @@ namespace PlanCalculator
 	public partial class MainForm : Form
 	{
 		[DefaultValue ( @".\Resources\DB.accdb" )]
-		private readonly string FileName = @".\Resources\DB.accdb";
+		private readonly FileInfo FileName = new FileInfo ( @".\Resources\DB.accdb" );
 		private readonly List<Field> fields = new List<Field> ( );
 		private void ClearFields ( )
 		{

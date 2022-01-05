@@ -73,7 +73,6 @@
 			this.Devices.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Devices.Editable = true;
-			this.Devices.FileName = "";
 			this.Devices.Location = new System.Drawing.Point(12, 12);
 			this.Devices.Name = "Devices";
 			this.Devices.SCD = null;

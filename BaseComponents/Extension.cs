@@ -33,7 +33,7 @@ namespace BaseComponents
 		{
 			try
 			{
-				if ( s == null || other == null )
+				if ( s == null || !s.Exists || other == null || !other.Exists )
 				{
 					return false;
 				}

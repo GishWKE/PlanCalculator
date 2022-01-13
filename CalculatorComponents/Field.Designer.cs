@@ -38,7 +38,6 @@
 			this.Time_value = new CalculatorComponents.Time();
 			this.L_value = new CalculatorComponents.Lung();
 			this.OTV_value = new CalculatorComponents.OTV();
-			this.Kb_value = new CalculatorComponents.Kb_Control();
 			this.FieldPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -52,7 +51,6 @@
 			this.FieldPanel.Controls.Add(this.Time_value);
 			this.FieldPanel.Controls.Add(this.L_value);
 			this.FieldPanel.Controls.Add(this.OTV_value);
-			this.FieldPanel.Controls.Add(this.Kb_value);
 			this.FieldPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.FieldPanel.Location = new System.Drawing.Point(0, 0);
 			this.FieldPanel.Name = "FieldPanel";
@@ -145,16 +143,6 @@
 			this.OTV_value.TabIndex = 1;
 			this.OTV_value.ValueChanged += new System.EventHandler(this.Any_ValueChanged);
 			// 
-			// Kb_value
-			// 
-			this.Kb_value.FileName = null;
-			this.Kb_value.Location = new System.Drawing.Point(6, 19);
-			this.Kb_value.MinimumSize = new System.Drawing.Size(184, 20);
-			this.Kb_value.Name = "Kb_value";
-			this.Kb_value.Size = new System.Drawing.Size(184, 20);
-			this.Kb_value.TabIndex = 0;
-			this.Kb_value.ValueChanged += new System.EventHandler(this.Any_ValueChanged);
-			// 
 			// Field
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,7 +162,6 @@
 		private System.Windows.Forms.GroupBox FieldPanel;
 		private Lung L_value;
 		private OTV OTV_value;
-		private Kb_Control Kb_value;
 		private Time Time_value;
 		private BaseComponents.DoubleTextBox WeightValue;
 		private System.Windows.Forms.Label label1;

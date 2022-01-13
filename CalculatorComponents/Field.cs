@@ -66,37 +66,46 @@ namespace CalculatorComponents
 		[DefaultValue ( "" )]
 		public string FileName
 		{
-			get => Kb_value.FileName;
-			set => Kb_value.FileName = OTV_value.FileName = L_value.FileName = value;
+			get => OTV_value.FileName;
+			set => OTV_value.FileName = L_value.FileName = value;
 		}
 		[DefaultValue ( 0 )]
 		public int SCD
 		{
-			get => Kb_value.SCD;
-			set => OTV_value.SCD = Kb_value.SCD = value;
+			get => OTV_value.SCD;
+			set => OTV_value.SCD = value;
 		}
 		[DefaultValue ( null )]
 		public int? A
 		{
 			get => Kb_value.A;
-			set
-			{
-				OTV_value.A = value;
-				Kb_value.A = value;
-			}
+			set => OTV_value.A = value;
 		}
 		[DefaultValue ( null )]
 		public int? B
 		{
-			get => Kb_value.B;
-			set
-			{
-				OTV_value.B = value;
-				Kb_value.B = value;
-			}
+			get => OTV_value.B;
+			set => OTV_value.B = value;
 		}
 		public double? Depth => OTV_value.D;
-		public Field ( ) : base ( ) => InitializeComponent ( );
+		public Field ( ) : base ( )
+		{
+			InitializeComponent ( );
+			FieldPanel.SuspendLayout ( );
+			SuspendLayout ( );
+			FieldPanel.Controls.Add ( Kb_value );
+			OTV_value.Kb.FileName = null;
+			Kb_value.Location = new System.Drawing.Point ( 6, 19 );
+			Kb_value.MinimumSize = new System.Drawing.Size ( 184, 20 );
+			Kb_value.Name = "Kb_value";
+			Kb_value.Size = new System.Drawing.Size ( 184, 20 );
+			Kb_value.TabIndex = 0;
+			Kb_value.ValueChanged += new EventHandler ( Any_ValueChanged );
+			FieldPanel.ResumeLayout ( false );
+			FieldPanel.PerformLayout ( );
+			ResumeLayout ( false );
+		}
+		private Kb_Control Kb_value => OTV_value.Kb;
 		private void UpdateOTV_AB ( object sender, EventArgs e )
 		{
 			OTV_value.B = null;

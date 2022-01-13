@@ -31,7 +31,7 @@ namespace CalculatorComponents
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 
-		private readonly Kb_Control Kb = new Kb_Control ( );
+		public readonly Kb_Control Kb = new Kb_Control ( );
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName

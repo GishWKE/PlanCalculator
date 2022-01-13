@@ -23,20 +23,16 @@ namespace BaseComponents
 		public new double? Value
 		{
 			get => ( double? ) base.Value;
-			set
-			{
-				if ( value == null )
-				{
-					base.Value = null;
-				}
-				else
-				{
-					base.Value = ( decimal? ) ( ( double ) value );
-				}
-			}
+			set => base.Value = ( decimal? ) value;
+		}
+		// Скрываем переменную
+		private new NumericTextBoxTypes Type
+		{
+			get => base.Type;
+			set => base.Type = value;
 		}
 		public static implicit operator double? ( DoubleTextBox dtb ) => dtb.Value;
-		public static implicit operator double ( DoubleTextBox dtb ) => ( ( ( double? ) dtb ) ?? 0D );
+		public static implicit operator double ( DoubleTextBox dtb ) => dtb.Value.GetValueOrDefault ( 0D );
 		public DoubleTextBox ( ) : base ( ) => InitializeComponent ( );
 	}
 }

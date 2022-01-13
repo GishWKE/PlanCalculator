@@ -29,7 +29,8 @@
 		/// </summary>
 		private void InitializeComponent ( )
 		{
-			this.components = new System.ComponentModel.Container();
+			this.SuspendLayout();
+			this.ResumeLayout(false);
 
 		}
 

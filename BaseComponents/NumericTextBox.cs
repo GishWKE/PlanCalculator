@@ -3,12 +3,14 @@
 	using System;
 	using System.ComponentModel;
 	using System.Drawing;
-	using System.Globalization;
 	using System.Linq;
 	using System.Text.RegularExpressions;
 	using System.Windows.Forms;
-	[DefaultEvent ( "ValueChanged" )]
-	[DefaultBindingProperty ( "Number" )]
+	public enum NumericTextBoxTypes
+	{
+		DOUBLE,
+		INT
+	}
 	public partial class NumericTextBox : TextBox
 	{
 		public event EventHandler ValueChanged;
@@ -17,27 +19,73 @@
 		private static readonly Regex EmptyDBL = new Regex ( "^-?[,.]?$" );
 		private static readonly Regex EmptyINT = new Regex ( "^-?$" );
 		private Regex empty = EmptyDBL;
-		public int FractionalPlaces
+		private int NumberDecimalDigits = Extension.NumberDecimalDigits;
+		private NumericTextBoxTypes _type = NumericTextBoxTypes.DOUBLE;
+		private bool fromType = false, fromFrac = false; // Для выхода из рекурсии
+		public NumericTextBoxTypes Type
 		{
-			get => nfi.NumberDecimalDigits;
+			get => _type;
 			set
 			{
+				if ( fromType )
+				{
+					return;
+				}
+
+				if ( _type == value )
+				{
+					return;
+				}
+
+				_type = value;
+				fromType = true;
+				switch ( value )
+				{
+					case NumericTextBoxTypes.INT:
+						FractionalPlaces = 0;
+						break;
+					case NumericTextBoxTypes.DOUBLE:
+						FractionalPlaces = Extension.NumberDecimalDigits;
+						break;
+				}
+				fromType = false;
+			}
+		}
+		public int FractionalPlaces
+		{
+			get => NumberDecimalDigits;
+			set
+			{
+				if ( fromFrac )
+				{
+					return;
+				}
+
 				try
 				{
-					nfi.NumberDecimalDigits = value;
+					if ( value == NumberDecimalDigits )
+					{
+						return;
+					}
+
+					NumberDecimalDigits = value;
+					fromFrac = true;
 					if ( value == 0 )
 					{
 						empty = EmptyINT;
+						Type = NumericTextBoxTypes.INT;
 					}
 					else
 					{
 						empty = EmptyDBL;
+						Type = NumericTextBoxTypes.DOUBLE;
 					}
 				}
 				catch { throw; }
+				fromFrac = false;
 			}
 		}
-		private readonly NumberFormatInfo nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
+		public bool IsCorrect => this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
 		[DefaultValue ( null )]
 		public decimal? Value
 		{
@@ -50,14 +98,14 @@
 				}
 				else
 				{
-					Text = ( ( decimal ) value ).ToString ( "F", nfi );
+					Text = value.ToStringWithDecimalPlaces ( NumberDecimalDigits );
 				}
 				SelectionStart = Text.Length;
 				OnValueChanged ( EventArgs.Empty );
 			}
 		}
 		public static implicit operator decimal? ( NumericTextBox dtb ) => dtb.Value;
-		public static implicit operator decimal ( NumericTextBox dtb ) => ( ( ( decimal? ) dtb ) ?? decimal.Zero );
+		public static implicit operator decimal ( NumericTextBox dtb ) => dtb.Value.GetValueOrDefault ( decimal.Zero );
 		private string default_tooltip = string.Empty;
 		[DefaultValue ( "" )]
 		public string Correct_tooltip
@@ -68,16 +116,12 @@
 				if ( !value.IsEmpty ( ) )
 				{
 					default_tooltip = value;
-					toolTip1.SetToolTip ( this, default_tooltip );
+					toolTip.SetToolTip ( this, default_tooltip );
 				}
 			}
 		}
 		[DefaultValue ( "" )]
-		public string Wrong_tooltip
-		{
-			get;
-			set;
-		}
+		public string Wrong_tooltip;
 		private bool can_neg = false;
 		[DefaultValue ( false )]
 		public bool CanBeNegative
@@ -97,6 +141,11 @@
 				}
 			}
 		}
+		public bool AlwaysPositive
+		{
+			get => !CanBeNegative;
+			set => CanBeNegative = !value;
+		}
 		private Regex Checker = null;
 		[DefaultValue ( "" )]
 		public string Regex
@@ -110,7 +159,6 @@
 				}
 			}
 		}
-		public bool IsCorrect => this.IsEmpty ( ) || Regex.IsEmpty ( ) || Checker.IsMatch ( Text );
 		private void NumericTextBox_KeyPress_NoMinus ( object sender, KeyPressEventArgs e )
 		{
 			if ( e.KeyChar == '-' )
@@ -139,7 +187,7 @@
 				case ',':
 					if ( FractionalPlaces != 0 ) // Если разрешена дробная часть
 					{
-						e.KeyChar = Extension.DblDot; // Подменяем на лету дробный разделитель
+						e.KeyChar = Extension.NumberDecimalSeparator; // Подменяем на лету дробный разделитель
 						if ( !Text.Contains ( e.KeyChar ) ) // Если дробный разделитель отсутсвует
 						{
 							return;
@@ -166,11 +214,11 @@
 		{
 			var err = BackColor != DefaultBackColor;
 			var txt = err ? Wrong_tooltip : Correct_tooltip;
-			toolTip1.ToolTipIcon = err ? ToolTipIcon.Error : ToolTipIcon.Info;
-			toolTip1.RemoveAll ( );
+			toolTip.ToolTipIcon = err ? ToolTipIcon.Error : ToolTipIcon.Info;
+			toolTip.RemoveAll ( );
 			if ( !txt.IsEmpty ( ) )
 			{
-				toolTip1.SetToolTip ( this, txt );
+				toolTip.SetToolTip ( this, txt );
 			}
 		}
 		private void NumericTextBox_Leave ( object sender, EventArgs e )

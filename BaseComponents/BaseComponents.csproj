@@ -76,6 +76,9 @@
     <EmbeddedResource Include="IntTextBox.resx">
       <DependentUpon>IntTextBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NumericTextBox.resx">
+      <DependentUpon>NumericTextBox.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

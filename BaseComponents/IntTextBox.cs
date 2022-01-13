@@ -25,14 +25,22 @@ namespace BaseComponents
 			get => ( int? ) base.Value;
 			set => base.Value = value;
 		}
+		// Скрываем переменную
+		private new NumericTextBoxTypes Type
+		{
+			get => base.Type;
+			set => base.Type = value;
+		}
+		// Скрываем переменную
+		private new int FractionalPlaces
+		{
+			get => base.FractionalPlaces;
+			set => base.FractionalPlaces = value;
+		}
 		public static implicit operator int? ( IntTextBox itb ) => itb.Value;
 		public static implicit operator double? ( IntTextBox itb ) => itb.Value;
-		public static implicit operator int ( IntTextBox itb ) => ( ( ( int? ) itb ) ?? 0 );
-		public static implicit operator double ( IntTextBox itb ) => ( ( ( double? ) itb ) ?? 0D );
-		public IntTextBox ( ) : base ( )
-		{
-			FractionalPlaces = 0;
-			InitializeComponent ( );
-		}
+		public static implicit operator int ( IntTextBox itb ) => itb.Value.GetValueOrDefault ( 0 );
+		public static implicit operator double ( IntTextBox itb ) => ( ( double? ) itb ).GetValueOrDefault ( 0D );
+		public IntTextBox ( ) : base ( ) => InitializeComponent ( );
 	}
 }

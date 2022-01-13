@@ -28,31 +28,32 @@
 		/// </summary>
 		private void InitializeComponent ( )
 		{
-			this.components = new System.ComponentModel.Container ( );
-			this.toolTip1 = new System.Windows.Forms.ToolTip ( this.components );
-			this.SuspendLayout ( );
+			this.components = new System.ComponentModel.Container();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.SuspendLayout();
 			// 
-			// toolTip1
+			// toolTip
 			// 
-			this.toolTip1.AutoPopDelay = 5000;
-			this.toolTip1.InitialDelay = 200;
-			this.toolTip1.IsBalloon = true;
-			this.toolTip1.ReshowDelay = 100;
-			this.toolTip1.ShowAlways = true;
-			this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-			this.toolTip1.ToolTipTitle = "Информация о поле ввода";
+			this.toolTip.AutoPopDelay = 5000;
+			this.toolTip.InitialDelay = 200;
+			this.toolTip.IsBalloon = true;
+			this.toolTip.ReshowDelay = 100;
+			this.toolTip.ShowAlways = true;
+			this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			this.toolTip.ToolTipTitle = "Информация о поле ввода";
 			// 
-			// IntTextBox
+			// NumericTextBox
 			// 
 			this.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.BackColorChanged += new System.EventHandler ( this.NumericTextBox_BackColorChanged );
-			this.TextChanged += new System.EventHandler ( this.NumericTextBox_TextChanged );
-			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler ( this.NumericTextBox_KeyPress );
-			this.Leave += new System.EventHandler ( this.NumericTextBox_Leave );
-			this.ResumeLayout ( false );
+			this.BackColorChanged += new System.EventHandler(this.NumericTextBox_BackColorChanged);
+			this.TextChanged += new System.EventHandler(this.NumericTextBox_TextChanged);
+			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericTextBox_KeyPress);
+			this.Leave += new System.EventHandler(this.NumericTextBox_Leave);
+			this.ResumeLayout(false);
+
 		}
 
 		#endregion
-		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.ToolTip toolTip;
 	}
 }

@@ -27,8 +27,8 @@ namespace BaseComponents
 	using System.Windows.Forms;
 	public static class Extension
 	{
-		public static NumberFormatInfo nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
-		public static readonly char DblDot = char.Parse ( nfi.NumberDecimalSeparator );
+		public static readonly int NumberDecimalDigits = NumberFormatInfo.CurrentInfo.NumberDecimalDigits;
+		public static readonly char NumberDecimalSeparator = char.Parse ( NumberFormatInfo.CurrentInfo.NumberDecimalSeparator );
 		public static bool IsPathEquals ( this FileInfo s, FileInfo other )
 		{
 			try
@@ -73,14 +73,12 @@ namespace BaseComponents
 				throw;
 			}
 		}
-		public static string ToStringWithDecimalPlaces ( this double ? val, int dec )
+		public static string ToStringWithDecimalPlaces ( this decimal? val, int dec ) => val.GetValueOrDefault ( decimal.Zero ).ToStringWithDecimalPlaces ( dec );
+		public static string ToStringWithDecimalPlaces ( this double? val, int dec ) => ( ( decimal? ) val ).ToStringWithDecimalPlaces ( dec );
+		public static string ToStringWithDecimalPlaces ( this double val, int dec ) => ( ( decimal ) val ).ToStringWithDecimalPlaces ( dec );
+		public static string ToStringWithDecimalPlaces ( this decimal val, int dec )
 		{
-			if ( val == null )
-				return 0D.ToStringWithDecimalPlaces ( dec );
-			return val.Value.ToStringWithDecimalPlaces ( dec );
-		}
-		public static string ToStringWithDecimalPlaces ( this double val, int dec )
-		{
+			var nfi = ( NumberFormatInfo ) NumberFormatInfo.CurrentInfo.Clone ( );
 			nfi.NumberDecimalDigits = dec;
 			return val.ToString ( "F", nfi );
 		}
@@ -161,7 +159,7 @@ namespace BaseComponents
 		{
 			try
 			{
-				return dt == null || dt.Columns == null  || dt.Columns.Count == 0 || dt.Rows == null|| dt.Rows.Count == 0;
+				return dt == null || dt.Columns == null || dt.Columns.Count == 0 || dt.Rows == null || dt.Rows.Count == 0;
 			}
 			catch { throw; }
 		}

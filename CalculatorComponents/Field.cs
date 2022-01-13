@@ -18,7 +18,6 @@ namespace CalculatorComponents
 {
 	using System;
 	using System.ComponentModel;
-	using System.IO;
 	using System.Windows.Forms;
 	public partial class Field : UserControl
 	{
@@ -65,7 +64,7 @@ namespace CalculatorComponents
 			set => Time_value.Value = value;
 		}
 		[DefaultValue ( "" )]
-		public FileInfo FileName
+		public string FileName
 		{
 			get => Kb_value.FileName;
 			set => Kb_value.FileName = OTV_value.FileName = L_value.FileName = value;

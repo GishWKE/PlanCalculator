@@ -19,7 +19,6 @@ namespace DB_Worker
 	using System;
 	using System.Collections.Generic;
 	using System.Data;
-	using System.IO;
 
 	public class DB_Worker : I_DB_Worker
 	{
@@ -38,11 +37,12 @@ namespace DB_Worker
 		private DB_Worker ( ) => sql = new ODBC_Worker ( );
 
 		private readonly ODBC_Worker sql;
-		public FileInfo FileName
+		public string FileName
 		{
 			get => sql.DataSource;
 			set => sql.DataSource = value;
 		}
+
 		public void Dispose ( ) => sql.Dispose ( );
 		public DataTable GetTable ( string sql ) => this.sql.GetTable ( sql );
 		public object GetValue ( string sql ) => this.sql.GetValue ( sql );

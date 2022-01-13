@@ -31,20 +31,16 @@ namespace DB_Worker
 	{
 		public OleDbCommand command
 		{
-			get; set;
+			get;set;
 		}
-		private FileInfo fileName = null;
+		private string fileName = null;
 		[DefaultValue ( "" )]
-		public FileInfo DataSource
+		public string DataSource
 		{
 			get => fileName;
 			set
 			{
-				if ( value == null )
-				{
-					return;
-				}
-				if ( !value.Exists )
+				if ( value.IsEmpty ( ) )
 				{
 					CloseAndClear ( );
 					return;
@@ -55,7 +51,7 @@ namespace DB_Worker
 				}
 
 				CloseAndClear ( );
-				fileName = value;
+				fileName = new FileInfo ( value ).FullName;
 				try
 				{
 					command = new OleDbCommand
@@ -81,15 +77,13 @@ namespace DB_Worker
 			{
 				try
 				{
-					if ( !DataSource.Exists )
-					{
-						throw new Exception ( DB.No_filename );
-					}
-					return new OleDbConnectionStringBuilder
-					{
-						DataSource = DataSource.FullName,
-						Provider = DBProviders.Provider
-					}.ConnectionString;
+					return DataSource.IsEmpty ( ) ?
+						throw new Exception ( DB.No_filename ) :
+						new OleDbConnectionStringBuilder
+						{
+							DataSource = DataSource,
+							Provider = DBProviders.Provider
+						}.ConnectionString;
 				}
 				catch
 				{

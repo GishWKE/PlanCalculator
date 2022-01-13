@@ -20,28 +20,19 @@ namespace BaseComponents
 	public partial class IntTextBox : NumericTextBox
 	{
 		[DefaultValue ( null )]
-		[Description ( "Переменная, отображаемая в поле" )]
-		[Browsable ( true )]
 		public new int? Value
 		{
 			get => ( int? ) base.Value;
 			set => base.Value = value;
 		}
-
-		private new int FractionalPlaces
-		{
-			get => base.FractionalPlaces;
-			set => base.FractionalPlaces = value;
-		}
-		private new TextBoxType Type
-		{
-			get => base.Type;
-			set => base.Type = value;
-		}
 		public static implicit operator int? ( IntTextBox itb ) => itb.Value;
-		public static implicit operator int ( IntTextBox itb ) => ( ( int? ) itb ).GetValueOrDefault ( );
-		public static implicit operator double? ( IntTextBox itb ) => ( int? ) itb;
-		public static implicit operator double ( IntTextBox itb ) => ( int ) itb;
-		public IntTextBox ( ) : base ( ) => InitializeComponent ( );
+		public static implicit operator double? ( IntTextBox itb ) => itb.Value;
+		public static implicit operator int ( IntTextBox itb ) => ( ( ( int? ) itb ) ?? 0 );
+		public static implicit operator double ( IntTextBox itb ) => ( ( ( double? ) itb ) ?? 0D );
+		public IntTextBox ( ) : base ( )
+		{
+			FractionalPlaces = 0;
+			InitializeComponent ( );
+		}
 	}
 }

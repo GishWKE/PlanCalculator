@@ -29,13 +29,7 @@
 		/// </summary>
 		private void InitializeComponent ( )
 		{
-			this.SuspendLayout();
-			// 
-			// IntTextBox
-			// 
-			this.FractionalPlaces = 0;
-			this.Type = BaseComponents.TextBoxType.Integer;
-			this.ResumeLayout(false);
+			this.components = new System.ComponentModel.Container();
 
 		}
 

@@ -18,7 +18,6 @@ namespace CalculatorComponents
 {
 	using System;
 	using System.ComponentModel;
-	using System.IO;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -35,7 +34,7 @@ namespace CalculatorComponents
 		private readonly Kb_Control Kb = new Kb_Control ( );
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
-		public FileInfo FileName
+		public string FileName
 		{
 			get => sql.FileName;
 			set => Kb.FileName = sql.FileName = value;
@@ -85,7 +84,7 @@ namespace CalculatorComponents
 			var AA = A;
 			var BB = B;
 			var DD = D;
-			if ( AA == null || BB == null || DD == null || !FileName.Exists )
+			if ( AA == null || BB == null || DD == null || FileName.IsEmpty ( ) )
 			{
 				return;
 			}

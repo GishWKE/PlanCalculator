@@ -20,7 +20,6 @@ namespace CalculatorComponents
 	using System.Collections;
 	using System.ComponentModel;
 	using System.Data;
-	using System.IO;
 	using System.Linq;
 	using System.Windows.Forms;
 
@@ -38,8 +37,15 @@ namespace CalculatorComponents
 		private static readonly double Cobalt60 = 5.271388888888888888888888888888D * 365.2425D;
 		public double? PreviousPower = null;
 		private int PreviousIndex = -1, CurrentIndex = -1;
-		public static double GetPower ( double pow, DateTime First, DateTime rezult ) => GetPower ( Cobalt60, pow, First, rezult );
-		public static double GetPower ( double hL, double pow, DateTime First, DateTime rezult ) => pow / Math.Pow ( 2, ( rezult - First ).Days / hL );
+		public static double GetPower ( double pow, DateTime First, DateTime rezult )
+		{
+			return Device.GetPower ( Device.Cobalt60, pow, First, rezult );
+		}
+		public static double GetPower ( double hL, double pow, DateTime First, DateTime rezult )
+		{
+			var diff = ( rezult - First ).Days;
+			return pow / Math.Pow ( 2, diff / hL );
+		}
 		/// <summary>
 		/// Выбранный для отображения аппарат
 		/// </summary>
@@ -80,16 +86,12 @@ namespace CalculatorComponents
 		/// <summary>
 		/// Путь к файлу, в котором собержится БД
 		/// </summary>
-		[DefaultValue ( "" )]
-		[Description ( "Путь к файлу с БД" )]
-		[Browsable ( true )]
-		public FileInfo FileName
+		[DefaultValue("")]
+		public string FileName
 		{
 			get => sql.FileName;
 			set
 			{
-				if ( value == null )
-					return;
 				sql.FileName = value;
 				UpdateData ( );
 				PreviousIndex = -1;
@@ -98,7 +100,7 @@ namespace CalculatorComponents
 		}
 		private void FillDevicesList ( )
 		{
-			if ( !FileName.Exists )
+			if ( FileName.IsEmpty ( ) )
 			{
 				return;
 			}
@@ -124,9 +126,14 @@ namespace CalculatorComponents
 
 		private void RecalculatePower ( DataTable dt )
 		{
+			// var now = new DateTime ( DateTime.Now.Year, DateTime.Now.Month, 1 );
 			foreach ( var r in dt.AsEnumerable ( ) )
 			{
-				r [ "Мощность" ] = GetPower ( ( double ) r [ "Мощность" ], ( DateTime ) r [ "Дата замера мощности" ], DateTime.Now );
+				var pow = ( double ) r [ "Мощность" ];
+				var date = ( DateTime ) r [ "Дата замера мощности" ];
+				double diff = ( DateTime.Now - date ).Days; // разница дат на сегодня
+															// double diff = ( now - date ).Days; // разница дат на 1 число текущего месяца
+				r [ "Мощность" ] = Device.GetPower ( pow, date, DateTime.Now ); // pow / Math.Pow ( 2, diff * Cobalt60_1 );
 			}
 		}
 		private void DeviceList_SelectedIndexChanged ( object sender, EventArgs e )
@@ -135,6 +142,7 @@ namespace CalculatorComponents
 			PreviousPower = Power.Value;
 			CurrentIndex = DeviceList.SelectedIndex;
 			var sel = Selected;
+			//SCD = sel [ "РИЦ" ].ToString ( ).ToInt ( );
 			SCD = ( int ) sel [ "РИЦ" ];
 			Power.Value = ( double ) sel [ "Мощность" ];
 		}

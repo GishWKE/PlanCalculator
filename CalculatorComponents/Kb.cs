@@ -18,7 +18,6 @@ namespace CalculatorComponents
 {
 	using System;
 	using System.ComponentModel;
-	using System.IO;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -35,7 +34,7 @@ namespace CalculatorComponents
 		private int scd_val = 0;
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
-		public FileInfo FileName
+		public string FileName
 		{
 			get => sql.FileName;
 			set => sql.FileName = value;
@@ -76,7 +75,7 @@ namespace CalculatorComponents
 			Kb.ResetText ( );
 			var AA = A;
 			var BB = B;
-			if ( AA == null || BB == null || SCD == 0 || !FileName.Exists )
+			if ( AA == null || BB == null || SCD == 0 || FileName.IsEmpty ( ) )
 			{
 				return;
 			}

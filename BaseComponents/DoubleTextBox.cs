@@ -19,17 +19,7 @@ namespace BaseComponents
 	using System.ComponentModel;
 	public partial class DoubleTextBox : NumericTextBox
 	{
-		[Description ( "Тип выводимых даннх (int или double)" )]
-		[Browsable ( true )]
-		private new TextBoxType Type
-		{
-			get => base.Type;
-			set => base.Type = value;
-		}
-
 		[DefaultValue ( null )]
-		[Description ( "Переменная, отображаемая в поле" )]
-		[Browsable ( true )]
 		public new double? Value
 		{
 			get => ( double? ) base.Value;
@@ -41,12 +31,12 @@ namespace BaseComponents
 				}
 				else
 				{
-					base.Value = ( decimal? ) value.Value;
+					base.Value = ( decimal? ) ( ( double ) value );
 				}
 			}
 		}
 		public static implicit operator double? ( DoubleTextBox dtb ) => dtb.Value;
-		public static implicit operator double ( DoubleTextBox dtb ) => ( ( double? ) dtb ).GetValueOrDefault ( );
+		public static implicit operator double ( DoubleTextBox dtb ) => ( ( ( double? ) dtb ) ?? 0D );
 		public DoubleTextBox ( ) : base ( ) => InitializeComponent ( );
 	}
 }

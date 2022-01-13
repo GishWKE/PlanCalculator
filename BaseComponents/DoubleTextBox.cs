@@ -17,6 +17,8 @@
 namespace BaseComponents
 {
 	using System.ComponentModel;
+	using System.Text.RegularExpressions;
+
 	public partial class DoubleTextBox : NumericTextBox
 	{
 		[DefaultValue ( null )]
@@ -31,8 +33,17 @@ namespace BaseComponents
 			get => base.Type;
 			set => base.Type = value;
 		}
+		private new Regex empty
+		{
+			get => base.empty;
+			set => base.empty = value;
+		}
 		public static implicit operator double? ( DoubleTextBox dtb ) => dtb.Value;
 		public static implicit operator double ( DoubleTextBox dtb ) => dtb.Value.GetValueOrDefault ( 0D );
-		public DoubleTextBox ( ) : base ( ) => InitializeComponent ( );
+		public DoubleTextBox ( ) : base ( )
+		{
+			empty = new Regex ( "^-?[,.]?$" );
+			InitializeComponent ( );
+		}
 	}
 }

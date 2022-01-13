@@ -6,8 +6,10 @@
 	using System.Linq;
 	using System.Text.RegularExpressions;
 	using System.Windows.Forms;
+
 	public enum NumericTextBoxTypes
 	{
+		UNKNOWN = -1,
 		DOUBLE,
 		INT
 	}
@@ -16,11 +18,9 @@
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private new readonly Color DefaultBackColor;
-		private static readonly Regex EmptyDBL = new Regex ( "^-?[,.]?$" );
-		private static readonly Regex EmptyINT = new Regex ( "^-?$" );
-		private Regex empty = EmptyDBL;
-		private int NumberDecimalDigits = Extension.NumberDecimalDigits;
-		private NumericTextBoxTypes _type = NumericTextBoxTypes.DOUBLE;
+		protected Regex empty = null;
+		private int NumberDecimalDigits = -1;
+		private NumericTextBoxTypes _type = NumericTextBoxTypes.UNKNOWN;
 		private bool fromType = false, fromFrac = false; // Для выхода из рекурсии
 		public NumericTextBoxTypes Type
 		{
@@ -47,6 +47,9 @@
 					case NumericTextBoxTypes.DOUBLE:
 						FractionalPlaces = Extension.NumberDecimalDigits;
 						break;
+					default:
+						FractionalPlaces = -1;
+						break;
 				}
 				fromType = false;
 			}
@@ -70,15 +73,17 @@
 
 					NumberDecimalDigits = value;
 					fromFrac = true;
-					if ( value == 0 )
+					switch ( value )
 					{
-						empty = EmptyINT;
-						Type = NumericTextBoxTypes.INT;
-					}
-					else
-					{
-						empty = EmptyDBL;
-						Type = NumericTextBoxTypes.DOUBLE;
+						case 0:
+							Type = NumericTextBoxTypes.INT;
+							break;
+						case var tmp when tmp > 0:
+							Type = NumericTextBoxTypes.DOUBLE;
+							break;
+						default:
+							Type = NumericTextBoxTypes.UNKNOWN;
+							break;
 					}
 				}
 				catch { throw; }
@@ -92,7 +97,7 @@
 			get => this.IsEmpty ( ) || !IsCorrect ? null : ( decimal? ) this.ToDecimal ( );
 			set
 			{
-				if ( value == null )
+				if ( value == null || Type == NumericTextBoxTypes.UNKNOWN )
 				{
 					ResetText ( );
 				}
@@ -136,8 +141,8 @@
 				}
 				else
 				{
-					KeyPress += NumericTextBox_KeyPress_NoMinus;
 					DeleteMinus ( );
+					KeyPress += NumericTextBox_KeyPress_NoMinus;
 				}
 			}
 		}
@@ -156,6 +161,10 @@
 				if ( !value.IsEmpty ( ) )
 				{
 					Checker = new Regex ( value );
+				}
+				else
+				{
+					Checker = null;
 				}
 			}
 		}
@@ -185,13 +194,10 @@
 			{
 				case '.':
 				case ',':
-					if ( FractionalPlaces != 0 ) // Если разрешена дробная часть
+					e.KeyChar = Extension.NumberDecimalSeparator; // Подменяем на лету дробный разделитель
+					if ( Type == NumericTextBoxTypes.DOUBLE && !Text.Contains ( e.KeyChar ) ) // Если дробный разделитель отсутсвует
 					{
-						e.KeyChar = Extension.NumberDecimalSeparator; // Подменяем на лету дробный разделитель
-						if ( !Text.Contains ( e.KeyChar ) ) // Если дробный разделитель отсутсвует
-						{
-							return;
-						}
+						return;
 					}
 					break;
 				case '-':
@@ -223,7 +229,7 @@
 		}
 		private void NumericTextBox_Leave ( object sender, EventArgs e )
 		{
-			if ( empty.IsMatch ( Text ) )
+			if ( empty != null && empty.IsMatch ( Text ) )
 			{
 				Value = null;
 			}

@@ -17,6 +17,8 @@
 namespace BaseComponents
 {
 	using System.ComponentModel;
+	using System.Text.RegularExpressions;
+
 	public partial class IntTextBox : NumericTextBox
 	{
 		[DefaultValue ( null )]
@@ -37,10 +39,19 @@ namespace BaseComponents
 			get => base.FractionalPlaces;
 			set => base.FractionalPlaces = value;
 		}
+		private new Regex empty
+		{
+			get => base.empty;
+			set => base.empty = value;
+		}
 		public static implicit operator int? ( IntTextBox itb ) => itb.Value;
 		public static implicit operator double? ( IntTextBox itb ) => itb.Value;
 		public static implicit operator int ( IntTextBox itb ) => itb.Value.GetValueOrDefault ( 0 );
 		public static implicit operator double ( IntTextBox itb ) => ( ( double? ) itb ).GetValueOrDefault ( 0D );
-		public IntTextBox ( ) : base ( ) => InitializeComponent ( );
+		public IntTextBox ( ) : base ( )
+		{
+			empty = new Regex ( "^-?$" );
+			InitializeComponent ( );
+		}
 	}
 }

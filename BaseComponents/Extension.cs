@@ -77,14 +77,19 @@ namespace BaseComponents
 				throw;
 			}
 		}
-		public static string ToStringWithDecimalPlaces ( this double? val, int dec ) => val.GetValueOrDefault ( 0D ).ToStringWithDecimalPlaces ( dec );
+		public static string ToStringWithDecimalPlaces ( this double? val, int dec )
+		{
+			if ( val == null )
+			{
+				return 0D.ToStringWithDecimalPlaces ( dec );
+			}
+
+			return val.Value.ToStringWithDecimalPlaces ( dec );
+		}
 		public static string ToStringWithDecimalPlaces ( this double val, int dec )
 		{
-			var tmp = nfi.NumberDecimalDigits;
 			nfi.NumberDecimalDigits = dec;
-			var ret = val.ToString ( "F", nfi );
-			nfi.NumberDecimalDigits = tmp;
-			return ret;
+			return val.ToString ( "F", nfi );
 		}
 		public static void CloseAndWait ( this BackgroundWorker bw )
 		{

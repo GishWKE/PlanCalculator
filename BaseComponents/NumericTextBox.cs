@@ -110,7 +110,7 @@
 			}
 		}
 		public static implicit operator decimal? ( NumericTextBox dtb ) => dtb.Value;
-		public static implicit operator decimal ( NumericTextBox dtb ) => ( ( decimal? ) dtb ).GetValueOrDefault ( decimal.Zero );
+		public static implicit operator decimal ( NumericTextBox dtb ) => ( ( decimal? ) dtb ).GetValueOrDefault ( );
 		private string default_tooltip = string.Empty;
 		[DefaultValue ( "" )]
 		[Description ( "Текст выпадающей подсказки" )]

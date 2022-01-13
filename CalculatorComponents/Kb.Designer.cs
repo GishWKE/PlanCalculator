@@ -105,7 +105,7 @@
 			this.label1.TabIndex = 4;
 			this.label1.Text = ") =";
 			// 
-			// Kb
+			// Field_Kb
 			// 
 			this.Kb.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left) 
             | AnchorStyles.Right)));
@@ -114,7 +114,7 @@
 			this.Kb.FractionalPlaces = 3;
 			this.Kb.Location = new Point(130, 0);
 			this.Kb.MaxLength = 5;
-			this.Kb.Name = "Kb";
+			this.Kb.Name = "Field_Kb";
 			this.Kb.ReadOnly = true;
 			this.Kb.Regex = "";
 			this.Kb.Size = new Size(51, 20);

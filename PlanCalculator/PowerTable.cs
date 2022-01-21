@@ -33,7 +33,8 @@ namespace PlanCalculator
 
 	public partial class PowerTable : Form
 	{
-		private readonly int DecimalPlaces = 2;
+		private readonly int DecimalPlaces = 4;
+		private readonly string Limit;
 		private readonly List<int> selectedDate = new List<int> ( );
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
@@ -70,8 +71,7 @@ namespace PlanCalculator
 					var date = date0;
 					var ind = ( DateTime.Today - date ).Days;
 					selectedDate.Add ( ind );
-					var lim = 0D.ToStringWithDecimalPlaces ( 2 );
-					while ( pow != lim )
+					while ( pow != Limit )
 					{
 						var r = dt0.NewRow ( );
 						r [ "Дата" ] = date;
@@ -105,7 +105,11 @@ namespace PlanCalculator
 				}
 			}
 		}
-		public PowerTable ( ) => InitializeComponent ( );
+		public PowerTable ( )
+		{
+			InitializeComponent ( );
+			Limit = 0D.ToStringWithDecimalPlaces ( DecimalPlaces );
+		}
 
 		private void tabControl1_Selecting ( object sender, TabControlCancelEventArgs e ) => UpdateDisplayingDate ( );
 		private void UpdateDisplayingDate ( )

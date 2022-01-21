@@ -33,6 +33,8 @@ namespace PlanCalculator
 
 	public partial class MonthPowerTable : Form
 	{
+		private readonly int DecimalPlaces = 2;
+		private readonly string Limit;
 		private readonly List<int> selectedDate = new List<int>();
 		private readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue("")]
@@ -64,14 +66,13 @@ namespace PlanCalculator
 					dt0.Columns.Add(new DataColumn("Мощность", typeof(string)));
 					var pow0 = (double)dr["Мощность"];
 					var power = pow0;
-					var pow = power.ToStringWithDecimalPlaces(2);
+					var pow = power.ToStringWithDecimalPlaces( DecimalPlaces );
 					var date0 = (DateTime)dr["Дата замера мощности"];
 					var date = date0;
 					//var ind = ( DateTime.Today - date ).Days;
 					//selectedDate.Add ( ind );
-					var lim = 0D.ToStringWithDecimalPlaces(2);
 
-					while (pow != lim)
+					while (pow != Limit)
 					{
 						var r = dt0.NewRow();
 						var date1 = date;
@@ -85,7 +86,7 @@ namespace PlanCalculator
 							date = date.AddDays(1);
 						}
 						r["Дата"] = date1;
-						r["Мощность"] = (powCalc / cnt).ToStringWithDecimalPlaces(2);
+						r["Мощность"] = (powCalc / cnt).ToStringWithDecimalPlaces( DecimalPlaces );
 						dt0.Rows.Add(r);
 						if (date1.Month == DateTime.Today.Month && date1.Year == DateTime.Today.Year)
 						{
@@ -93,7 +94,7 @@ namespace PlanCalculator
 						}
 						//date = date.AddDays ( 1 );
 						power = Device.GetPower(pow0, date0, date);
-						pow = power.ToStringWithDecimalPlaces(2);
+						pow = power.ToStringWithDecimalPlaces( DecimalPlaces );
 					}
 
 					dgv.DataSource = dt0.Copy();
@@ -120,7 +121,11 @@ namespace PlanCalculator
 				}
 			}
 		}
-		public MonthPowerTable() => InitializeComponent();
+		public MonthPowerTable ( )
+		{
+			InitializeComponent ( );
+			Limit = 0D.ToStringWithDecimalPlaces ( DecimalPlaces );
+		}
 
 		private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e) => UpdateDisplayingDate();
 		private void UpdateDisplayingDate()

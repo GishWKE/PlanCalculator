@@ -194,6 +194,7 @@
 			{
 				case '.':
 				case ',':
+					case '\'':
 					e.KeyChar = Extension.NumberDecimalSeparator; // Подменяем на лету дробный разделитель
 					if ( Type == NumericTextBoxTypes.DOUBLE && !Text.Contains ( e.KeyChar ) ) // Если дробный разделитель отсутсвует
 					{

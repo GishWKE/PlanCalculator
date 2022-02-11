@@ -78,7 +78,7 @@ namespace CalculatorComponents
 		[DefaultValue ( null )]
 		public int? A
 		{
-			get => Kb_value.A;
+			get => OTV_value.A;
 			set => OTV_value.A = value;
 		}
 		[DefaultValue ( null )]

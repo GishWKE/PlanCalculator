@@ -60,6 +60,9 @@ using System.Linq;
 			this.изменениеМощностиАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.добавлениеАппаратовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.мощностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ежедневнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.среднемесячнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.очиститьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -67,23 +70,20 @@ using System.Linq;
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.P1 = new System.Windows.Forms.Panel();
 			this.Dose_label2 = new System.Windows.Forms.Label();
-			this.D = new BaseComponents.DoubleTextBox();
 			this.Dose_label1 = new System.Windows.Forms.Label();
-			this.P = new BaseComponents.IntTextBox();
 			this.Dose_label0 = new System.Windows.Forms.Label();
 			this.P0 = new System.Windows.Forms.Panel();
 			this.label4 = new System.Windows.Forms.Label();
-			this.SSD = new BaseComponents.DoubleTextBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.Distance = new BaseComponents.DoubleTextBox();
 			this.DST = new System.Windows.Forms.Label();
-			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.printDialog1 = new System.Windows.Forms.PrintDialog();
-			this.мощностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.ежедневнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.среднемесячнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.D = new BaseComponents.DoubleTextBox();
+			this.P = new BaseComponents.IntTextBox();
+			this.SSD = new BaseComponents.DoubleTextBox();
+			this.Distance = new BaseComponents.DoubleTextBox();
+			this.Devices = new CalculatorComponents.Device();
 			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
@@ -130,7 +130,7 @@ using System.Linq;
             0,
             0});
 			this.B.Name = "B";
-			this.B.Size = new System.Drawing.Size(157, 20);
+			this.B.Size = new System.Drawing.Size(173, 20);
 			this.B.TabIndex = 3;
 			this.toolTip1.SetToolTip(this.B, "Высота поля");
 			this.B.Value = new decimal(new int[] {
@@ -193,7 +193,7 @@ using System.Linq;
             0,
             0});
 			this.FieldsCount.Name = "FieldsCount";
-			this.FieldsCount.Size = new System.Drawing.Size(157, 20);
+			this.FieldsCount.Size = new System.Drawing.Size(173, 20);
 			this.FieldsCount.TabIndex = 3;
 			this.toolTip1.SetToolTip(this.FieldsCount, "Число полей");
 			this.FieldsCount.ValueChanged += new System.EventHandler(this.FieldCount_ValueChanged);
@@ -309,6 +309,29 @@ using System.Linq;
 			this.оПрограммеToolStripMenuItem.Text = "О программе";
 			this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
 			// 
+			// мощностьToolStripMenuItem
+			// 
+			this.мощностьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ежедневнаяToolStripMenuItem,
+            this.среднемесячнаяToolStripMenuItem});
+			this.мощностьToolStripMenuItem.Name = "мощностьToolStripMenuItem";
+			this.мощностьToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+			this.мощностьToolStripMenuItem.Text = "Мощность";
+			// 
+			// ежедневнаяToolStripMenuItem
+			// 
+			this.ежедневнаяToolStripMenuItem.Name = "ежедневнаяToolStripMenuItem";
+			this.ежедневнаяToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.ежедневнаяToolStripMenuItem.Text = "Ежедневная";
+			this.ежедневнаяToolStripMenuItem.Click += new System.EventHandler(this.просмотрМощностейToolStripMenuItem_Click);
+			// 
+			// среднемесячнаяToolStripMenuItem
+			// 
+			this.среднемесячнаяToolStripMenuItem.Name = "среднемесячнаяToolStripMenuItem";
+			this.среднемесячнаяToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.среднемесячнаяToolStripMenuItem.Text = "Среднемесячная";
+			this.среднемесячнаяToolStripMenuItem.Click += new System.EventHandler(this.среднемесячнаяToolStripMenuItem_Click);
+			// 
 			// очиститьToolStripMenuItem
 			// 
 			this.очиститьToolStripMenuItem.Name = "очиститьToolStripMenuItem";
@@ -393,21 +416,6 @@ using System.Linq;
 			this.Dose_label2.TabIndex = 4;
 			this.Dose_label2.Text = "Гр";
 			// 
-			// D
-			// 
-			this.D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.D.BackColor = System.Drawing.SystemColors.Window;
-			this.D.Correct_tooltip = "Разовая доза";
-			this.D.FractionalPlaces = 2;
-			this.D.Location = new System.Drawing.Point(112, 0);
-			this.D.Name = "D";
-			this.D.Size = new System.Drawing.Size(261, 20);
-			this.D.TabIndex = 3;
-			this.D.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.D.Wrong_tooltip = null;
-			this.D.Leave += new System.EventHandler(this.Dose_Changed);
-			// 
 			// Dose_label1
 			// 
 			this.Dose_label1.AutoSize = true;
@@ -416,22 +424,6 @@ using System.Linq;
 			this.Dose_label1.Size = new System.Drawing.Size(30, 13);
 			this.Dose_label1.TabIndex = 2;
 			this.Dose_label1.Text = "% ) =";
-			// 
-			// P
-			// 
-			this.P.BackColor = System.Drawing.SystemColors.Window;
-			this.P.Correct_tooltip = "Процентная разовая доза";
-			this.P.Location = new System.Drawing.Point(45, 0);
-			this.P.MaxLength = 3;
-			this.P.Name = "P";
-			this.P.Regex = "^([8-9]\\d|100)?$";
-			this.P.Size = new System.Drawing.Size(36, 20);
-			this.P.TabIndex = 1;
-			this.P.Text = "90";
-			this.P.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.P.Value = 90;
-			this.P.Wrong_tooltip = "Введено неверное значение";
-			this.P.Leave += new System.EventHandler(this.Dose_Changed);
 			// 
 			// Dose_label0
 			// 
@@ -465,22 +457,6 @@ using System.Linq;
 			this.label4.TabIndex = 4;
 			this.label4.Text = "см";
 			// 
-			// SSD
-			// 
-			this.SSD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.SSD.BackColor = System.Drawing.SystemColors.Window;
-			this.SSD.Correct_tooltip = "Расстояние источник-поверхность";
-			this.SSD.FractionalPlaces = 1;
-			this.SSD.Location = new System.Drawing.Point(112, 0);
-			this.SSD.MaxLength = 5;
-			this.SSD.Name = "SSD";
-			this.SSD.ReadOnly = true;
-			this.SSD.Size = new System.Drawing.Size(261, 20);
-			this.SSD.TabIndex = 3;
-			this.SSD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.SSD.Wrong_tooltip = null;
-			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
@@ -490,20 +466,6 @@ using System.Linq;
 			this.label3.TabIndex = 2;
 			this.label3.Text = "см) =";
 			// 
-			// Distance
-			// 
-			this.Distance.BackColor = System.Drawing.SystemColors.Window;
-			this.Distance.Correct_tooltip = "Расстояние от точки входа в тело до изоцентра";
-			this.Distance.FractionalPlaces = 1;
-			this.Distance.Location = new System.Drawing.Point(45, 0);
-			this.Distance.MaxLength = 4;
-			this.Distance.Name = "Distance";
-			this.Distance.Size = new System.Drawing.Size(36, 20);
-			this.Distance.TabIndex = 1;
-			this.Distance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.Distance.Wrong_tooltip = "Введено неверное значение";
-			this.Distance.ValueChanged += new System.EventHandler(this.Distance_Leave);
-			// 
 			// DST
 			// 
 			this.DST.AutoSize = true;
@@ -512,15 +474,6 @@ using System.Linq;
 			this.DST.Size = new System.Drawing.Size(36, 13);
 			this.DST.TabIndex = 0;
 			this.DST.Text = "РИП (";
-			// 
-			// Devices
-			// 
-			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Devices.FileName = null;
-			this.Devices.Location = new System.Drawing.Point(0, 0);
-			this.Devices.Name = "Devices";
-			this.Devices.Size = new System.Drawing.Size(401, 87);
-			this.Devices.TabIndex = 0;
 			// 
 			// AllFields
 			// 
@@ -541,28 +494,84 @@ using System.Linq;
 			this.printDialog1.Document = this.printDocument1;
 			this.printDialog1.ShowHelp = true;
 			// 
-			// мощностьToolStripMenuItem
+			// D
 			// 
-			this.мощностьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ежедневнаяToolStripMenuItem,
-            this.среднемесячнаяToolStripMenuItem});
-			this.мощностьToolStripMenuItem.Name = "мощностьToolStripMenuItem";
-			this.мощностьToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-			this.мощностьToolStripMenuItem.Text = "Мощность";
+			this.D.AlwaysPositive = true;
+			this.D.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.D.BackColor = System.Drawing.SystemColors.Window;
+			this.D.Correct_tooltip = "Разовая доза";
+			this.D.FractionalPlaces = 2;
+			this.D.Location = new System.Drawing.Point(112, 0);
+			this.D.Name = "D";
+			this.D.PlaceHolder = "Разовая доза";
+			this.D.Size = new System.Drawing.Size(261, 20);
+			this.D.TabIndex = 3;
+			this.D.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.D.Type = BaseComponents.NumericTextBoxTypes.DOUBLE;
+			this.D.Leave += new System.EventHandler(this.Dose_Changed);
 			// 
-			// ежедневнаяToolStripMenuItem
+			// P
 			// 
-			this.ежедневнаяToolStripMenuItem.Name = "ежедневнаяToolStripMenuItem";
-			this.ежедневнаяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.ежедневнаяToolStripMenuItem.Text = "Ежедневная";
-			this.ежедневнаяToolStripMenuItem.Click += new System.EventHandler(this.просмотрМощностейToolStripMenuItem_Click);
+			this.P.AlwaysPositive = true;
+			this.P.BackColor = System.Drawing.SystemColors.Window;
+			this.P.Correct_tooltip = "Процентная разовая доза";
+			this.P.FractionalPlaces = 0;
+			this.P.Location = new System.Drawing.Point(45, 0);
+			this.P.MaxLength = 3;
+			this.P.Name = "P";
+			this.P.PlaceHolder = null;
+			this.P.Regex = "^([8-9]\\d|100)?$";
+			this.P.Size = new System.Drawing.Size(36, 20);
+			this.P.TabIndex = 1;
+			this.P.Text = "90";
+			this.P.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.P.Type = BaseComponents.NumericTextBoxTypes.INT;
+			this.P.Value = 90;
+			this.P.Leave += new System.EventHandler(this.Dose_Changed);
 			// 
-			// среднемесячнаяToolStripMenuItem
+			// SSD
 			// 
-			this.среднемесячнаяToolStripMenuItem.Name = "среднемесячнаяToolStripMenuItem";
-			this.среднемесячнаяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.среднемесячнаяToolStripMenuItem.Text = "Среднемесячная";
-			this.среднемесячнаяToolStripMenuItem.Click += new System.EventHandler(this.среднемесячнаяToolStripMenuItem_Click);
+			this.SSD.AlwaysPositive = true;
+			this.SSD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.SSD.BackColor = System.Drawing.SystemColors.Window;
+			this.SSD.Correct_tooltip = "Расстояние источник-поверхность";
+			this.SSD.FractionalPlaces = 1;
+			this.SSD.Location = new System.Drawing.Point(112, 0);
+			this.SSD.MaxLength = 5;
+			this.SSD.Name = "SSD";
+			this.SSD.PlaceHolder = null;
+			this.SSD.ReadOnly = true;
+			this.SSD.Size = new System.Drawing.Size(261, 20);
+			this.SSD.TabIndex = 3;
+			this.SSD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.SSD.Type = BaseComponents.NumericTextBoxTypes.DOUBLE;
+			// 
+			// Distance
+			// 
+			this.Distance.AlwaysPositive = true;
+			this.Distance.BackColor = System.Drawing.SystemColors.Window;
+			this.Distance.Correct_tooltip = "Расстояние от точки входа в тело до изоцентра";
+			this.Distance.FractionalPlaces = 1;
+			this.Distance.Location = new System.Drawing.Point(45, 0);
+			this.Distance.MaxLength = 4;
+			this.Distance.Name = "Distance";
+			this.Distance.PlaceHolder = null;
+			this.Distance.Size = new System.Drawing.Size(36, 20);
+			this.Distance.TabIndex = 1;
+			this.Distance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.Distance.Type = BaseComponents.NumericTextBoxTypes.DOUBLE;
+			this.Distance.ValueChanged += new System.EventHandler(this.Distance_Leave);
+			// 
+			// Devices
+			// 
+			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
+			this.Devices.FileName = null;
+			this.Devices.Location = new System.Drawing.Point(0, 0);
+			this.Devices.Name = "Devices";
+			this.Devices.Size = new System.Drawing.Size(401, 87);
+			this.Devices.TabIndex = 0;
 			// 
 			// MainForm
 			// 

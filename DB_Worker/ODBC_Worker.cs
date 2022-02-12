@@ -27,7 +27,7 @@ namespace DB_Worker
 
 	using Resource.Properties;
 
-	public class ODBC_Worker : I_DB_Handler<OdbcCommand>
+	public class ODBC_Worker : IDB_Handler<OdbcCommand>
 	{
 		public OdbcCommand command
 		{

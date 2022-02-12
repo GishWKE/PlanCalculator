@@ -21,6 +21,7 @@ namespace CalculatorComponents
 	using System.ComponentModel;
 	using System.Data;
 	using System.Linq;
+	using System.Threading.Tasks;
 	using System.Windows.Forms;
 
 	using BaseComponents;
@@ -50,7 +51,6 @@ namespace CalculatorComponents
 			{
 				if ( PreviousIndex != -1 )
 				{
-					//return DeviceList.Items [ PreviousIndex ] as DataRowView;
 					return this [ PreviousIndex ];
 				}
 
@@ -75,7 +75,7 @@ namespace CalculatorComponents
 		/// <summary>
 		/// Обработчик запросов к БД
 		/// </summary>
-		private readonly DB_Worker sql = DB_Worker.Instance;
+		private static readonly DB_Worker sql = DB_Worker.Instance;
 		/// <summary>
 		/// Путь к файлу, в котором собержится БД
 		/// </summary>
@@ -119,10 +119,8 @@ namespace CalculatorComponents
 
 		private void RecalculatePower ( DataTable dt )
 		{
-			foreach ( var r in dt.AsEnumerable ( ) )
-			{
-				r [ "Мощность" ] = GetPower ( ( double ) r [ "Мощность" ], ( DateTime ) r [ "Дата замера мощности" ], DateTime.Now );
-			}
+			var now = DateTime.Now;
+			Parallel.ForEach ( dt.AsEnumerable ( ), ( r ) => { r [ "Мощность" ] = GetPower ( ( double ) r [ "Мощность" ], ( DateTime ) r [ "Дата замера мощности" ], now ); } );
 		}
 		private void DeviceList_SelectedIndexChanged ( object sender, EventArgs e )
 		{
@@ -130,7 +128,6 @@ namespace CalculatorComponents
 			PreviousPower = Power.Value;
 			CurrentIndex = DeviceList.SelectedIndex;
 			var sel = Selected;
-			//SCD = sel [ "РИЦ" ].ToString ( ).ToInt ( );
 			SCD = ( int ) sel [ "РИЦ" ];
 			Power.Value = ( double ) sel [ "Мощность" ];
 		}

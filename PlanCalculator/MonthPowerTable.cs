@@ -16,6 +16,13 @@
 */
 namespace PlanCalculator
 {
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.Data;
+	using System.Linq;
+	using System.Windows.Forms;
+
 	using BaseComponents;
 
 	using CalculatorComponents;
@@ -24,31 +31,24 @@ namespace PlanCalculator
 
 	using Resource.Properties;
 
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel;
-	using System.Data;
-	using System.Linq;
-	using System.Windows.Forms;
-
 	public partial class MonthPowerTable : Form
 	{
 		private readonly int DecimalPlaces = 2;
 		private readonly string Limit;
-		private readonly List<int> selectedDate = new List<int>();
-		private readonly DB_Worker sql = DB_Worker.Instance;
-		[DefaultValue("")]
+		private readonly List<int> selectedDate = new List<int> ( );
+		private static readonly DB_Worker sql = DB_Worker.Instance;
+		[DefaultValue ( "" )]
 		public string FileName
 		{
 			get => sql.FileName;
 			set
 			{
 				sql.FileName = value;
-				tabControl1.TabPages.Clear();
-				var dt = sql.GetTable(SQL.Device);
-				foreach (var dr in dt.AsEnumerable())
+				tabControl1.TabPages.Clear ( );
+				var dt = sql.GetTable ( SQL.Device );
+				foreach ( var dr in dt.AsEnumerable ( ) )
 				{
-					var name = dr["Аппарат"].ToString();
+					var name = dr [ "Аппарат" ].ToString ( );
 					var dgv = new DataGridView
 					{
 						Dock = DockStyle.Fill,
@@ -61,61 +61,61 @@ namespace PlanCalculator
 						AllowUserToResizeRows = false,
 						SelectionMode = DataGridViewSelectionMode.FullRowSelect
 					};
-					var dt0 = new DataTable(name);
-					dt0.Columns.Add(new DataColumn("Дата", typeof(DateTime)));
-					dt0.Columns.Add(new DataColumn("Мощность", typeof(string)));
-					var pow0 = (double)dr["Мощность"];
+					var dt0 = new DataTable ( name );
+					dt0.Columns.Add ( new DataColumn ( "Дата", typeof ( DateTime ) ) );
+					dt0.Columns.Add ( new DataColumn ( "Мощность", typeof ( string ) ) );
+					var pow0 = ( double ) dr [ "Мощность" ];
 					var power = pow0;
-					var pow = power.ToStringWithDecimalPlaces( DecimalPlaces );
-					var date0 = (DateTime)dr["Дата замера мощности"];
+					var pow = power.ToStringWithDecimalPlaces ( DecimalPlaces );
+					var date0 = ( DateTime ) dr [ "Дата замера мощности" ];
 					var date = date0;
 					//var ind = ( DateTime.Today - date ).Days;
 					//selectedDate.Add ( ind );
 
-					while (pow != Limit)
+					while ( pow != Limit )
 					{
-						var r = dt0.NewRow();
+						var r = dt0.NewRow ( );
 						var date1 = date;
 						var powCalc = power;
 						var cnt = 1;
-						date = date.AddDays(1);
-						while (date.Month == date1.Month)
+						date = date.AddDays ( 1 );
+						while ( date.Month == date1.Month )
 						{
 							cnt++;
-							powCalc += Device.GetPower(pow0, date0, date);
-							date = date.AddDays(1);
+							powCalc += Device.GetPower ( pow0, date0, date );
+							date = date.AddDays ( 1 );
 						}
-						r["Дата"] = date1;
-						r["Мощность"] = (powCalc / cnt).ToStringWithDecimalPlaces( DecimalPlaces );
-						dt0.Rows.Add(r);
-						if (date1.Month == DateTime.Today.Month && date1.Year == DateTime.Today.Year)
+						r [ "Дата" ] = date1;
+						r [ "Мощность" ] = ( powCalc / cnt ).ToStringWithDecimalPlaces ( DecimalPlaces );
+						dt0.Rows.Add ( r );
+						if ( date1.Month == DateTime.Today.Month && date1.Year == DateTime.Today.Year )
 						{
-							selectedDate.Add(dt0.Rows.Count);
+							selectedDate.Add ( dt0.Rows.Count );
 						}
 						//date = date.AddDays ( 1 );
-						power = Device.GetPower(pow0, date0, date);
-						pow = power.ToStringWithDecimalPlaces( DecimalPlaces );
+						power = Device.GetPower ( pow0, date0, date );
+						pow = power.ToStringWithDecimalPlaces ( DecimalPlaces );
 					}
 
-					dgv.DataSource = dt0.Copy();
-					var tp = new TabPage(name);
-					tp.CreateControl();
-					tp.Controls.Add(dgv);
-					tabControl1.TabPages.Add(tp);
+					dgv.DataSource = dt0.Copy ( );
+					var tp = new TabPage ( name );
+					tp.CreateControl ( );
+					tp.Controls.Add ( dgv );
+					tabControl1.TabPages.Add ( tp );
 				}
 			}
 		}
-		private static void EnsureVisibleRow(DataGridView view, int rowToShow)
+		private static void EnsureVisibleRow ( DataGridView view, int rowToShow )
 		{
-			if (rowToShow >= 0 && rowToShow < view.RowCount)
+			if ( rowToShow >= 0 && rowToShow < view.RowCount )
 			{
-				var countVisible = view.DisplayedRowCount(false);
+				var countVisible = view.DisplayedRowCount ( false );
 				var firstVisible = view.FirstDisplayedScrollingRowIndex;
-				if (rowToShow < firstVisible)
+				if ( rowToShow < firstVisible )
 				{
 					view.FirstDisplayedScrollingRowIndex = rowToShow;
 				}
-				else if (rowToShow >= firstVisible + countVisible)
+				else if ( rowToShow >= firstVisible + countVisible )
 				{
 					view.FirstDisplayedScrollingRowIndex = rowToShow - countVisible + 1;
 				}
@@ -127,19 +127,19 @@ namespace PlanCalculator
 			Limit = 0D.ToStringWithDecimalPlaces ( DecimalPlaces );
 		}
 
-		private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e) => UpdateDisplayingDate();
-		private void UpdateDisplayingDate()
+		private void tabControl1_Selecting ( object sender, TabControlCancelEventArgs e ) => UpdateDisplayingDate ( );
+		private void UpdateDisplayingDate ( )
 		{
 			var tab = tabControl1.SelectedTab;
 			var tabInd = tabControl1.SelectedIndex;
-			var v = (DataGridView)tab.Controls[0];
-			v.Columns["Дата"].DefaultCellStyle.Format = "MMMM yyyy";
-			var row = selectedDate[tabInd];
-			v.ClearSelection();
-			v.Rows[row].Selected = true;
-			EnsureVisibleRow(v, row);
+			var v = ( DataGridView ) tab.Controls [ 0 ];
+			v.Columns [ "Дата" ].DefaultCellStyle.Format = "MMMM yyyy";
+			var row = selectedDate [ tabInd ];
+			v.ClearSelection ( );
+			v.Rows [ row ].Selected = true;
+			EnsureVisibleRow ( v, row );
 		}
 
-		private void PowerTable_Shown(object sender, EventArgs e) => UpdateDisplayingDate();
+		private void PowerTable_Shown ( object sender, EventArgs e ) => UpdateDisplayingDate ( );
 	}
 }

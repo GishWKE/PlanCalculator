@@ -17,27 +17,16 @@
 namespace DB_Worker
 {
 	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel;
-	using System.Data;
-	using System.IO;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
 
-	using BaseComponents;
-
-	using Resource.Properties;
-
-	public interface I_DB_Handler <T> : I_DB_Worker, IDisposable
+	public interface IDB_Handler<T> : IDB_Worker, IDisposable
 	{
 		T command
 		{
-			get;set;
+			get; set;
 		}
 		string DataSource
 		{
-			get;set;
+			get; set;
 		}
 	}
 }

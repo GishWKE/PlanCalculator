@@ -161,7 +161,7 @@ namespace PlanCalculator
 			var f = fld as Field;
 			f.Time = null;
 
-			if ( new double?[ ] { D, P, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
+			if ( new double? [ ] { D, P, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
 			{
 				return;
 			}
@@ -197,19 +197,19 @@ namespace PlanCalculator
 				AllFields.Controls.Clear ( );
 				ClearFields ( );
 				AllFields.ResumeLayout ( );
-				GC.Collect ( );
 			}
 			else if ( cnt < fields.Count )
 			{
 				AllFields.SuspendLayout ( );
 				for ( var i = fields.Count - 1; i >= cnt; i-- )
 				{
+					fields [ i ].RecalculationNeed -= RecalculationNeed;
+					fields [ i ].TotalRecalculationNeed -= TotalRecalculationNeed;
 					AllFields.Controls.Remove ( fields [ i ] );
 					fields [ i ].Dispose ( );
 					fields.RemoveAt ( i );
 				}
 				AllFields.ResumeLayout ( );
-				GC.Collect ( );
 				Calculate ( );
 			}
 			else
@@ -227,8 +227,7 @@ namespace PlanCalculator
 						SCD = ( int ) Devices.SCD,
 						A = ( int ) A.Value,
 						B = ( int ) B.Value,
-						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ],
-						
+						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ]
 					};
 					f.RecalculationNeed += RecalculationNeed;
 					f.TotalRecalculationNeed += TotalRecalculationNeed;
@@ -249,15 +248,16 @@ namespace PlanCalculator
 		{
 			var obj = sender as NumericUpDown;
 			var isA = obj.Name == "A";
+			var val = ( int ) obj.Value;
 			foreach ( var f in fields )
 			{
 				if ( isA )
 				{
-					f.A = ( int ) obj.Value;
+					f.A = val;
 				}
 				else
 				{
-					f.B = ( int ) obj.Value;
+					f.B = val;
 				}
 			}
 		}
@@ -438,14 +438,14 @@ namespace PlanCalculator
 		private bool fromPreview = false;
 		private string printString;
 		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e ) =>
-			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 0, 0, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
+			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 10, 10, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
 
 		private void предварителоьныйПросмотрToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
 			fromPreview = false;
 			printString = PreparePrintData ( );
 			var formPreview = new PrintPreview ( printString );
-			if (formPreview.ShowDialog ( ) == DialogResult.OK )
+			if ( formPreview.ShowDialog ( ) == DialogResult.OK )
 			{
 				fromPreview = true;
 				printString = formPreview.Preview;

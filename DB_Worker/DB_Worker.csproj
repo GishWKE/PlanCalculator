@@ -48,9 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="I_DB_Handler.cs" />
+    <Compile Include="IDB_Handler.cs" />
     <Compile Include="DB_Worker.cs" />
-    <Compile Include="I_DB_Worker.cs" />
+    <Compile Include="IDB_Worker.cs" />
     <Compile Include="ODBC_Worker.cs" />
     <Compile Include="OleDB_Worker.cs" />
     <Compile Include="DBProviders.cs" />

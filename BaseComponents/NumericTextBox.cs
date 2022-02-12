@@ -4,37 +4,21 @@
 	using System.ComponentModel;
 	using System.Drawing;
 	using System.Linq;
-using System.Runtime.InteropServices;
 	using System.Text.RegularExpressions;
 	using System.Windows.Forms;
 
+	[Description ( "Тип вводимых данных" )]
 	public enum NumericTextBoxTypes
 	{
 		UNKNOWN = -1,
 		DOUBLE,
 		INT
 	}
-	public partial class NumericTextBox : TextBox
+	public partial class NumericTextBox : MyTextBox
 	{
-		#region Placeholder
-		private const int EM_SETCUEBANNER = 0x1501;
-		[DllImport ( "user32.dll", CharSet = CharSet.Auto )]
-		private static extern Int32 SendMessage ( IntPtr hWnd, int msg, int wParam, [MarshalAs ( UnmanagedType.LPWStr )] string lParam );
-		// SendMessage(textBox2.Handle, EM_SETCUEBANNER, 0, "Password");
-		private string _placeHolder = null;
-		public string PlaceHolder
-		{
-			get => _placeHolder;
-			set
-			{
-				_placeHolder = value;
-				SendMessage ( Handle, EM_SETCUEBANNER, 0, _placeHolder );
-			}
-		}
-		#endregion
+
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
-		private new readonly Color DefaultBackColor;
 		protected Regex empty = null;
 		private int NumberDecimalDigits = -1;
 		private NumericTextBoxTypes _type = NumericTextBoxTypes.UNKNOWN;
@@ -128,22 +112,7 @@ using System.Runtime.InteropServices;
 		}
 		public static implicit operator decimal? ( NumericTextBox dtb ) => dtb.Value;
 		public static implicit operator decimal ( NumericTextBox dtb ) => dtb.Value.GetValueOrDefault ( decimal.Zero );
-		private string default_tooltip = string.Empty;
-		[DefaultValue ( "" )]
-		public string Correct_tooltip
-		{
-			get => default_tooltip;
-			set
-			{
-				if ( !value.IsEmpty ( ) )
-				{
-					default_tooltip = value;
-					toolTip.SetToolTip ( this, default_tooltip );
-				}
-			}
-		}
-		[DefaultValue ( "" )]
-		public string Wrong_tooltip;
+
 		private bool can_neg = false;
 		[DefaultValue ( false )]
 		public bool CanBeNegative
@@ -192,11 +161,7 @@ using System.Runtime.InteropServices;
 				e.Handled = true;
 			}
 		}
-		public NumericTextBox ( ) : base ( )
-		{
-			DefaultBackColor = base.BackColor;
-			InitializeComponent ( );
-		}
+		public NumericTextBox ( ) : base ( ) => InitializeComponent ( );
 		private void DeleteMinus ( )
 		{
 			if ( !this.IsEmpty ( ) && !CanBeNegative )
@@ -211,7 +176,7 @@ using System.Runtime.InteropServices;
 			{
 				case '.':
 				case ',':
-					case '\'':
+				case '\'':
 					e.KeyChar = Extension.NumberDecimalSeparator; // Подменяем на лету дробный разделитель
 					if ( Type == NumericTextBoxTypes.DOUBLE && !Text.Contains ( e.KeyChar ) ) // Если дробный разделитель отсутсвует
 					{
@@ -234,17 +199,7 @@ using System.Runtime.InteropServices;
 			}
 		}
 		private void NumericTextBox_TextChanged ( object sender, EventArgs e ) => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
-		private void NumericTextBox_BackColorChanged ( object sender, EventArgs e )
-		{
-			var err = BackColor != DefaultBackColor;
-			var txt = err ? Wrong_tooltip : Correct_tooltip;
-			toolTip.ToolTipIcon = err ? ToolTipIcon.Error : ToolTipIcon.Info;
-			toolTip.RemoveAll ( );
-			if ( !txt.IsEmpty ( ) )
-			{
-				toolTip.SetToolTip ( this, txt );
-			}
-		}
+		private void NumericTextBox_BackColorChanged ( object sender, EventArgs e ) => SetToolTip ( BackColor == DefaultBackColor );
 		private void NumericTextBox_Leave ( object sender, EventArgs e )
 		{
 			if ( empty != null && empty.IsMatch ( Text ) )

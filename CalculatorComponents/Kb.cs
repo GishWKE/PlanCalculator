@@ -32,7 +32,7 @@ namespace CalculatorComponents
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		private int scd_val = 0;
-		private readonly DB_Worker sql = DB_Worker.Instance;
+		private static readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{

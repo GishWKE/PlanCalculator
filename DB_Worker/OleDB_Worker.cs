@@ -27,11 +27,11 @@ namespace DB_Worker
 
 	using Resource.Properties;
 
-	public class OleDB_Worker : I_DB_Handler<OleDbCommand>
+	public class OleDB_Worker : IDB_Handler<OleDbCommand>
 	{
 		public OleDbCommand command
 		{
-			get;set;
+			get; set;
 		}
 		private string fileName = null;
 		[DefaultValue ( "" )]

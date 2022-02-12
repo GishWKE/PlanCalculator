@@ -56,7 +56,7 @@ namespace CalculatorComponents
 			get => D != null && T != null ? L.Value : null;
 			private set => L.Value = value;
 		}
-		public static implicit operator double? (Lung l)=>l.Value;
+		public static implicit operator double? ( Lung l ) => l.Value;
 		[DefaultValue ( false )]
 		public new bool Visible
 		{

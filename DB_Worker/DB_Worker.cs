@@ -16,11 +16,10 @@
 */
 namespace DB_Worker
 {
-	using System;
 	using System.Collections.Generic;
 	using System.Data;
 
-	public class DB_Worker : I_DB_Worker
+	public class DB_Worker : IDB_Worker
 	{
 		private static DB_Worker instance;
 		public static DB_Worker Instance

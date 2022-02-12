@@ -42,7 +42,7 @@
 			this.OK = new System.Windows.Forms.Button();
 			this.Cansel = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.DeviceName = new System.Windows.Forms.TextBox();
+			this.DeviceName = new BaseComponents.MyTextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.Power = new BaseComponents.DoubleTextBox();
@@ -94,8 +94,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.DeviceName.Location = new System.Drawing.Point(148, 10);
 			this.DeviceName.Name = "DeviceName";
+			this.DeviceName.PlaceHolder = "Наименование аппарата";
 			this.DeviceName.Size = new System.Drawing.Size(222, 20);
 			this.DeviceName.TabIndex = 3;
+			this.DeviceName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// label2
 			// 
@@ -118,20 +120,19 @@
 			// 
 			// Power
 			// 
+			this.Power.AlwaysPositive = true;
 			this.Power.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.Power.BackColor = System.Drawing.SystemColors.Window;
-			this.Power.CanBeNegative = false;
 			this.Power.Correct_tooltip = "Мощность аппарата";
 			this.Power.FractionalPlaces = 2;
 			this.Power.Location = new System.Drawing.Point(148, 62);
 			this.Power.Name = "Power";
-			this.Power.Regex = "";
+			this.Power.PlaceHolder = "Мощность аппарата";
 			this.Power.Size = new System.Drawing.Size(222, 20);
 			this.Power.TabIndex = 7;
 			this.Power.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.Power.Value = null;
-			this.Power.Wrong_tooltip = null;
+			this.Power.Type = BaseComponents.NumericTextBoxTypes.DOUBLE;
 			// 
 			// label4
 			// 
@@ -268,7 +269,7 @@
 		private Button OK;
 		private Button Cansel;
 		private Label label1;
-		private TextBox DeviceName;
+		private MyTextBox DeviceName;
 		private Label label2;
 		private Label label3;
 		private DoubleTextBox Power;

@@ -36,7 +36,7 @@ namespace PlanCalculator
 		private readonly int DecimalPlaces = 4;
 		private readonly string Limit;
 		private readonly List<int> selectedDate = new List<int> ( );
-		private readonly DB_Worker sql = DB_Worker.Instance;
+		private static readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{

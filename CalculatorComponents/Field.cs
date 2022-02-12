@@ -22,8 +22,8 @@ namespace CalculatorComponents
 	public partial class Field : UserControl
 	{
 		public event EventHandler RecalculationNeed;
-		public event EventHandler TotalRecalculationNeed;
 		protected virtual void OnRecalculationNeed ( EventArgs e ) => RecalculationNeed?.Invoke ( this, e );
+		public event EventHandler TotalRecalculationNeed;
 		protected virtual void OnTotalRecalculationNeed ( EventArgs e ) => TotalRecalculationNeed?.Invoke ( this, e );
 		[DefaultValue ( "" )]
 		public new string Text

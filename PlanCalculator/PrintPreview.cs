@@ -29,25 +29,28 @@ namespace PlanCalculator
 				richTextBox1.Update ( );
 			}
 		}
-		public PrintPreview() : this(string.Empty)
+		public PrintPreview ( ) : this ( string.Empty )
 		{
 		}
-		public PrintPreview(string tb)
+		public PrintPreview ( string tb )
 		{
-			InitializeComponent();
+			InitializeComponent ( );
 			Preview = tb;
 		}
 
-		private void PrintPreview_KeyDown(object sender, KeyEventArgs e)
+		private void PrintPreview_KeyDown ( object sender, KeyEventArgs e )
 		{
-			switch (e.KeyCode)
+			switch ( e.KeyCode )
 			{
 				case Keys.Escape:
-					close.PerformClick();
+					close.PerformClick ( );
 					break;
 				case Keys.P:
-					if (e.Control)
-						print.PerformClick();
+					if ( e.Control )
+					{
+						print.PerformClick ( );
+					}
+
 					break;
 			}
 		}

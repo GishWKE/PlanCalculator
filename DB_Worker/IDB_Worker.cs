@@ -19,11 +19,8 @@ namespace DB_Worker
 	using System;
 	using System.Collections.Generic;
 	using System.Data;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
 
-	public interface I_DB_Worker : IDisposable
+	public interface IDB_Worker : IDisposable
 	{
 		DataTable GetTable ( string sql );
 		#region GetValue functions

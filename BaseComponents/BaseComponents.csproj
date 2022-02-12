@@ -59,6 +59,12 @@
     <Compile Include="IntTextBox.Designer.cs">
       <DependentUpon>IntTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyTextBox.Designer.cs">
+      <DependentUpon>MyTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="NumericTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

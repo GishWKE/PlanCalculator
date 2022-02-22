@@ -16,17 +16,21 @@
 */
 namespace PlanCalculator
 {
+	using System.Diagnostics;
 	using System.Reflection;
 	using System.Windows.Forms;
 
+	using BaseComponents;
+
 	internal partial class AboutBox : Form
 	{
+		private readonly Assembly ass = Assembly.GetExecutingAssembly ( );
 		public AboutBox ( )
 		{
 			InitializeComponent ( );
-			Text = string.Format ( "О программе {0}", AssemblyTitle );
+			Text = $@"О программе {AssemblyTitle}";
 			labelProductName.Text = AssemblyProduct;
-			labelVersion.Text = string.Format ( "Версия {0}", AssemblyVersion );
+			labelVersion.Text = $@"Версия {AssemblyVersion}";
 			labelCopyright.Text = AssemblyCopyright;
 			labelCompanyName.Text = AssemblyCompany;
 			textBoxDescription.Text = AssemblyDescription;
@@ -38,12 +42,11 @@ namespace PlanCalculator
 		{
 			get
 			{
-				var ass = Assembly.GetExecutingAssembly ( );
 				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyTitleAttribute ), false );
 				if ( attributes.Length > 0 )
 				{
 					var titleAttribute = ( AssemblyTitleAttribute ) attributes [ 0 ];
-					if ( titleAttribute.Title != "" )
+					if ( !titleAttribute.Title.IsEmpty ( ) )
 					{
 						return titleAttribute.Title;
 					}
@@ -52,13 +55,13 @@ namespace PlanCalculator
 			}
 		}
 
-		public string AssemblyVersion => Assembly.GetExecutingAssembly ( ).GetName ( ).Version.ToString ( );
+		public string AssemblyVersion => ass.GetName ( ).Version.ToString ( );
 
 		public string AssemblyDescription
 		{
 			get
 			{
-				var attributes = Assembly.GetExecutingAssembly ( ).GetCustomAttributes ( typeof ( AssemblyDescriptionAttribute ), false );
+				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyDescriptionAttribute ), false );
 				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyDescriptionAttribute ) attributes [ 0 ] ).Description;
 			}
 		}
@@ -67,7 +70,7 @@ namespace PlanCalculator
 		{
 			get
 			{
-				var attributes = Assembly.GetExecutingAssembly ( ).GetCustomAttributes ( typeof ( AssemblyProductAttribute ), false );
+				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyProductAttribute ), false );
 				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyProductAttribute ) attributes [ 0 ] ).Product;
 			}
 		}
@@ -76,7 +79,7 @@ namespace PlanCalculator
 		{
 			get
 			{
-				var attributes = Assembly.GetExecutingAssembly ( ).GetCustomAttributes ( typeof ( AssemblyCopyrightAttribute ), false );
+				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyCopyrightAttribute ), false );
 				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyCopyrightAttribute ) attributes [ 0 ] ).Copyright;
 			}
 		}
@@ -85,12 +88,12 @@ namespace PlanCalculator
 		{
 			get
 			{
-				var attributes = Assembly.GetExecutingAssembly ( ).GetCustomAttributes ( typeof ( AssemblyCompanyAttribute ), false );
+				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyCompanyAttribute ), false );
 				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyCompanyAttribute ) attributes [ 0 ] ).Company;
 			}
 		}
 		#endregion
 
-		private void RTB_LinkClicked ( object sender, LinkClickedEventArgs e ) => System.Diagnostics.Process.Start ( e.LinkText );
+		private void RTB_LinkClicked ( object sender, LinkClickedEventArgs e ) => Process.Start ( e.LinkText );
 	}
 }

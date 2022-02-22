@@ -69,6 +69,7 @@
 			// 
 			// logoPictureBox
 			// 
+			this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
 			this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
 			this.logoPictureBox.MaximumSize = new System.Drawing.Size(0, 426);
@@ -108,7 +109,7 @@
 			// labelCopyright
 			// 
 			this.labelCopyright.AutoSize = true;
-			this.labelCopyright.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.labelCopyright.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.labelCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelCopyright.Location = new System.Drawing.Point(185, 64);
 			this.labelCopyright.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);

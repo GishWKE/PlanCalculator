@@ -27,7 +27,7 @@ namespace PlanCalculator
 
 	public partial class EditDevices : Form
 	{
-		private readonly DB_Worker sql = DB_Worker.Instance;
+		private static readonly DB_Worker sql = DB_Worker.Instance;
 		[DefaultValue ( "" )]
 		public string FileName
 		{

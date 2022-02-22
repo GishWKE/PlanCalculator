@@ -6,14 +6,11 @@
 	using System.Drawing;
 	using System.Runtime.InteropServices;
 	using System.Windows.Forms;
-
-
 	[Description ( "Текстовое поле с заполнителем (placeholder) и выпадающими подсказками для правильного и неправильного ввода" )]
 	public partial class MyTextBox : TextBox
 	{
 		#region Placeholder
 		private const int EM_SETCUEBANNER = 0x1501;
-		private const int EM_GETCUEBANNER = 0x1502;
 		[DllImport ( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
 		[return: MarshalAs ( UnmanagedType.Bool )]
 		private static extern bool SendMessage ( IntPtr hWnd, int msg, [MarshalAs ( UnmanagedType.Bool )] bool wParam, [MarshalAs ( UnmanagedType.LPWStr )] string lParam );
@@ -42,11 +39,11 @@
 				Text = val.text;
 				Icon = val.icon;
 			}
-			public static implicit operator bool ( TT_Type o ) => !o.Text.IsEmpty ( );
+			public static implicit operator bool ( TT_Type o ) => !( ( string ) o ).IsEmpty ( );
 			public static implicit operator string ( TT_Type o ) => o.Text;
 			public static implicit operator ToolTipIcon ( TT_Type o ) => o.Icon;
 		}
-		private readonly Dictionary<bool, TT_Type> TT = new Dictionary<bool, TT_Type> ( );
+		private readonly Dictionary<bool, TT_Type> TT = new Dictionary<bool, TT_Type> { { false, null }, { true, null } };
 
 		[DefaultValue ( "" )]
 		public string Correct_tooltip
@@ -59,6 +56,10 @@
 				{
 					TT [ true ] = new TT_Type ( (text: value, icon: ToolTipIcon.Info) );
 					SetToolTip ( true );
+				}
+				else
+				{
+					TT [ true ] = null;
 				}
 			}
 		}
@@ -91,8 +92,6 @@
 		private new readonly Color DefaultBackColor;
 		public MyTextBox ( ) : base ( )
 		{
-			TT.Add ( true, null );
-			TT.Add ( false, null );
 			DefaultBackColor = base.BackColor;
 			InitializeComponent ( );
 		}

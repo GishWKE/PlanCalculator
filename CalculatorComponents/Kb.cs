@@ -46,9 +46,14 @@ namespace CalculatorComponents
 			set
 			{
 				scd_val = value;
+				sql.AddParameter ( SQL.Kb_A, 10 );
+				sql.AddParameter ( SQL.Kb_B, 10 );
+				sql.AddParameter ( SQL.Kb_SCD, value );
+				Kb1010 = ( double? ) sql.GetValue ( SQL.Kb );
 				OnRecalculationNeed ( EventArgs.Empty );
 			}
 		}
+		private double? Kb1010 = null;
 		[DefaultValue ( null )]
 		public double? Value
 		{
@@ -79,10 +84,18 @@ namespace CalculatorComponents
 			{
 				return;
 			}
-			sql.AddParameter ( SQL.Kb_A, AA );
-			sql.AddParameter ( SQL.Kb_B, BB );
-			sql.AddParameter ( SQL.Kb_SCD, SCD );
-			Value = ( double? ) sql.GetValue ( SQL.Kb );
+			if ( AA == 10 && BB == 10 )
+			{
+				Value = 1;
+			}
+			else
+			{
+				sql.AddParameter ( SQL.Kb_A, AA );
+				sql.AddParameter ( SQL.Kb_B, BB );
+				sql.AddParameter ( SQL.Kb_SCD, SCD );
+				var val0 = ( double? ) sql.GetValue ( SQL.Kb );
+				Value = val0 / Kb1010;
+			}
 		}
 	}
 }

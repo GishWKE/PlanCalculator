@@ -35,15 +35,10 @@ namespace BaseComponents
 		}
 		private new Regex empty
 		{
-			get => base.empty;
-			set => base.empty = value;
+			get; set;
 		}
 		public static implicit operator double? ( DoubleTextBox dtb ) => dtb.Value;
-		public static implicit operator double ( DoubleTextBox dtb ) => dtb.Value.GetValueOrDefault ( 0D );
-		public DoubleTextBox ( ) : base ( )
-		{
-			empty = new Regex ( "^-?[,.]?$" );
-			InitializeComponent ( );
-		}
+		public static implicit operator double ( DoubleTextBox dtb ) => ( ( double? ) dtb ).GetValueOrDefault ( 0D );
+		public DoubleTextBox ( ) : base ( @"^-?[,.]?$" ) => InitializeComponent ( );
 	}
 }

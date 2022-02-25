@@ -41,17 +41,12 @@ namespace BaseComponents
 		}
 		private new Regex empty
 		{
-			get => base.empty;
-			set => base.empty = value;
+			get; set;
 		}
 		public static implicit operator int? ( IntTextBox itb ) => itb.Value;
 		public static implicit operator double? ( IntTextBox itb ) => itb.Value;
-		public static implicit operator int ( IntTextBox itb ) => itb.Value.GetValueOrDefault ( 0 );
+		public static implicit operator int ( IntTextBox itb ) => ( ( int? ) itb ).GetValueOrDefault ( 0 );
 		public static implicit operator double ( IntTextBox itb ) => ( ( double? ) itb ).GetValueOrDefault ( 0D );
-		public IntTextBox ( ) : base ( )
-		{
-			empty = new Regex ( "^-?$" );
-			InitializeComponent ( );
-		}
+		public IntTextBox ( ) : base ( @"^-?$" ) => InitializeComponent ( );
 	}
 }

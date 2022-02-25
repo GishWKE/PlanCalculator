@@ -35,7 +35,7 @@ namespace CalculatorComponents
 		/// <summary>
 		/// Период полураспада кобальта-60 в днях
 		/// </summary>
-		private static readonly double Cobalt60 = 5.271388888888888888888888888888D * 365.2425D;
+		private static readonly double Cobalt60 = 5.2713D * 365.2425D;
 		public double? PreviousPower = null;
 		private int PreviousIndex = -1, CurrentIndex = -1;
 		public static double GetPower ( double pow, DateTime First, DateTime rezult ) => GetPower ( Cobalt60, pow, First, rezult );

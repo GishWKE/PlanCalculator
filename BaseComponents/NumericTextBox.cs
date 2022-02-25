@@ -16,7 +16,6 @@
 	}
 	public partial class NumericTextBox : MyTextBox
 	{
-
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
 		protected Regex empty = null;
@@ -121,7 +120,7 @@
 			set
 			{
 				can_neg = value;
-				if ( can_neg )
+				if ( CanBeNegative )
 				{
 					KeyPress -= NumericTextBox_KeyPress_NoMinus;
 				}
@@ -162,6 +161,7 @@
 			}
 		}
 		public NumericTextBox ( ) : base ( ) => InitializeComponent ( );
+		public NumericTextBox ( string Empty ) : this ( ) => empty = new Regex ( Empty );
 		private void DeleteMinus ( )
 		{
 			if ( !this.IsEmpty ( ) && !CanBeNegative )

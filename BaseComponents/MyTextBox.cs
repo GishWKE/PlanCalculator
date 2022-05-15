@@ -92,8 +92,8 @@
 		private new readonly Color DefaultBackColor;
 		public MyTextBox ( ) : base ( )
 		{
-			DefaultBackColor = base.BackColor;
 			InitializeComponent ( );
+			DefaultBackColor = base.BackColor;
 		}
 	}
 }

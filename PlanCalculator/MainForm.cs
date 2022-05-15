@@ -40,7 +40,13 @@ namespace PlanCalculator
 		private readonly List<Field> fields = new List<Field> ( );
 		private void ClearFields ( )
 		{
-			fields.AsParallel ( ).Select ( f => { f.Dispose ( ); return true; } );
+			fields.Select ( f =>
+			{
+				f.RecalculationNeed -= RecalculationNeed;
+				f.TotalRecalculationNeed -= TotalRecalculationNeed;
+				f.Dispose ( );
+				return true;
+			} );
 			fields.Clear ( );
 		}
 		public MainForm ( )
@@ -59,20 +65,22 @@ namespace PlanCalculator
 			Text = ( ( DateTime ) e.UserState ).ToString ( Resources.DateFormat );
 			Devices.FileName = FileName;
 			Calculate ( );
+			Update ( );
 		}
 
 		private void DateTitle_RunWorkerCompleted ( object sender, RunWorkerCompletedEventArgs e ) => cToken.Cancel ( );
 
-		private readonly CancellationTokenSource cToken = new CancellationTokenSource ( );
+		private CancellationTokenSource cToken = null;
 		private void DateTitle_DoWork ( object sender, DoWorkEventArgs e )
 		{
-			var bw = ( ( BackgroundWorker ) sender );
 			var dateToday = DateTime.Now;
+			var bw = ( ( BackgroundWorker ) sender );
 			bw.ReportProgress ( 0, dateToday );
 			while ( !bw.CancellationPending )
 			{
 				var dateTomorrow = DateTime.Today.AddDays ( 1 );
 				var diff = dateTomorrow - dateToday;
+				cToken = new CancellationTokenSource ( );
 				cToken.CancelAfter ( diff );
 				new Task ( ( ) => Thread.Sleep ( Timeout.Infinite ), cToken.Token ).Start ( );
 				while ( !cToken.IsCancellationRequested )
@@ -324,7 +332,7 @@ namespace PlanCalculator
 			sb.Append ( ( int ) Devices.Selected [ "РИЦ" ] );
 			sb.AppendLine ( " см" );
 			sb.Append ( "P = " );
-			sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 2 ) );
+			sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 4 ) );
 			sb.AppendLine ( " сГр/с" );
 			sb.Append ( "D (" );
 			sb.Append ( P.Value );
@@ -432,13 +440,13 @@ namespace PlanCalculator
 			}
 			catch ( Exception ex )
 			{
-				throw new Exception ( "Exception Occured While Printing", ex );
+				throw new Exception ( "Исключение при печати", ex );
 			}
 		}
 		private bool fromPreview = false;
 		private string printString;
 		private void printDocument1_PrintPage ( object sender, PrintPageEventArgs e ) =>
-			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 10, 10, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height ) );
+			e.Graphics.DrawString ( printString, new Font ( "Arial", 14 ), new SolidBrush ( Color.Black ), new RectangleF ( 10, 10, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Width - 20, ( ( PrintDocument ) sender ).DefaultPageSettings.PrintableArea.Height - 20 ) );
 
 		private void предварителоьныйПросмотрToolStripMenuItem_Click ( object sender, EventArgs e )
 		{

@@ -1,6 +1,5 @@
 ﻿namespace CalculatorComponents
 {
-
 	partial class Field
 	{
 		/// <summary> 

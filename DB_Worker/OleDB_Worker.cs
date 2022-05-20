@@ -91,13 +91,20 @@ namespace DB_Worker
 				}
 			}
 		}
+		private string CommandText
+		{
+			set
+			{
+				command.CommandText = value.Replace ( Environment.NewLine, " " );
+			}
+		}
 		public DataTable GetTable ( string sql )
 		{
 			if ( command == null || command.Connection == null )
 			{
 				return null;
 			}
-			command.CommandText = sql.Replace ( Environment.NewLine, " " );
+			CommandText = sql;
 			command.Connection.Open ( );
 			var dt = new DataTable ( );
 			using ( var reader = command.ExecuteReader ( ) )
@@ -115,7 +122,7 @@ namespace DB_Worker
 				return null;
 			}
 
-			command.CommandText = sql.Replace ( Environment.NewLine, " " );
+			CommandText = sql;
 			command.Connection.Open ( );
 			var ret = command.ExecuteScalar ( );
 			Close ( );
@@ -170,7 +177,7 @@ namespace DB_Worker
 				return;
 			}
 
-			command.CommandText = sql.Replace ( Environment.NewLine, " " );
+			CommandText = sql;
 			command.Connection.Open ( );
 			command.ExecuteNonQuery ( );
 			Close ( );

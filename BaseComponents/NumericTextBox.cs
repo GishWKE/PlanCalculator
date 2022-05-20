@@ -103,7 +103,12 @@
 				}
 				else
 				{
-					Text = value.ToStringWithDecimalPlaces ( NumberDecimalDigits );
+					var temp = value.ToStringWithDecimalPlaces ( NumberDecimalDigits );
+					if ( Text.Equals ( temp ) )
+					{
+						return; // без изменений
+					}
+					Text = temp;
 				}
 				SelectionStart = Text.Length;
 				OnValueChanged ( EventArgs.Empty );

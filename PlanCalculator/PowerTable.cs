@@ -44,23 +44,12 @@ namespace PlanCalculator
 			set
 			{
 				sql.FileName = value;
+				tabControl1.RecursiveSuspendLayout ( );
 				tabControl1.TabPages.Clear ( );
 				var dt = sql.GetTable ( SQL.Device );
 				foreach ( var dr in dt.AsEnumerable ( ) )
 				{
 					var name = dr [ "Аппарат" ].ToString ( );
-					var dgv = new DataGridView
-					{
-						Dock = DockStyle.Fill,
-						MultiSelect = false,
-						Name = name,
-						AllowUserToAddRows = false,
-						AllowUserToDeleteRows = false,
-						AllowUserToOrderColumns = false,
-						AllowUserToResizeColumns = false,
-						AllowUserToResizeRows = false,
-						SelectionMode = DataGridViewSelectionMode.FullRowSelect
-					};
 					var dt0 = new DataTable ( name );
 					dt0.Columns.Add ( new DataColumn ( "Дата", typeof ( DateTime ) ) );
 					dt0.Columns.Add ( new DataColumn ( "Мощность", typeof ( string ) ) );
@@ -81,12 +70,24 @@ namespace PlanCalculator
 						power = Device.GetPower ( pow0, date0, date );
 						pow = power.ToStringWithDecimalPlaces ( DecimalPlaces );
 					}
-					dgv.DataSource = dt0.Copy ( );
 					var tp = new TabPage ( name );
 					tp.CreateControl ( );
-					tp.Controls.Add ( dgv );
+					tp.Controls.Add ( new DataGridView
+					{
+						Dock = DockStyle.Fill,
+						MultiSelect = false,
+						Name = name,
+						AllowUserToAddRows = false,
+						AllowUserToDeleteRows = false,
+						AllowUserToOrderColumns = false,
+						AllowUserToResizeColumns = false,
+						AllowUserToResizeRows = false,
+						SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+						DataSource = dt0.Copy ( )
+					} );
 					tabControl1.TabPages.Add ( tp );
 				}
+				tabControl1.RecursiveResumeLayout ( );
 			}
 		}
 		private static void EnsureVisibleRow ( DataGridView view, int rowToShow )
@@ -121,6 +122,10 @@ namespace PlanCalculator
 			var row = selectedDate [ tabInd ];
 			v.ClearSelection ( );
 			v.Rows [ row ].Selected = true;
+			foreach ( DataGridViewColumn c in v.Columns )
+			{
+				c.SortMode = DataGridViewColumnSortMode.NotSortable;
+			}
 			EnsureVisibleRow ( v, row );
 		}
 

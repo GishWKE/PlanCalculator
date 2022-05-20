@@ -172,5 +172,40 @@ namespace BaseComponents
 			}
 			catch { throw; }
 		}
+		public static void ForEach<T> ( this IEnumerable <T> @this, Action <T> action )
+		{
+			if ( action == null )
+			{
+				throw new ArgumentNullException ( nameof ( action ) );
+			}
+			foreach ( T item in @this )
+			{
+				action ( item );
+			}
+		}
+		public static void RecursiveSuspendLayout ( this Control c )
+		{
+			if ( c.Parent != null )
+			{
+				c.Parent.RecursiveSuspendLayout ( );
+			}
+			c.SuspendLayout ( );
+		}
+		public static void RecursiveResumeLayout ( this Control c )
+		{
+			c.ResumeLayout ( );
+			if ( c.Parent != null )
+			{
+				c.Parent.RecursiveResumeLayout ( );
+			}
+		}
+		public static void RecursiveResumeLayout ( this Control c, bool performLayout )
+		{
+			c.ResumeLayout ( performLayout );
+			if ( c.Parent != null )
+			{
+				c.Parent.RecursiveResumeLayout ( performLayout );
+			}
+		}
 	}
 }

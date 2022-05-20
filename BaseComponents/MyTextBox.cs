@@ -3,7 +3,6 @@
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel;
-	using System.Drawing;
 	using System.Runtime.InteropServices;
 	using System.Windows.Forms;
 	[Description ( "Текстовое поле с заполнителем (placeholder) и выпадающими подсказками для правильного и неправильного ввода" )]
@@ -32,14 +31,15 @@
 		#region ToolTip
 		private class TT_Type
 		{
-			public string Text;
-			public ToolTipIcon Icon;
+			private string Text;
+			private ToolTipIcon Icon;
 			public TT_Type ( (string text, ToolTipIcon icon) val )
 			{
 				Text = val.text;
 				Icon = val.icon;
 			}
-			public static implicit operator bool ( TT_Type o ) => !( ( string ) o ).IsEmpty ( );
+			public override string ToString ( ) => Text;
+			public static implicit operator bool ( TT_Type o ) => !o.Text.IsEmpty ( );
 			public static implicit operator string ( TT_Type o ) => o.Text;
 			public static implicit operator ToolTipIcon ( TT_Type o ) => o.Icon;
 		}
@@ -48,52 +48,41 @@
 		[DefaultValue ( "" )]
 		public string Correct_tooltip
 		{
-			get => TT [ true ];
+			get => ( string ) TT [ true ];
 			set
 			{
 				toolTip.RemoveAll ( );
+				TT [ true ] = null;
 				if ( !value.IsEmpty ( ) )
 				{
 					TT [ true ] = new TT_Type ( (text: value, icon: ToolTipIcon.Info) );
 					SetToolTip ( true );
-				}
-				else
-				{
-					TT [ true ] = null;
 				}
 			}
 		}
 		[DefaultValue ( "" )]
 		public string Wrong_tooltip
 		{
-			get => TT [ false ];
+			get => ( string ) TT [ false ];
 			set
 			{
+				TT [ false ] = null;
 				if ( !value.IsEmpty ( ) )
 				{
 					TT [ false ] = new TT_Type ( (text: value, icon: ToolTipIcon.Error) );
-				}
-				else
-				{
-					TT [ false ] = null;
 				}
 			}
 		}
 		public void SetToolTip ( bool isCorrect )
 		{
 			toolTip.RemoveAll ( );
-			if ( TT [ isCorrect ] != null && TT [ isCorrect ] )
+			if ( TT [ isCorrect ] != null && ( bool ) TT [ isCorrect ] )
 			{
-				toolTip.ToolTipIcon = TT [ isCorrect ];
-				toolTip.SetToolTip ( this, TT [ isCorrect ] );
+				toolTip.ToolTipIcon = ( ToolTipIcon ) TT [ isCorrect ];
+				toolTip.SetToolTip ( this, ( string ) TT [ isCorrect ] );
 			}
 		}
 		#endregion
-		private new readonly Color DefaultBackColor;
-		public MyTextBox ( ) : base ( )
-		{
-			DefaultBackColor = base.BackColor;
-			InitializeComponent ( );
-		}
+		public MyTextBox ( ) : base ( ) => InitializeComponent ( );
 	}
 }

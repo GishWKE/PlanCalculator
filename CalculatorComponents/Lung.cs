@@ -27,7 +27,7 @@ namespace CalculatorComponents
 	using Resource.Properties;
 	public partial class Lung : UserControl
 	{
-		private event EventHandler RecalculationNeed;
+		public event EventHandler RecalculationNeed;
 		protected virtual void OnRecalculationNeed ( EventArgs e ) => RecalculationNeed?.Invoke ( this, e );
 		public event EventHandler ValueChanged;
 		protected virtual void OnValueChanged ( EventArgs e ) => ValueChanged?.Invoke ( this, e );
@@ -69,7 +69,7 @@ namespace CalculatorComponents
 		private void Lung_RecalculationNeed ( object sender, EventArgs e )
 		{
 			L.ResetText ( );
-			if ( !Visible )
+			if ( !this )
 			{
 				return;
 			}

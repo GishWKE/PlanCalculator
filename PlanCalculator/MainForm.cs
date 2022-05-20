@@ -40,7 +40,7 @@ namespace PlanCalculator
 		private readonly List<Field> fields = new List<Field> ( );
 		private void ClearFields ( )
 		{
-			fields.AsParallel ( ).Select ( f => { f.Dispose ( ); return true; } );
+			fields.ForEach ( f => f.Dispose ( ) );
 			fields.Clear ( );
 		}
 		public MainForm ( )
@@ -63,7 +63,7 @@ namespace PlanCalculator
 
 		private void DateTitle_RunWorkerCompleted ( object sender, RunWorkerCompletedEventArgs e ) => cToken.Cancel ( );
 
-		private readonly CancellationTokenSource cToken = new CancellationTokenSource ( );
+		private CancellationTokenSource cToken = null;
 		private void DateTitle_DoWork ( object sender, DoWorkEventArgs e )
 		{
 			var bw = ( ( BackgroundWorker ) sender );
@@ -73,6 +73,7 @@ namespace PlanCalculator
 			{
 				var dateTomorrow = DateTime.Today.AddDays ( 1 );
 				var diff = dateTomorrow - dateToday;
+				cToken = new CancellationTokenSource ( );
 				cToken.CancelAfter ( diff );
 				new Task ( ( ) => Thread.Sleep ( Timeout.Infinite ), cToken.Token ).Start ( );
 				while ( !cToken.IsCancellationRequested )
@@ -131,10 +132,7 @@ namespace PlanCalculator
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
 			Weight = WeightSumm ( );
-			foreach ( var f in fields )
-			{
-				Calculate ( f );
-			}
+			fields.ForEach ( f => Calculate ( f ) );
 			Cursor = tmp;
 		}
 		private double? Weight = null;
@@ -185,7 +183,6 @@ namespace PlanCalculator
 			f.Time = Numerator / Divisor;
 			Cursor = tmp;
 		}
-
 		private void FieldCount_ValueChanged ( object sender, EventArgs e )
 		{
 			var tmp = Cursor;
@@ -193,49 +190,50 @@ namespace PlanCalculator
 			var cnt = ( int ) FieldsCount.Value;
 			if ( cnt == 0 )
 			{
-				AllFields.SuspendLayout ( );
+				AllFields.RecursiveSuspendLayout ( );
 				AllFields.Controls.Clear ( );
+				AllFields.RecursiveResumeLayout ( );
 				ClearFields ( );
-				AllFields.ResumeLayout ( );
+				GC.Collect ( );
 			}
 			else if ( cnt < fields.Count )
 			{
-				AllFields.SuspendLayout ( );
-				for ( var i = fields.Count - 1; i >= cnt; i-- )
+				AllFields.RecursiveSuspendLayout ( );
+				fields.Skip ( cnt ).ForEach ( f =>
 				{
-					fields [ i ].RecalculationNeed -= RecalculationNeed;
-					fields [ i ].TotalRecalculationNeed -= TotalRecalculationNeed;
-					AllFields.Controls.Remove ( fields [ i ] );
-					fields [ i ].Dispose ( );
-					fields.RemoveAt ( i );
-				}
-				AllFields.ResumeLayout ( );
+					f.RecalculationNeed -= RecalculationNeed;
+					f.TotalRecalculationNeed -= TotalRecalculationNeed;
+					f.Dispose ( );
+				} );
+				fields.RemoveRange ( cnt, fields.Count - cnt );
+				AllFields.Controls.Clear ( );
+				AllFields.Controls.AddRange ( fields.ToArray ( ) );
+				AllFields.RecursiveResumeLayout ( );
+				GC.Collect ( );
 				Calculate ( );
 			}
 			else
 			{
-				AllFields.SuspendLayout ( );
-				var fld = new List<Field> ( );
-				for ( var i = fields.Count; i < cnt; i++ )
+				var fld = Enumerable.Range ( fields.Count, cnt - fields.Count ).Select ( n => new Field
 				{
-					var f = new Field
-					{
-						Text = $@"№{i + 1}:",
-						Weight = 1,
-						Dock = DockStyle.Top,
-						FileName = FileName,
-						SCD = ( int ) Devices.SCD,
-						A = ( int ) A.Value,
-						B = ( int ) B.Value,
-						IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ]
-					};
+					Text = $@"№{n + 1}:",
+					Weight = 1,
+					Dock = DockStyle.Top,
+					FileName = FileName,
+					SCD = ( int ) Devices.SCD,
+					A = ( int ) A.Value,
+					B = ( int ) B.Value,
+					IsInMinutes = ( bool ) Devices.Selected [ "Время в минутах" ]
+				} );
+				fld.ForEach ( f =>
+				{
 					f.RecalculationNeed += RecalculationNeed;
 					f.TotalRecalculationNeed += TotalRecalculationNeed;
-					fld.Add ( f );
-				}
+				} );
 				fields.AddRange ( fld );
+				AllFields.RecursiveSuspendLayout ( );
 				AllFields.Controls.AddRange ( fld.ToArray ( ) );
-				AllFields.ResumeLayout ( );
+				AllFields.RecursiveResumeLayout ( );
 				Calculate ( );
 			}
 			Cursor = tmp;

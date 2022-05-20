@@ -198,8 +198,18 @@
 				e.Handled = true;
 			}
 		}
-		private void NumericTextBox_TextChanged ( object sender, EventArgs e ) => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
-		private void NumericTextBox_BackColorChanged ( object sender, EventArgs e ) => SetToolTip ( BackColor == DefaultBackColor );
+		private void NumericTextBox_TextChanged ( object sender, EventArgs e )
+		{
+			if ( IsCorrect )
+			{
+				ResetBackColor ( );
+			}
+			else
+			{
+				BackColor = Color.Red;
+			}
+		}
+		private void NumericTextBox_BackColorChanged ( object sender, EventArgs e ) => SetToolTip ( BackColor != Color.Red );
 		private void NumericTextBox_Leave ( object sender, EventArgs e )
 		{
 			if ( empty != null && empty.IsMatch ( Text ) )

@@ -33,7 +33,7 @@ namespace PlanCalculator
 
 	public partial class MonthPowerTable : Form
 	{
-		private readonly int DecimalPlaces = 2;
+		private readonly int DecimalPlaces = 4;
 		private readonly string Limit;
 		private readonly List<int> selectedDate = new List<int> ( );
 		private static readonly DB_Worker sql = DB_Worker.Instance;

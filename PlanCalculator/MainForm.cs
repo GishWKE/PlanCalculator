@@ -324,7 +324,7 @@ namespace PlanCalculator
 			sb.Append ( ( int ) Devices.Selected [ "РИЦ" ] );
 			sb.AppendLine ( " см" );
 			sb.Append ( "P = " );
-			sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 2 ) );
+			sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 4 ) );
 			sb.AppendLine ( " сГр/с" );
 			sb.Append ( "D (" );
 			sb.Append ( P.Value );

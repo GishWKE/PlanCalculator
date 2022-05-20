@@ -33,7 +33,7 @@ namespace PlanCalculator
 
 	public partial class MonthPowerTable : Form
 	{
-		private readonly int DecimalPlaces = 4;
+		private readonly int DecimalPlaces = 2;
 		private readonly string Limit;
 		private readonly List<int> selectedDate = new List<int> ( );
 		private static readonly DB_Worker sql = DB_Worker.Instance;
@@ -49,9 +49,21 @@ namespace PlanCalculator
 				foreach ( var dr in dt.AsEnumerable ( ) )
 				{
 					var name = dr [ "Аппарат" ].ToString ( );
+					var dgv = new DataGridView
+					{
+						Dock = DockStyle.Fill,
+						MultiSelect = false,
+						Name = name,
+						AllowUserToAddRows = false,
+						AllowUserToDeleteRows = false,
+						AllowUserToOrderColumns = false,
+						AllowUserToResizeColumns = false,
+						AllowUserToResizeRows = false,
+						SelectionMode = DataGridViewSelectionMode.FullRowSelect
+					};
 					var dt0 = new DataTable ( name );
 					dt0.Columns.Add ( new DataColumn ( "Дата", typeof ( DateTime ) ) );
-					dt0.Columns.Add ( new DataColumn ( "Мощность, сГр/с", typeof ( string ) ) );
+					dt0.Columns.Add ( new DataColumn ( "Мощность", typeof ( string ) ) );
 					var pow0 = ( double ) dr [ "Мощность" ];
 					var power = pow0;
 					var pow = power.ToStringWithDecimalPlaces ( DecimalPlaces );
@@ -74,30 +86,18 @@ namespace PlanCalculator
 							date = date.AddDays ( 1 );
 						}
 						r [ "Дата" ] = date1;
-						r [ "Мощность, сГр/с" ] = ( powCalc / cnt ).ToStringWithDecimalPlaces ( DecimalPlaces );
+						r [ "Мощность" ] = ( powCalc / cnt ).ToStringWithDecimalPlaces ( DecimalPlaces );
 						dt0.Rows.Add ( r );
 						if ( date1.Month == DateTime.Today.Month && date1.Year == DateTime.Today.Year )
 						{
-							selectedDate.Add ( dt0.Rows.Count - 1 );
+							selectedDate.Add ( dt0.Rows.Count );
 						}
 						//date = date.AddDays ( 1 );
 						power = Device.GetPower ( pow0, date0, date );
 						pow = power.ToStringWithDecimalPlaces ( DecimalPlaces );
 					}
 
-					var dgv = new DataGridView
-					{
-						Dock = DockStyle.Fill,
-						MultiSelect = false,
-						Name = name,
-						AllowUserToAddRows = false,
-						AllowUserToDeleteRows = false,
-						AllowUserToOrderColumns = false,
-						AllowUserToResizeColumns = false,
-						AllowUserToResizeRows = false,
-						SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-						DataSource = dt0.Copy ( )
-					};
+					dgv.DataSource = dt0.Copy ( );
 					var tp = new TabPage ( name );
 					tp.CreateControl ( );
 					tp.Controls.Add ( dgv );
@@ -137,10 +137,6 @@ namespace PlanCalculator
 			var row = selectedDate [ tabInd ];
 			v.ClearSelection ( );
 			v.Rows [ row ].Selected = true;
-			foreach ( DataGridViewColumn c in v.Columns )
-			{
-				c.SortMode = DataGridViewColumnSortMode.NotSortable;
-			}
 			EnsureVisibleRow ( v, row );
 		}
 

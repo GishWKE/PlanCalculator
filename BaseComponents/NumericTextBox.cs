@@ -103,13 +103,7 @@
 				}
 				else
 				{
-					var newVal = value.ToStringWithDecimalPlaces ( NumberDecimalDigits );
-					if ( Text == newVal )
-					{
-						return;
-					}
-
-					Text = newVal;
+					Text = value.ToStringWithDecimalPlaces ( NumberDecimalDigits );
 				}
 				SelectionStart = Text.Length;
 				OnValueChanged ( EventArgs.Empty );
@@ -204,19 +198,8 @@
 				e.Handled = true;
 			}
 		}
-		private readonly Color errorColor = Color.Red;
-		private void NumericTextBox_TextChanged ( object sender, EventArgs e )// => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
-		{
-			if ( IsCorrect )
-			{
-				ResetBackColor ( );
-			}
-			else
-			{
-				BackColor = errorColor;
-			}
-		}
-		private void NumericTextBox_BackColorChanged ( object sender, EventArgs e ) => SetToolTip ( BackColor != errorColor );
+		private void NumericTextBox_TextChanged ( object sender, EventArgs e ) => BackColor = IsCorrect ? DefaultBackColor : Color.Red;
+		private void NumericTextBox_BackColorChanged ( object sender, EventArgs e ) => SetToolTip ( BackColor == DefaultBackColor );
 		private void NumericTextBox_Leave ( object sender, EventArgs e )
 		{
 			if ( empty != null && empty.IsMatch ( Text ) )

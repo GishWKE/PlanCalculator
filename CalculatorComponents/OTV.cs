@@ -39,12 +39,6 @@ namespace CalculatorComponents
 			get => sql.FileName;
 			set => Kb.FileName = sql.FileName = value;
 		}
-		public void UpdateAB ( int? _A, int? _B )
-		{
-			B = null;
-			A = _A;
-			B = _B;
-		}
 		[DefaultValue ( null )]
 		public int? A
 		{

@@ -106,7 +106,12 @@ namespace CalculatorComponents
 			ResumeLayout ( false );
 		}
 		private Kb_Control Kb_value => OTV_value.Kb;
-		private void UpdateOTV_AB ( object sender, EventArgs e ) => OTV_value.UpdateAB ( Kb_value.A, Kb_value.B );
+		private void UpdateOTV_AB ( object sender, EventArgs e )
+		{
+			OTV_value.B = null;
+			OTV_value.A = Kb_value.A;
+			OTV_value.B = Kb_value.B;
+		}
 
 		private void Any_ValueChanged ( object sender, EventArgs e ) => OnRecalculationNeed ( EventArgs.Empty );
 		private void AllRecalculate ( object sender, EventArgs e ) => OnTotalRecalculationNeed ( EventArgs.Empty );

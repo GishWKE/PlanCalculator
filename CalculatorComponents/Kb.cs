@@ -73,7 +73,11 @@ namespace CalculatorComponents
 			get => B_size;
 			set => B_size.Value = value;
 		}
-		public Kb_Control ( ) : base ( ) => InitializeComponent ( );
+		public Kb_Control ( ) : base ( )
+		{
+			InitializeComponent ( );
+			RecalculationNeed += new EventHandler ( Kb_RecalculationNeed );
+		}
 		private void Kb_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
 		private void Kb_RecalculationNeed ( object sender, EventArgs e )
 		{

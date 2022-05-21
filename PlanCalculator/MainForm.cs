@@ -51,8 +51,9 @@ namespace PlanCalculator
 			Devices.DeviceChanged += DeviceChanged;
 			Devices.FileName = FileName;
 			dateTitle.RunWorkerAsync ( );
+			Watch.RunWorkerAsync ( );
 		}
-		private void Form1_FormClosing ( object sender, FormClosingEventArgs e ) => dateTitle.CloseAndWait ( );
+		private void Form1_FormClosing ( object sender, FormClosingEventArgs e ) => new [ ] { dateTitle, Watch }.ForEach ( bw => bw.CloseAndWait ( ) );
 
 		private void DateTitle_ProgressChanged ( object sender, ProgressChangedEventArgs e )
 		{
@@ -63,10 +64,21 @@ namespace PlanCalculator
 
 		private void DateTitle_RunWorkerCompleted ( object sender, RunWorkerCompletedEventArgs e ) => cToken.Cancel ( );
 
+		private void Watch_RunWorkerCompleted ( object sender, RunWorkerCompletedEventArgs e ) => clock.Text = "Завершение";
+		private void Watch_ProgressChanged ( object sender, ProgressChangedEventArgs e ) => clock.Text = ( ( DateTime ) e.UserState ).ToLongTimeString ( );
+		private void Watch_DoWork ( object sender, DoWorkEventArgs e )
+		{
+			var bw = ( BackgroundWorker ) sender;
+			while ( !bw.CancellationPending )
+			{
+				Thread.Sleep ( 1000 );
+				bw.ReportProgress ( 0, DateTime.Now );
+			}
+		}
 		private CancellationTokenSource cToken = null;
 		private void DateTitle_DoWork ( object sender, DoWorkEventArgs e )
 		{
-			var bw = ( ( BackgroundWorker ) sender );
+			var bw = ( BackgroundWorker ) sender;
 			var dateToday = DateTime.Now;
 			bw.ReportProgress ( 0, dateToday );
 			while ( !bw.CancellationPending )
@@ -143,11 +155,7 @@ namespace PlanCalculator
 				return null;
 			}
 			var fld = fields.AsParallel ( );
-			if ( fld.Any ( f => f.Weight == null ) )
-			{
-				return null;
-			}
-			return fld.Select ( f => ( double ) f.Weight ).Sum ( );
+			return fld.Any ( f => f.Weight == null ) ? null : ( double? ) fld.Select ( f => ( double ) f.Weight ).Sum ( );
 		}
 		private void Calculate ( object fld )
 		{
@@ -159,7 +167,7 @@ namespace PlanCalculator
 			var f = fld as Field;
 			f.Time = null;
 
-			if ( new double? [ ] { D, P, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || ( f.IsLung && f.L == null ) )
+			if ( new double? [ ] { D, P, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || f.IsLung && f.L == null )
 			{
 				return;
 			}
@@ -317,22 +325,22 @@ namespace PlanCalculator
 		{
 
 			var sb = new StringBuilder ( );
-			sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
-			sb.Append ( "РИЦ = " );
-			sb.Append ( ( int ) Devices.Selected [ "РИЦ" ] );
-			sb.AppendLine ( " см" );
-			sb.Append ( "P = " );
-			sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 4 ) );
-			sb.AppendLine ( " сГр/с" );
-			sb.Append ( "D (" );
-			sb.Append ( P.Value );
-			sb.Append ( "%) = " );
-			sb.Append ( D.Value.ToStringWithDecimalPlaces ( 1 ) );
-			sb.AppendLine ( " Гр" );
-			sb.Append ( "N = " );
-			sb.Append ( N.Value.ToString ( ) );
-			sb.Append ( "; n = " );
-			sb.AppendLine ( FieldsCount.Value.ToString ( ) );
+			_ = sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
+			_ = sb.Append ( "РИЦ = " );
+			_ = sb.Append ( ( int ) Devices.Selected [ "РИЦ" ] );
+			_ = sb.AppendLine ( " см" );
+			_ = sb.Append ( "P = " );
+			_ = sb.Append ( ( ( double ) Devices.Selected [ "Мощность" ] ).ToStringWithDecimalPlaces ( 4 ) );
+			_ = sb.AppendLine ( " сГр/с" );
+			_ = sb.Append ( "D (" );
+			_ = sb.Append ( P.Value );
+			_ = sb.Append ( "%) = " );
+			_ = sb.Append ( D.Value.ToStringWithDecimalPlaces ( 1 ) );
+			_ = sb.AppendLine ( " Гр" );
+			_ = sb.Append ( "N = " );
+			_ = sb.Append ( N.Value.ToString ( ) );
+			_ = sb.Append ( "; n = " );
+			_ = sb.AppendLine ( FieldsCount.Value.ToString ( ) );
 			var axb = new Func<dynamic, dynamic, string> ( ( A, B ) => $@"{A} x {B}" );
 			var diff = true;
 			var _axb = "A x B = ";
@@ -342,73 +350,73 @@ namespace PlanCalculator
 			{
 				diff = false;
 				var ab = axb ( A.Value, B.Value );
-				sb.Append ( _axb );
-				sb.AppendLine ( ab );
-				sb.Append ( "Кб (" );
-				sb.Append ( ab );
-				sb.Append ( eq );
-				sb.AppendLine ( fields [ 0 ].Kb.ToStringWithDecimalPlaces ( 3 ) );
+				_ = sb.Append ( _axb );
+				_ = sb.AppendLine ( ab );
+				_ = sb.Append ( "Кб (" );
+				_ = sb.Append ( ab );
+				_ = sb.Append ( eq );
+				_ = sb.AppendLine ( fields [ 0 ].Kb.ToStringWithDecimalPlaces ( 3 ) );
 			}
-			sb.AppendLine ( );
+			_ = sb.AppendLine ( );
 			var sb_t = new StringBuilder ( );
 			foreach ( var f in fields )
 			{
 				var fld = f.Text.Replace ( "№", string.Empty );
 				if ( diff )
 				{
-					sb.Append ( "Поле " );
-					sb.Append ( f.Text );
-					sb.Append ( " " );
+					_ = sb.Append ( "Поле " );
+					_ = sb.Append ( f.Text );
+					_ = sb.Append ( " " );
 					var ab = axb ( f.A.Value, f.B.Value );
-					sb.Append ( _axb );
-					sb.AppendLine ( ab );
-					sb.Append ( "Кб" );
-					sb.Append ( fld );
-					sb.Append ( " (" );
-					sb.Append ( ab );
-					sb.Append ( eq );
-					sb.Append ( f.Kb.ToStringWithDecimalPlaces ( 3 ) );
-					sb.AppendLine ( "; " );
+					_ = sb.Append ( _axb );
+					_ = sb.AppendLine ( ab );
+					_ = sb.Append ( "Кб" );
+					_ = sb.Append ( fld );
+					_ = sb.Append ( " (" );
+					_ = sb.Append ( ab );
+					_ = sb.Append ( eq );
+					_ = sb.Append ( f.Kb.ToStringWithDecimalPlaces ( 3 ) );
+					_ = sb.AppendLine ( "; " );
 				}
-				sb.Append ( "ОТВ" );
-				sb.Append ( fld );
-				sb.Append ( " (" );
-				sb.Append ( f.Depth.ToStringWithDecimalPlaces ( 1 ) );
-				sb.Append ( eq );
-				sb.Append ( f.OTV.ToStringWithDecimalPlaces ( 3 ) );
+				_ = sb.Append ( "ОТВ" );
+				_ = sb.Append ( fld );
+				_ = sb.Append ( " (" );
+				_ = sb.Append ( f.Depth.ToStringWithDecimalPlaces ( 1 ) );
+				_ = sb.Append ( eq );
+				_ = sb.Append ( f.OTV.ToStringWithDecimalPlaces ( 3 ) );
 				if ( f.IsLung )
 				{
-					sb.AppendLine ( ";" );
-					sb.Append ( "L" );
-					sb.Append ( fld );
-					sb.Append ( eq0 );
-					sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
+					_ = sb.AppendLine ( ";" );
+					_ = sb.Append ( "L" );
+					_ = sb.Append ( fld );
+					_ = sb.Append ( eq0 );
+					_ = sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
 				}
-				sb.AppendLine ( );
-				sb_t.Append ( "t" );
-				sb_t.Append ( fld );
-				sb_t.Append ( eq0 );
+				_ = sb.AppendLine ( );
+				_ = sb_t.Append ( "t" );
+				_ = sb_t.Append ( fld );
+				_ = sb_t.Append ( eq0 );
 				if ( f.IsInMinutes )
 				{
-					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
-					sb_t.Append ( " минут" );
+					_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
+					_ = sb_t.Append ( " минут" );
 				}
 				else
 				{
-					sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
-					sb_t.Append ( " секунд" );
+					_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
+					_ = sb_t.Append ( " секунд" );
 				}
-				sb_t.AppendLine ( " (∠" + ( f.Degree != null ? f.Degree.ToString ( ) : @"_____" ) + "°)" );
+				_ = sb_t.AppendLine ( " (∠" + ( f.Degree != null ? f.Degree.ToString ( ) : @"_____" ) + "°)" );
 			}
-			sb.AppendLine ( );
-			sb.AppendLine ( sb_t.ToString ( ) );
-			sb.AppendLine ( );
-			sb.Append ( "РИП = " );
-			sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
-			sb.AppendLine ( " см" );
-			sb.AppendLine ( );
-			sb.AppendLine ( Text );
-			sb.Append ( "инж.радиолог __________________" );
+			_ = sb.AppendLine ( );
+			_ = sb.AppendLine ( sb_t.ToString ( ) );
+			_ = sb.AppendLine ( );
+			_ = sb.Append ( "РИП = " );
+			_ = sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
+			_ = sb.AppendLine ( " см" );
+			_ = sb.AppendLine ( );
+			_ = sb.AppendLine ( Text );
+			_ = sb.Append ( "инж.радиолог __________________" );
 			return sb.ToString ( );
 		}
 		private void печататьToolStripMenuItem_Click ( object sender, EventArgs e )
@@ -452,5 +460,6 @@ namespace PlanCalculator
 		}
 
 		private void среднемесячнаяToolStripMenuItem_Click ( object sender, EventArgs e ) => new MonthPowerTable { FileName = FileName }.ShowDialog ( this );
+
 	}
 }

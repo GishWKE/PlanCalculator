@@ -85,6 +85,8 @@ using System.Linq;
 			this.аппаратыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.clock = new System.Windows.Forms.Label();
+			this.Watch = new System.ComponentModel.BackgroundWorker();
 			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
@@ -340,6 +342,7 @@ using System.Linq;
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.Controls.Add(this.clock);
 			this.splitContainer1.Panel1.Controls.Add(this.panel2);
 			this.splitContainer1.Panel1.Controls.Add(this.panel1);
 			this.splitContainer1.Panel1.Controls.Add(this.P1);
@@ -580,6 +583,24 @@ using System.Linq;
 			this.добавитьToolStripMenuItem.Text = "Добавить";
 			this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.добавлениеАппаратовToolStripMenuItem_Click);
 			// 
+			// clock
+			// 
+			this.clock.AutoSize = true;
+			this.clock.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.clock.Location = new System.Drawing.Point(0, 424);
+			this.clock.Name = "clock";
+			this.clock.Size = new System.Drawing.Size(35, 13);
+			this.clock.TabIndex = 5;
+			this.clock.Text = "label5";
+			// 
+			// Watch
+			// 
+			this.Watch.WorkerReportsProgress = true;
+			this.Watch.WorkerSupportsCancellation = true;
+			this.Watch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Watch_DoWork);
+			this.Watch.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.Watch_ProgressChanged);
+			this.Watch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Watch_RunWorkerCompleted);
+			// 
 			// MainForm
 			// 
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -600,6 +621,7 @@ using System.Linq;
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel1.PerformLayout();
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
@@ -661,6 +683,8 @@ using System.Linq;
 		private ToolStripMenuItem аппаратыToolStripMenuItem;
 		private ToolStripMenuItem добавитьToolStripMenuItem;
 		private ToolStripMenuItem редактироватьToolStripMenuItem;
+		private Label clock;
+		private BackgroundWorker Watch;
 	}
 }
 

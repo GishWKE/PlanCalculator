@@ -137,6 +137,8 @@
 			this.MinimumSize = new Size(184, 20);
 			this.Name = "Kb_Control";
 			this.Size = new Size(184, 20);
+			this.RecalculationNeed += new EventHandler ( this.Kb_RecalculationNeed );
+			//this.Leave += new EventHandler(this.Kb_RecalculationNeed );
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

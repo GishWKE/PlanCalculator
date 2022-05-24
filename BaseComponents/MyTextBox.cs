@@ -5,8 +5,6 @@
 	using System.ComponentModel;
 	using System.Runtime.InteropServices;
 	using System.Windows.Forms;
-
-	using BaseComponents.ToolTip;
 	[Description ( "Текстовое поле с заполнителем (placeholder) и выпадающими подсказками для правильного и неправильного ввода" )]
 	public partial class MyTextBox : TextBox
 	{
@@ -31,13 +29,26 @@
 		}
 		#endregion
 		#region ToolTip
-
+		private class TT_Type
+		{
+			private string Text;
+			private ToolTipIcon Icon;
+			public TT_Type ( (string text, ToolTipIcon icon) val )
+			{
+				Text = val.text;
+				Icon = val.icon;
+			}
+			public override string ToString ( ) => Text;
+			public static implicit operator bool ( TT_Type o ) => !o.Text.IsEmpty ( );
+			public static implicit operator string ( TT_Type o ) => o.Text;
+			public static implicit operator ToolTipIcon ( TT_Type o ) => o.Icon;
+		}
 		private readonly Dictionary<bool, TT_Type> TT = new Dictionary<bool, TT_Type> { { false, null }, { true, null } };
 
 		[DefaultValue ( "" )]
 		public string Correct_tooltip
 		{
-			get => TT [ true ] ?? string.Empty;
+			get => ( string ) TT [ true ];
 			set
 			{
 				toolTip.RemoveAll ( );
@@ -52,7 +63,7 @@
 		[DefaultValue ( "" )]
 		public string Wrong_tooltip
 		{
-			get => TT [ false ] ?? string.Empty;
+			get => ( string ) TT [ false ];
 			set
 			{
 				TT [ false ] = null;
@@ -68,7 +79,7 @@
 			if ( TT [ isCorrect ] != null && ( bool ) TT [ isCorrect ] )
 			{
 				toolTip.ToolTipIcon = ( ToolTipIcon ) TT [ isCorrect ];
-				toolTip.SetToolTip ( this, TT [ isCorrect ] );
+				toolTip.SetToolTip ( this, ( string ) TT [ isCorrect ] );
 			}
 		}
 		#endregion

@@ -88,7 +88,10 @@ namespace CalculatorComponents
 			{
 				return;
 			}
-			Value = ( double? ) sql.GetValue ( SQL.OTV, new (string name, object value) [ ] { (SQL.OTV_A, AA), (SQL.OTV_B, BB), (SQL.OTV_Depth, DD) } );
+			sql.AddParameter ( SQL.OTV_A, AA );
+			sql.AddParameter ( SQL.OTV_B, BB );
+			sql.AddParameter ( SQL.OTV_Depth, DD );
+			Value = ( double? ) sql.GetValue ( SQL.OTV );
 		}
 	}
 }

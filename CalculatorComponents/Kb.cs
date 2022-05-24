@@ -45,12 +45,9 @@ namespace CalculatorComponents
 			get => scd_val;
 			set
 			{
-				if ( scd_val != value )
-				{
-					scd_val = value;
-					Kb1010 = GetDBValue ( 10, 10, value );
-					OnRecalculationNeed ( EventArgs.Empty );
-				}
+				scd_val = value;
+				Kb1010 = GetDBValue ( 10, 10, value );
+				OnRecalculationNeed ( EventArgs.Empty );
 			}
 		}
 		private double? Kb1010 = null;
@@ -84,7 +81,17 @@ namespace CalculatorComponents
 			{
 				return;
 			}
-			Value = ( AA == 10 && BB == 10 ) ? 1 : ( GetDBValue ( AA, BB, SCD ) / Kb1010 );
+			if ( AA == 10 && BB == 10 )
+			{
+				Value = 1;
+			}
+			else
+			{
+				sql.AddParameter ( SQL.Kb_A, AA );
+				sql.AddParameter ( SQL.Kb_B, BB );
+				sql.AddParameter ( SQL.Kb_SCD, SCD );
+				Value = GetDBValue ( AA, BB, SCD ) / Kb1010;
+			}
 		}
 		private double? GetDBValue ( int? _A, int? _B, int _SCD )
 		{

@@ -123,6 +123,7 @@ namespace PlanCalculator
 				f.IsInMinutes = sec;
 				f.SCD = scd;
 			}
+			Calculate ( );
 		}
 		private void Dose_Changed ( object sender, EventArgs e ) => Calculate ( );
 

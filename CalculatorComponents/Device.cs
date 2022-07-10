@@ -40,23 +40,14 @@ namespace CalculatorComponents
 		private int PreviousIndex = -1, CurrentIndex = -1;
 		public static double GetPower ( double pow, DateTime First, DateTime rezult ) => GetPower ( Cobalt60, pow, First, rezult );
 		public static double GetPower ( double hL, double pow, DateTime First, DateTime rezult ) => pow / Math.Pow ( 2, ( rezult - First ).Days / hL );
+		public static DateTime GetEndLifePower ( double powStart, DateTime First, double powEnd ) => GetEndLifePower ( Cobalt60, powStart, First, powEnd );
+		public static DateTime GetEndLifePower ( double hL, double powStart, DateTime First, double powEnd ) => First.AddDays ( hL * Math.Log ( powEnd / powStart, 2 ) );
 		/// <summary>
 		/// Выбранный для отображения аппарат
 		/// </summary>
 		public DataRowView Selected => DeviceList.SelectedItem as DataRowView;
 		[DefaultValue ( null )]
-		public DataRowView Previous
-		{
-			get
-			{
-				if ( PreviousIndex != -1 )
-				{
-					return this [ PreviousIndex ];
-				}
-
-				return null;
-			}
-		}
+		public DataRowView Previous => PreviousIndex != -1 ? this [ PreviousIndex ] : null;
 		/// <summary>
 		/// Данные по аппарату
 		/// </summary>
@@ -120,7 +111,7 @@ namespace CalculatorComponents
 		private void RecalculatePower ( DataTable dt )
 		{
 			var now = DateTime.Now;
-			Parallel.ForEach ( dt.AsEnumerable ( ), ( r ) => { r [ "Мощность" ] = GetPower ( ( double ) r [ "Мощность" ], ( DateTime ) r [ "Дата замера мощности" ], now ); } );
+			_ = Parallel.ForEach ( dt.AsEnumerable ( ), ( r ) => { r [ "Мощность" ] = GetPower ( ( double ) r [ "Мощность" ], ( DateTime ) r [ "Дата замера мощности" ], now ); } );
 		}
 		private void DeviceList_SelectedIndexChanged ( object sender, EventArgs e )
 		{

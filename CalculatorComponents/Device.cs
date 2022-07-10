@@ -41,7 +41,7 @@ namespace CalculatorComponents
 		public static double GetPower ( double pow, DateTime First, DateTime rezult ) => GetPower ( Cobalt60, pow, First, rezult );
 		public static double GetPower ( double hL, double pow, DateTime First, DateTime rezult ) => pow / Math.Pow ( 2, ( rezult - First ).Days / hL );
 		public static DateTime GetEndLifePower ( double powStart, DateTime First, double powEnd ) => GetEndLifePower ( Cobalt60, powStart, First, powEnd );
-		public static DateTime GetEndLifePower ( double hL, double powStart, DateTime First, double powEnd ) => First.AddDays ( hL * Math.Log ( powEnd / powStart, 2 ) );
+		public static DateTime GetEndLifePower ( double hL, double powStart, DateTime First, double powEnd ) => First.AddDays ( hL * Math.Log ( powStart / powEnd, 2 ) );
 		/// <summary>
 		/// Выбранный для отображения аппарат
 		/// </summary>

@@ -16,8 +16,9 @@
 	{
 		private static readonly DB_Worker sql = DB_Worker.Instance;
 		private static readonly string DevName = @"Аппарат";
-		private static readonly string DevPow0 = @"Мощность при загрузке источника, сГр/с";
-		private static readonly string DevTim0 = @"Дата загрузки источника";
+		private static readonly string Pow = @"Мощность";
+		private static readonly string DevPow0 = @"Замеренная мощность, сГр/с";
+		private static readonly string DevTim0 = @"Дата замера мощности";
 		private static readonly string DevPow1 = @"Средняя мощность на указанный месяц, сГр/с";
 		private static readonly string DevPow2 = @"Мощность на указанную дату, сГр/с";
 		private static readonly string DevTim1 = @"Дата";
@@ -34,11 +35,11 @@
 				foreach ( var dr in dt.AsEnumerable ( ) )
 				{
 					var r = disp.NewRow ( );
-					r [ DevName ] = dr [ "Аппарат" ].ToString ( );
-					r [ DevPow0 ] = ( double ) dr [ "Мощность" ];
+					r [ DevName ] = dr [ DevName ].ToString ( );
+					r [ DevPow0 ] = ( double ) dr [ Pow ];
 					r [ DevPow1 ] = 0D;
 					r [ DevPow2 ] = 0D;
-					r [ DevTim0 ] = ( DateTime ) dr [ "Дата замера мощности" ];
+					r [ DevTim0 ] = ( DateTime ) dr [ DevTim0 ];
 					dateTimePicker1.MinDate = new [ ] { dateTimePicker1.MinDate, ( DateTime ) r [ DevTim0 ] }.Min ( );
 					r [ DevTim1 ] = dateTimePicker1.Value.Date;
 					disp.Rows.Add ( r );
@@ -50,8 +51,6 @@
 		public AllDevicesPowerTable ( )
 		{
 			InitializeComponent ( );
-			dateTimePicker1.Value = DateTime.Now;
-			dateTimePicker1.ValueChanged += new EventHandler ( dateTimePicker1_ValueChanged );
 			_ = disp.Columns.Add ( DevName, typeof ( string ) );
 			_ = disp.Columns.Add ( DevTim0, typeof ( DateTime ) );
 			_ = disp.Columns.Add ( DevPow0, typeof ( double ) );
@@ -59,6 +58,7 @@
 			_ = disp.Columns.Add ( DevPow2, typeof ( double ) );
 			_ = disp.Columns.Add ( DevPow1, typeof ( double ) );
 			dataGridView1.DataSource = disp;
+			dateTimePicker1.Value = DateTime.Now;
 		}
 		private void Calc ( )
 		{
@@ -104,7 +104,6 @@
 				}
 			}
 			dataGridView1.ResumeLayout ( );
-			dataGridView1.Update ( );
 			UpdateDispPow ( );
 		}
 		private void dateTimePicker1_ValueChanged ( object sender, EventArgs e ) => Calc ( );
@@ -115,6 +114,7 @@
 			dataGridView1.Columns [ DevPow0 ].DefaultCellStyle.Format = $@"F{numericUpDown1.Value}";
 			dataGridView1.Columns [ DevPow1 ].DefaultCellStyle.Format = $@"F{numericUpDown1.Value}";
 			dataGridView1.Columns [ DevPow2 ].DefaultCellStyle.Format = $@"F{numericUpDown1.Value}";
+			dataGridView1.Update ( );
 		}
 	}
 }

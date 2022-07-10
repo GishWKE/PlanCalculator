@@ -141,17 +141,7 @@
 		public string Regex
 		{
 			get => ( Checker == null ) ? string.Empty : Checker.ToString ( );
-			set
-			{
-				if ( !value.IsEmpty ( ) )
-				{
-					Checker = new Regex ( value );
-				}
-				else
-				{
-					Checker = null;
-				}
-			}
+			set => Checker = !value.IsEmpty ( ) ? new Regex ( value ) : null;
 		}
 		private void NumericTextBox_KeyPress_NoMinus ( object sender, KeyPressEventArgs e )
 		{
@@ -176,7 +166,6 @@
 			{
 				case '.':
 				case ',':
-				case '\'':
 					e.KeyChar = Extension.NumberDecimalSeparator; // Подменяем на лету дробный разделитель
 					if ( Type == NumericTextBoxTypes.DOUBLE && !Text.Contains ( e.KeyChar ) ) // Если дробный разделитель отсутсвует
 					{
@@ -210,16 +199,6 @@
 			}
 		}
 		private void NumericTextBox_BackColorChanged ( object sender, EventArgs e ) => SetToolTip ( BackColor != Color.Red );
-		private void NumericTextBox_Leave ( object sender, EventArgs e )
-		{
-			if ( empty != null && empty.IsMatch ( Text ) )
-			{
-				Value = null;
-			}
-			else
-			{
-				Value = Value;
-			}
-		}
+		private void NumericTextBox_Leave ( object sender, EventArgs e ) => Value = ( empty != null && empty.IsMatch ( Text ) ) ? null : Value;
 	}
 }

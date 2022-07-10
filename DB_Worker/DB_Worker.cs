@@ -21,7 +21,7 @@ namespace DB_Worker
 
 	public class DB_Worker : IDB_Worker
 	{
-		private static DB_Worker instance;
+		private static DB_Worker instance = null;
 		public static DB_Worker Instance
 		{
 			get

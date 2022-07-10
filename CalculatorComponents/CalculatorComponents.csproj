@@ -60,11 +60,11 @@
     <Compile Include="Field.Designer.cs">
       <DependentUpon>Field.cs</DependentUpon>
     </Compile>
-    <Compile Include="Kb.cs">
+    <Compile Include="Kb_Control.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Kb.Designer.cs">
-      <DependentUpon>Kb.cs</DependentUpon>
+    <Compile Include="Kb_Control.Designer.cs">
+      <DependentUpon>Kb_Control.cs</DependentUpon>
     </Compile>
     <Compile Include="Lung.cs">
       <SubType>UserControl</SubType>
@@ -108,8 +108,8 @@
     <EmbeddedResource Include="Field.resx">
       <DependentUpon>Field.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Kb.resx">
-      <DependentUpon>Kb.cs</DependentUpon>
+    <EmbeddedResource Include="Kb_Control.resx">
+      <DependentUpon>Kb_Control.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lung.resx">
       <DependentUpon>Lung.cs</DependentUpon>

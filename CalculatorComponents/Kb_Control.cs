@@ -45,16 +45,19 @@ namespace CalculatorComponents
 			get => scd_val;
 			set
 			{
-				scd_val = value;
-				Kb1010 = GetDBValue ( 10, 10, value );
-				OnRecalculationNeed ( EventArgs.Empty );
+				if ( SCD != value )
+				{
+					scd_val = value;
+					Kb1010 = GetDBValue ( 10, 10, value );
+					OnRecalculationNeed ( EventArgs.Empty );
+				}
 			}
 		}
 		private double? Kb1010 = null;
 		[DefaultValue ( null )]
 		public double? Value
 		{
-			get => A != null && B != null ? Kb.Value : null;
+			get => A != null && B != null ? Kb : null;
 			private set => Kb.Value = value;
 		}
 		public static implicit operator double? ( Kb_Control kb ) => kb.Value;
@@ -70,7 +73,11 @@ namespace CalculatorComponents
 			get => B_size;
 			set => B_size.Value = value;
 		}
-		public Kb_Control ( ) : base ( ) => InitializeComponent ( );
+		public Kb_Control ( ) : base ( )
+		{
+			InitializeComponent ( );
+			RecalculationNeed += new EventHandler ( Kb_RecalculationNeed );
+		}
 		private void Kb_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
 		private void Kb_RecalculationNeed ( object sender, EventArgs e )
 		{
@@ -81,17 +88,7 @@ namespace CalculatorComponents
 			{
 				return;
 			}
-			if ( AA == 10 && BB == 10 )
-			{
-				Value = 1;
-			}
-			else
-			{
-				sql.AddParameter ( SQL.Kb_A, AA );
-				sql.AddParameter ( SQL.Kb_B, BB );
-				sql.AddParameter ( SQL.Kb_SCD, SCD );
-				Value = GetDBValue ( AA, BB, SCD ) / Kb1010;
-			}
+			Value = ( AA == 10 && BB == 10 ) ? ( double? ) 1 : ( GetDBValue ( AA, BB, SCD ) / Kb1010 );
 		}
 		private double? GetDBValue ( int? _A, int? _B, int _SCD )
 		{

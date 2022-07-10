@@ -67,7 +67,7 @@ namespace CalculatorComponents
 		public string FileName
 		{
 			get => OTV_value.FileName;
-			set => OTV_value.FileName = L_value.FileName = value;
+			set => OTV_value.FileName = value;
 		}
 		[DefaultValue ( 0 )]
 		public int SCD
@@ -94,7 +94,6 @@ namespace CalculatorComponents
 			FieldPanel.SuspendLayout ( );
 			SuspendLayout ( );
 			FieldPanel.Controls.Add ( Kb_value );
-			OTV_value.Kb.FileName = null;
 			Kb_value.Location = new System.Drawing.Point ( 6, 19 );
 			Kb_value.MinimumSize = new System.Drawing.Size ( 184, 20 );
 			Kb_value.Name = "Kb_value";

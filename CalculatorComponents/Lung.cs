@@ -53,7 +53,7 @@ namespace CalculatorComponents
 		[DefaultValue ( null )]
 		public double? Value
 		{
-			get => D != null && T != null ? L.Value : null;
+			get => ( D != null && T != null ) ? L : null;
 			private set => L.Value = value;
 		}
 		public static implicit operator double? ( Lung l ) => l.Value;
@@ -64,7 +64,11 @@ namespace CalculatorComponents
 			set => IsLung.Checked = value;
 		}
 		public static implicit operator bool ( Lung l ) => l.Visible;
-		public Lung ( ) => InitializeComponent ( );
+		public Lung ( ) : base ( )
+		{
+			InitializeComponent ( );
+			RecalculationNeed += new EventHandler ( Lung_RecalculationNeed );
+		}
 		private void L_ValueChanged ( object sender, EventArgs e ) => OnValueChanged ( EventArgs.Empty );
 		private void Lung_RecalculationNeed ( object sender, EventArgs e )
 		{

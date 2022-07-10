@@ -60,16 +60,18 @@
 			// 
 			// FieldDegree
 			// 
+			this.FieldDegree.AlwaysPositive = true;
 			this.FieldDegree.BackColor = System.Drawing.SystemColors.Window;
 			this.FieldDegree.Correct_tooltip = "Угол гантри для поля";
 			this.FieldDegree.FractionalPlaces = 0;
-			this.FieldDegree.Location = new System.Drawing.Point(315, 44);
+			this.FieldDegree.Location = new System.Drawing.Point(315, 48);
 			this.FieldDegree.Name = "FieldDegree";
+			this.FieldDegree.PlaceHolder = "";
 			this.FieldDegree.Regex = "^([12]?\\d{0,2}|3[0-5]\\d|360)?$";
 			this.FieldDegree.Size = new System.Drawing.Size(31, 20);
 			this.FieldDegree.TabIndex = 8;
 			this.FieldDegree.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.FieldDegree.Wrong_tooltip = null;
+			this.FieldDegree.Type = BaseComponents.NumericTextBoxTypes.INT;
 			// 
 			// label3
 			// 
@@ -91,17 +93,18 @@
 			// 
 			// WeightValue
 			// 
-			this.WeightValue.BackColor = System.Drawing.SystemColors.Window;
+			this.WeightValue.AlwaysPositive = true;
 			this.WeightValue.Correct_tooltip = "Весовой коэфициент";
 			this.WeightValue.FractionalPlaces = 3;
 			this.WeightValue.Location = new System.Drawing.Point(38, 48);
 			this.WeightValue.Name = "WeightValue";
+			this.WeightValue.PlaceHolder = "";
 			this.WeightValue.Size = new System.Drawing.Size(50, 20);
 			this.WeightValue.TabIndex = 5;
 			this.WeightValue.Text = "1,000";
 			this.WeightValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.WeightValue.Type = BaseComponents.NumericTextBoxTypes.DOUBLE;
 			this.WeightValue.Value = 1D;
-			this.WeightValue.Wrong_tooltip = null;
 			this.WeightValue.ValueChanged += new System.EventHandler(this.AllRecalculate);
 			// 
 			// label1

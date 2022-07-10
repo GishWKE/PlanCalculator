@@ -37,7 +37,7 @@ namespace CalculatorComponents
 		public string FileName
 		{
 			get => sql.FileName;
-			set => Kb.FileName = sql.FileName = value;
+			set => /*Kb.FileName = */sql.FileName = value;
 		}
 		[DefaultValue ( null )]
 		public int? A
@@ -66,11 +66,11 @@ namespace CalculatorComponents
 		[DefaultValue ( null )]
 		public double? Value
 		{
-			get => A != null && B != null && D != null ? OTV_value.Value : null;
+			get => ( A != null && B != null && D != null ) ? OTV_value.Value : null;
 			private set => OTV_value.Value = value;
 		}
 		public static implicit operator double? ( OTV o ) => o.Value;
-		public OTV ( )
+		public OTV ( ) : base ( )
 		{
 			InitializeComponent ( );
 			Kb.ValueChanged += new EventHandler ( OTV_RecalculationNeed );

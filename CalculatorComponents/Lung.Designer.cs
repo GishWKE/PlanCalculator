@@ -161,8 +161,6 @@
 			this.MinimumSize = new System.Drawing.Size(290, 20);
 			this.Name = "Lung";
 			this.Size = new System.Drawing.Size(290, 20);
-			//this.Leave += new System.EventHandler ( this.DT_Leave );
-			this.RecalculationNeed += new System.EventHandler ( this.Lung_RecalculationNeed);
 			this.Lung_parameters.ResumeLayout(false);
 			this.Lung_parameters.PerformLayout();
 			this.ResumeLayout(false);

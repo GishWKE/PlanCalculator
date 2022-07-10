@@ -3,7 +3,6 @@
 	using System;
 	using System.Collections.Generic;
 	using System.ComponentModel;
-	using System.Drawing;
 	using System.Runtime.InteropServices;
 	using System.Windows.Forms;
 	[Description ( "Текстовое поле с заполнителем (placeholder) и выпадающими подсказками для правильного и неправильного ввода" )]
@@ -30,20 +29,7 @@
 		}
 		#endregion
 		#region ToolTip
-		private class TT_Type
-		{
-			public string Text;
-			public ToolTipIcon Icon;
-			public TT_Type ( (string text, ToolTipIcon icon) val )
-			{
-				Text = val.text;
-				Icon = val.icon;
-			}
-			public static implicit operator bool ( TT_Type o ) => !( ( string ) o ).IsEmpty ( );
-			public static implicit operator string ( TT_Type o ) => o.Text;
-			public static implicit operator ToolTipIcon ( TT_Type o ) => o.Icon;
-		}
-		private readonly Dictionary<bool, TT_Type> TT = new Dictionary<bool, TT_Type> { { false, null }, { true, null } };
+		private readonly Dictionary<bool, TT_Type> TT = new Dictionary<bool, TT_Type> { { false, new TT_Type ( null, ToolTipIcon.Error ) }, { true, new TT_Type ( null, ToolTipIcon.Info ) } };
 
 		[DefaultValue ( "" )]
 		public string Correct_tooltip
@@ -51,33 +37,15 @@
 			get => TT [ true ];
 			set
 			{
-				toolTip.RemoveAll ( );
-				if ( !value.IsEmpty ( ) )
-				{
-					TT [ true ] = new TT_Type ( (text: value, icon: ToolTipIcon.Info) );
-					SetToolTip ( true );
-				}
-				else
-				{
-					TT [ true ] = null;
-				}
+				TT [ true ].Text = value;
+				SetToolTip ( true );
 			}
 		}
 		[DefaultValue ( "" )]
 		public string Wrong_tooltip
 		{
 			get => TT [ false ];
-			set
-			{
-				if ( !value.IsEmpty ( ) )
-				{
-					TT [ false ] = new TT_Type ( (text: value, icon: ToolTipIcon.Error) );
-				}
-				else
-				{
-					TT [ false ] = null;
-				}
-			}
+			set => TT [ false ].Text = value;
 		}
 		public void SetToolTip ( bool isCorrect )
 		{
@@ -89,11 +57,6 @@
 			}
 		}
 		#endregion
-		private new readonly Color DefaultBackColor;
-		public MyTextBox ( ) : base ( )
-		{
-			DefaultBackColor = base.BackColor;
-			InitializeComponent ( );
-		}
+		public MyTextBox ( ) : base ( ) => InitializeComponent ( );
 	}
 }

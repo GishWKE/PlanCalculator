@@ -90,7 +90,7 @@ namespace BaseComponents
 				Application.DoEvents ( );
 			}
 		}
-		public static void Clear ( this string s ) => s = string.Empty;
+		public static void Clear ( this string s ) => _ = string.Empty;
 		public static decimal ToDecimal ( this string s )
 		{
 			try
@@ -155,11 +155,19 @@ namespace BaseComponents
 		public static bool IsEmpty ( this string s ) => string.IsNullOrWhiteSpace ( s );
 		public static bool IsEmpty ( this StringBuilder sb ) => sb.ToString ( ).IsEmpty ( );
 
-		public static bool IsEmpty ( this DataTable dt )
+		public static bool IsFullEmpty ( this DataTable dt )
 		{
 			try
 			{
 				return dt == null || dt.Columns == null || dt.Columns.Count == 0 || dt.Rows == null || dt.Rows.Count == 0;
+			}
+			catch { throw; }
+		}
+		public static bool IsEmpty ( this DataTable dt )
+		{
+			try
+			{
+				return dt == null || dt.Rows == null || dt.Rows.Count == 0;
 			}
 			catch { throw; }
 		}

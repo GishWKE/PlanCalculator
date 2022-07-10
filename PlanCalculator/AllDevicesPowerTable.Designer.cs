@@ -53,14 +53,14 @@
 			this.dataGridView1.ReadOnly = true;
 			this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dataGridView1.Size = new System.Drawing.Size(561, 426);
+			this.dataGridView1.Size = new System.Drawing.Size(939, 426);
 			this.dataGridView1.TabIndex = 0;
 			// 
 			// dateTimePicker1
 			// 
 			this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.dateTimePicker1.CustomFormat = "dd.MM.yyyy";
-			this.dateTimePicker1.Location = new System.Drawing.Point(579, 12);
+			this.dateTimePicker1.Location = new System.Drawing.Point(957, 12);
 			this.dateTimePicker1.Name = "dateTimePicker1";
 			this.dateTimePicker1.Size = new System.Drawing.Size(209, 20);
 			this.dateTimePicker1.TabIndex = 1;
@@ -68,8 +68,9 @@
 			// 
 			// label1
 			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(580, 39);
+			this.label1.Location = new System.Drawing.Point(958, 39);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(132, 13);
 			this.label1.TabIndex = 2;
@@ -77,10 +78,9 @@
 			// 
 			// numericUpDown1
 			// 
-			this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.numericUpDown1.Location = new System.Drawing.Point(580, 56);
+			this.numericUpDown1.Location = new System.Drawing.Point(958, 56);
 			this.numericUpDown1.Maximum = new decimal(new int[] {
             52,
             0,
@@ -100,7 +100,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(1178, 450);
 			this.Controls.Add(this.numericUpDown1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.dateTimePicker1);

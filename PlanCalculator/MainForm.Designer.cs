@@ -85,6 +85,7 @@ using System.Linq;
 			this.аппаратыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.средняяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
@@ -297,7 +298,8 @@ using System.Linq;
 			// 
 			this.мощностьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ежедневнаяToolStripMenuItem,
-            this.среднемесячнаяToolStripMenuItem});
+            this.среднемесячнаяToolStripMenuItem,
+            this.средняяToolStripMenuItem});
 			this.мощностьToolStripMenuItem.Name = "мощностьToolStripMenuItem";
 			this.мощностьToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
 			this.мощностьToolStripMenuItem.Text = "Мощность";
@@ -580,6 +582,13 @@ using System.Linq;
 			this.добавитьToolStripMenuItem.Text = "Добавить";
 			this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.добавлениеАппаратовToolStripMenuItem_Click);
 			// 
+			// средняяToolStripMenuItem
+			// 
+			this.средняяToolStripMenuItem.Name = "средняяToolStripMenuItem";
+			this.средняяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.средняяToolStripMenuItem.Text = "Средняя";
+			this.средняяToolStripMenuItem.Click += new System.EventHandler(this.средняяToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -661,6 +670,7 @@ using System.Linq;
 		private ToolStripMenuItem аппаратыToolStripMenuItem;
 		private ToolStripMenuItem редактироватьToolStripMenuItem;
 		private ToolStripMenuItem добавитьToolStripMenuItem;
+		private ToolStripMenuItem средняяToolStripMenuItem;
 	}
 }
 

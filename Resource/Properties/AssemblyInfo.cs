@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle ( "Resource" )]
-[assembly: AssemblyDescription ( "" )]
+[assembly: AssemblyDescription ( "Ресурсы приложения" )]
 [assembly: AssemblyConfiguration ( "" )]
-[assembly: AssemblyCompany ( "" )]
+[assembly: AssemblyCompany ( "\nCreated by\n\tAntipov Roman (https://github.com/GishWKE)\n\tTsys' Alexandr (https://github.com/AlexTsys256)" )]
 [assembly: AssemblyProduct ( "Resource" )]
 [assembly: AssemblyCopyright ( "Copyright ©  2021" )]
 [assembly: AssemblyTrademark ( "" )]

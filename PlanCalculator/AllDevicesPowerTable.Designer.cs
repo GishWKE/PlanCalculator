@@ -83,7 +83,12 @@
 			this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.numericUpDown1.Location = new System.Drawing.Point(958, 56);
 			this.numericUpDown1.Maximum = new decimal(new int[] {
-            52,
+            16,
+            0,
+            0,
+            0});
+			this.numericUpDown1.Minimum = new decimal(new int[] {
+            2,
             0,
             0,
             0});

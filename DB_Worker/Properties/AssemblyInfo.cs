@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные со сборкой.
-[assembly: AssemblyTitle ( "OleDB_Worker" )]
+[assembly: AssemblyTitle ( "DB_Worker" )]
 [assembly: AssemblyDescription ( "Библиотека-прослойка, необходимая для работы с БД" )]
 [assembly: AssemblyConfiguration ( "" )]
 [assembly: AssemblyCompany ( "\nCreated by\n\tAntipov Roman (https://github.com/GishWKE)\n\tTsys' Alexandr (https://github.com/AlexTsys256)" )]
-[assembly: AssemblyProduct ( "OleDB_Worker" )]
+[assembly: AssemblyProduct ( "DB_Worker" )]
 [assembly: AssemblyCopyright ( "Copyright ©  2021" )]
 [assembly: AssemblyTrademark ( "" )]
 [assembly: AssemblyCulture ( "" )]

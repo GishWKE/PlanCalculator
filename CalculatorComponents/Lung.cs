@@ -53,7 +53,7 @@ namespace CalculatorComponents
 		[DefaultValue ( null )]
 		public double? Value
 		{
-			get => ( D != null && T != null ) ? L : null;
+			get => D == null || T == null ? null : L.Value;
 			private set => L.Value = value;
 		}
 		public static implicit operator double? ( Lung l ) => l.Value;

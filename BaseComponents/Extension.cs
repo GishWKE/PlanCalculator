@@ -23,12 +23,35 @@ namespace BaseComponents
 	using System.Globalization;
 	using System.IO;
 	using System.Linq;
+	using System.Runtime.InteropServices;
 	using System.Text;
 	using System.Windows.Forms;
 	public static class Extension
 	{
 		public static readonly int NumberDecimalDigits = NumberFormatInfo.CurrentInfo.NumberDecimalDigits;
 		public static readonly char NumberDecimalSeparator = char.Parse ( NumberFormatInfo.CurrentInfo.NumberDecimalSeparator );
+		private const int EM_SETCUEBANNER = 0x1501;
+		private const int EM_GETCUEBANNER = 0x1502;
+		[DllImport ( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
+		[return: MarshalAs ( UnmanagedType.Bool )]
+		private static extern bool SendMessage ( IntPtr hWnd, int msg, [MarshalAs ( UnmanagedType.Bool )] bool wParam, [MarshalAs ( UnmanagedType.LPWStr )] string lParam );
+		[DllImport ( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
+		[return: MarshalAs ( UnmanagedType.Bool )]
+		private static extern bool SendMessage ( IntPtr hWnd, int msg, [MarshalAs ( UnmanagedType.LPWStr )] string wParam, int lParam );
+		public static void SetPlaceholder ( this Control c, string value )
+		{
+			if ( !SendMessage ( c.Handle, EM_SETCUEBANNER, false, value ?? string.Empty ) )
+			{
+				throw new Win32Exception ( Marshal.GetLastWin32Error ( ) );
+			}
+		}
+		public static string GetPlaceholder ( this Control c )
+		{
+			var paceHolder = new string ( '\0', 1024 );
+			return !SendMessage ( c.Handle, EM_GETCUEBANNER, paceHolder, 1024 )
+				? throw new Win32Exception ( Marshal.GetLastWin32Error ( ) )
+				: paceHolder.Replace ( "\0", string.Empty );
+		}
 		public static bool IsPathEquals ( this FileInfo s, FileInfo other )
 		{
 			try

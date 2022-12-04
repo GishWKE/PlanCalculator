@@ -40,7 +40,7 @@ namespace PlanCalculator
 		private readonly List<Field> fields = new List<Field> ( );
 		private void ClearFields ( )
 		{
-			_ = fields.AsParallel ( ).Select ( f => { f.Dispose ( ); return true; } );
+			fields.ForEach ( f => f.Dispose ( ) );
 			fields.Clear ( );
 		}
 		public MainForm ( )
@@ -132,10 +132,7 @@ namespace PlanCalculator
 			var tmp = Cursor;
 			Cursor = Cursors.WaitCursor;
 			Weight = WeightSumm ( );
-			foreach ( var f in fields )
-			{
-				Calculate ( f );
-			}
+			fields.ForEach ( f => Calculate ( f ) );
 			Cursor = tmp;
 		}
 		private double? Weight = null;
@@ -157,8 +154,8 @@ namespace PlanCalculator
 
 			var f = fld as Field;
 			f.Time = null;
-
-			if ( new double? [ ] { D, P, f.Kb, f.OTV, Weight }.Any ( v => v == null ) || f.IsLung && f.L == null )
+			toolStripStatusLabel.Text = string.Empty;
+			if ( new double? [ ] { D, P, f.Kb, f.OTV, Weight }.Any ( val => val == null ) || f.IsLung && f.L == null )
 			{
 				return;
 			}
@@ -180,6 +177,22 @@ namespace PlanCalculator
 			var Numerator = mult.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
 			var Divisor = div.AsParallel ( ).Aggregate ( 1D, ( aggregator, current ) => aggregator * current );
 			f.Time = Numerator / Divisor;
+			if ( fields.All ( ff => ff.Time != null ) )
+			{
+				var totalTime = fields.Select ( fff => ( double ) fff.Time ).Sum ( );
+				var sb = new StringBuilder ( "Общее время облучения: " );
+				if ( f.IsInMinutes )
+				{
+					_ = sb.Append ( totalTime.ToStringWithDecimalPlaces ( 2 ) );
+					_ = sb.Append ( " минут" );
+				}
+				else
+				{
+					_ = sb.Append ( totalTime.ToStringWithDecimalPlaces ( 1 ) );
+					_ = sb.Append ( " секунд" );
+				}
+				toolStripStatusLabel.Text = sb.ToString ( );
+			}
 			Cursor = tmp;
 		}
 
@@ -217,9 +230,9 @@ namespace PlanCalculator
 				{
 					var f = new Field
 					{
+						Dock = DockStyle.Top,
 						Text = $@"№{i + 1}:",
 						Weight = 1,
-						Dock = DockStyle.Top,
 						FileName = FileName,
 						SCD = ( int ) Devices.SCD,
 						A = ( int ) A.Value,
@@ -246,7 +259,7 @@ namespace PlanCalculator
 			var obj = sender as NumericUpDown;
 			var isA = obj.Name == "A";
 			var val = ( int ) obj.Value;
-			foreach ( var f in fields )
+			fields.ForEach ( f =>
 			{
 				if ( isA )
 				{
@@ -256,7 +269,7 @@ namespace PlanCalculator
 				{
 					f.B = val;
 				}
-			}
+			} );
 		}
 		private void Exit_Button_Click ( object sender, EventArgs e ) => Application.Exit ( );
 
@@ -314,7 +327,6 @@ namespace PlanCalculator
 
 		private string PreparePrintData ( )
 		{
-
 			var sb = new StringBuilder ( );
 			_ = sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
 			_ = sb.Append ( "РИЦ = " );

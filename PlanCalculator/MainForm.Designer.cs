@@ -1,16 +1,13 @@
 ﻿namespace PlanCalculator
 {
-	using System;
 	using System.ComponentModel;
 	using System.Windows.Forms;
 	using System.Drawing;
+	using System.Drawing.Printing;
 
 	using BaseComponents;
-	using Resource;
-	using Resource.Properties;
 
 	using CalculatorComponents;
-using System.Linq;
 
 	partial class MainForm
 	{
@@ -86,7 +83,9 @@ using System.Linq;
 			this.таблицыМощностейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ежедневнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.среднемесячнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
+			this.statusStrip = new System.Windows.Forms.StatusStrip ( );
+			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel ( );
+			( (System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
@@ -99,6 +98,7 @@ using System.Linq;
 			this.panel1.SuspendLayout();
 			this.P1.SuspendLayout();
 			this.P0.SuspendLayout();
+			this.statusStrip.SuspendLayout ( );
 			this.SuspendLayout();
 			// 
 			// dateTitle
@@ -588,6 +588,20 @@ using System.Linq;
 			this.среднемесячнаяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.среднемесячнаяToolStripMenuItem.Text = "Среднемесячная";
 			this.среднемесячнаяToolStripMenuItem.Click += new System.EventHandler(this.среднемесячнаяToolStripMenuItem_Click);
+			//
+			// toolStripStatusLabel
+			//
+			this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+			this.toolStripStatusLabel.Dock = DockStyle.Right;
+			this.toolStripStatusLabel.Text = "";
+			this.toolStripStatusLabel.TextAlign = ContentAlignment.MiddleRight;
+			//
+			// statusStrip
+			//
+			this.statusStrip.Name = "statusStrip";
+			this.statusStrip.Dock = DockStyle.Bottom;
+			this.statusStrip.RenderMode = ToolStripRenderMode.System;
+			this.statusStrip.Items.Add ( this.toolStripStatusLabel );
 			// 
 			// MainForm
 			// 
@@ -595,6 +609,7 @@ using System.Linq;
 			this.ClientSize = new System.Drawing.Size(1084, 461);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.menuStrip1);
+			this.Controls.Add ( this.statusStrip );
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
 			this.MaximizeBox = false;
@@ -620,6 +635,8 @@ using System.Linq;
 			this.P1.PerformLayout();
 			this.P0.ResumeLayout(false);
 			this.P0.PerformLayout();
+			this.statusStrip.ResumeLayout ( false );
+			this.statusStrip.PerformLayout ( );
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -659,7 +676,7 @@ using System.Linq;
 		private BackgroundWorker dateTitle;
 		private ToolStripMenuItem оПрограммеToolStripMenuItem;
 		private ToolStripMenuItem очиститьToolStripMenuItem;
-		private System.Drawing.Printing.PrintDocument printDocument1;
+		private PrintDocument printDocument1;
 		private PrintDialog printDialog1;
 		private ToolStripMenuItem печатьToolStripMenuItem;
 		private ToolStripMenuItem распечататьToolStripMenuItem;
@@ -671,6 +688,8 @@ using System.Linq;
 		private ToolStripMenuItem таблицыМощностейToolStripMenuItem;
 		private ToolStripMenuItem ежедневнаяToolStripMenuItem;
 		private ToolStripMenuItem среднемесячнаяToolStripMenuItem;
+		private StatusStrip statusStrip;
+		private ToolStripStatusLabel toolStripStatusLabel;
 	}
 }
 

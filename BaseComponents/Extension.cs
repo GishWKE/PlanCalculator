@@ -30,14 +30,11 @@ namespace BaseComponents
 	{
 		public static readonly int NumberDecimalDigits = NumberFormatInfo.CurrentInfo.NumberDecimalDigits;
 		public static readonly char NumberDecimalSeparator = char.Parse ( NumberFormatInfo.CurrentInfo.NumberDecimalSeparator );
+		#region Set placeholder
 		private const int EM_SETCUEBANNER = 0x1501;
-		private const int EM_GETCUEBANNER = 0x1502;
 		[DllImport ( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
 		[return: MarshalAs ( UnmanagedType.Bool )]
 		private static extern bool SendMessage ( IntPtr hWnd, int msg, [MarshalAs ( UnmanagedType.Bool )] bool wParam, [MarshalAs ( UnmanagedType.LPWStr )] string lParam );
-		[DllImport ( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
-		[return: MarshalAs ( UnmanagedType.Bool )]
-		private static extern bool SendMessage ( IntPtr hWnd, int msg, [MarshalAs ( UnmanagedType.LPWStr )] string wParam, int lParam );
 		public static void SetPlaceholder ( this Control c, string value )
 		{
 			if ( !SendMessage ( c.Handle, EM_SETCUEBANNER, false, value ?? string.Empty ) )
@@ -45,13 +42,20 @@ namespace BaseComponents
 				throw new Win32Exception ( Marshal.GetLastWin32Error ( ) );
 			}
 		}
+		#endregion
+		#region Get placeholder
+		private const int EM_GETCUEBANNER = 0x1502;
+		[DllImport ( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
+		[return: MarshalAs ( UnmanagedType.Bool )]
+		private static extern bool SendMessage ( IntPtr hWnd, int msg, [MarshalAs ( UnmanagedType.LPWStr )] StringBuilder wParam, int lParam );
 		public static string GetPlaceholder ( this Control c )
 		{
-			var paceHolder = new string ( '\0', 1024 );
-			return !SendMessage ( c.Handle, EM_GETCUEBANNER, paceHolder, 1024 )
+			var placeHolder = new StringBuilder ( );
+			return !SendMessage ( c.Handle, EM_GETCUEBANNER, placeHolder, placeHolder.MaxCapacity )
 				? throw new Win32Exception ( Marshal.GetLastWin32Error ( ) )
-				: paceHolder.Replace ( "\0", string.Empty );
+				: placeHolder.ToString ( );
 		}
+		#endregion
 		public static bool IsPathEquals ( this FileInfo s, FileInfo other )
 		{
 			try
@@ -67,7 +71,7 @@ namespace BaseComponents
 		{
 			try
 			{
-				return s.IsPathEquals ( new FileInfo ( other ) );
+				return !other.IsEmpty ( ) && s.IsPathEquals ( new FileInfo ( other ) );
 			}
 			catch
 			{
@@ -113,6 +117,18 @@ namespace BaseComponents
 				Application.DoEvents ( );
 			}
 		}
+		public static void ThreadSafeAction ( this Control control, Action action )
+		{
+			if ( control.InvokeRequired )
+			{
+				_ = control.Invoke ( action );
+			}
+			else
+			{
+				action ( );
+			}
+		}
+		public static T ThreadSafeAction<T> ( this Control control, Func<T> action ) => control.InvokeRequired ? ( T ) control.Invoke ( action ) : action ( );
 		public static void Clear ( this string s ) => _ = string.Empty;
 		public static decimal ToDecimal ( this string s )
 		{
@@ -182,7 +198,7 @@ namespace BaseComponents
 		{
 			try
 			{
-				return dt == null || dt.Columns == null || dt.Columns.Count == 0 || dt.Rows == null || dt.Rows.Count == 0;
+				return dt.IsEmpty ( ) || dt.Columns == null || dt.Columns.Count == 0;
 			}
 			catch { throw; }
 		}

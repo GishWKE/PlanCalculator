@@ -321,6 +321,8 @@ namespace PlanCalculator
 			Distance.Value = null;
 			Devices.FileName = FileName;
 			P.Value = 90;
+			toolStripStatusLabel.Text = string.Empty;
+			statusStrip.Update ( );
 		}
 
 		private void просмотрМощностейToolStripMenuItem_Click ( object sender, EventArgs e ) => new PowerTable { FileName = FileName }.ShowDialog ( this );

@@ -615,7 +615,8 @@
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(1100, 500);
 			this.MinimizeBox = false;
-			this.MinimumSize = new System.Drawing.Size(1100, 215);
+			this.MinimumSize = new System.Drawing.Size(1100, 500);
+			this.Size = new System.Drawing.Size ( 1100, 500 );
 			this.Name = "MainForm";
 			((System.ComponentModel.ISupportInitialize)(this.B)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).EndInit();

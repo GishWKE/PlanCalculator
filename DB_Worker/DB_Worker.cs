@@ -33,9 +33,13 @@ namespace DB_Worker
 				return instance;
 			}
 		}
+#if WIN7 || USE_OLEDB
+		private DB_Worker ( ) => sql = new OleDB_Worker ( );
+		private readonly OleDB_Worker sql;
+#else
 		private DB_Worker ( ) => sql = new ODBC_Worker ( );
-
 		private readonly ODBC_Worker sql;
+#endif
 		public string FileName
 		{
 			get => sql.DataSource;

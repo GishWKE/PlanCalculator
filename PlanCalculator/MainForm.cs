@@ -408,8 +408,10 @@ namespace PlanCalculator
 				_ = sb.AppendLine ( );
 				_ = sb_t.Append ( "t" );
 				_ = sb_t.Append ( fld );
-				_ = sb_t.Append ( " (∠" + ( f.Degree != null ? f.Degree.ToString ( ) : @"_____" ) + "°)" );
+				_ = sb_t.Append ( " (∠" + ( f.Degree != null ? f.Degree.ToString ( ) : @"____" ) + "°)" );
+				_ = sb_t.Append ( "\t" );
 				_ = sb_t.Append ( eq0 );
+				_ = sb_t.Append ( "\t" );
 				if ( f.IsInMinutes )
 				{
 					_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
@@ -423,7 +425,6 @@ namespace PlanCalculator
 			}
 			_ = sb.AppendLine ( );
 			_ = sb.AppendLine ( sb_t.ToString ( ) );
-			_ = sb.AppendLine ( );
 			_ = sb.Append ( "РИП = " );
 			_ = sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
 			_ = sb.AppendLine ( " см" );

@@ -114,5 +114,14 @@ namespace Resource.Properties {
                 return ResourceManager.GetString("Time_seconds", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Общее время облучения: .
+        /// </summary>
+        public static string Total_Time {
+            get {
+                return ResourceManager.GetString("Total_Time", resourceCulture);
+            }
+        }
     }
 }

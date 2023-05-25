@@ -139,4 +139,7 @@
     <value>секунд</value>
     <comment>Единица вычислений - секунды</comment>
   </data>
+  <data name="Total_Time" xml:space="preserve">
+    <value>Общее время облучения: </value>
+  </data>
 </root>

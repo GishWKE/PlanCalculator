@@ -180,17 +180,10 @@ namespace PlanCalculator
 			if ( fields.All ( ff => ff.Time != null ) )
 			{
 				var totalTime = fields.Select ( fff => ( double ) fff.Time ).Sum ( );
-				var sb = new StringBuilder ( "Общее время облучения: " );
-				if ( f.IsInMinutes )
-				{
-					_ = sb.Append ( totalTime.ToStringWithDecimalPlaces ( 2 ) );
-					_ = sb.Append ( " минут" );
-				}
-				else
-				{
-					_ = sb.Append ( totalTime.ToStringWithDecimalPlaces ( 1 ) );
-					_ = sb.Append ( " секунд" );
-				}
+				var sb = new StringBuilder ( Resources.Total_Time );
+				_ = sb.Append ( totalTime.ToStringWithDecimalPlaces ( f.IsInMinutes ? 2 : 1 ) );
+				_ = sb.Append ( " " );
+				_ = sb.Append ( f.IsInMinutes ? Resources.Time_minutes : Resources.Time_seconds );
 				toolStripStatusLabel.Text = sb.ToString ( );
 			}
 			Cursor = tmp;
@@ -329,6 +322,11 @@ namespace PlanCalculator
 
 		private string PreparePrintData ( )
 		{
+			if ( toolStripStatusLabel.Text.IsEmpty ( ) )
+			{
+				return string.Empty;
+			}
+
 			var sb = new StringBuilder ( );
 			_ = sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
 			_ = sb.Append ( "РИЦ = " );
@@ -412,19 +410,16 @@ namespace PlanCalculator
 				_ = sb_t.Append ( "\t" );
 				_ = sb_t.Append ( eq0 );
 				_ = sb_t.Append ( "\t" );
-				if ( f.IsInMinutes )
-				{
-					_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
-					_ = sb_t.AppendLine ( " минут" );
-				}
-				else
-				{
-					_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
-					_ = sb_t.AppendLine ( " секунд" );
-				}
+				_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( f.IsInMinutes ? 2 : 1 ) );
+				_ = sb_t.Append ( " " );
+				_ = sb_t.AppendLine ( f.IsInMinutes ? Resources.Time_minutes : Resources.Time_seconds );
 			}
 			_ = sb.AppendLine ( );
 			_ = sb.AppendLine ( sb_t.ToString ( ) );
+			_ = sb.Append ( Resources.Total_Time );
+			_ = sb.AppendLine ( TimeSpan.FromSeconds ( fields.AsParallel ( ).Sum ( f => f.IsInMinutes ? 60D * f.Time.Value : f.Time.Value ) ).ToString ( @"hh\:mm\:ss" ) );
+
+			_ = sb.AppendLine ( );
 			_ = sb.Append ( "РИП = " );
 			_ = sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
 			_ = sb.AppendLine ( " см" );

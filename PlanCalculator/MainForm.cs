@@ -155,7 +155,7 @@ namespace PlanCalculator
 			var f = fld as Field;
 			f.Time = null;
 			toolStripStatusLabel.Text = string.Empty;
-			if ( new double? [ ] { D, P, f.Kb, f.OTV, Weight }.Any ( val => val == null ) || f.IsLung && f.L == null )
+			if ( new double? [ ] { D, P, f.Kb, f.OTV, Weight }.Any ( val => val == null ) || ( f.IsLung && f.L == null ) )
 			{
 				return;
 			}
@@ -351,7 +351,7 @@ namespace PlanCalculator
 			var _axb = "A x B = ";
 			var eq0 = " = ";
 			var eq = $@"){eq0}";
-			if ( fields.Any ( ) && fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value ) )
+			if ( fields.Any ( ) && fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value && f.Weight.Value == 1 ) )
 			{
 				diff = false;
 				var ab = axb ( A.Value, B.Value );
@@ -397,21 +397,29 @@ namespace PlanCalculator
 					_ = sb.Append ( eq0 );
 					_ = sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
 				}
+				if ( diff )
+				{
+					_ = sb.AppendLine ( ";" );
+					_ = sb.Append ( "W" );
+					_ = sb.Append ( fld );
+					_ = sb.Append ( eq0 );
+					_ = sb.Append ( f.Weight.ToStringWithDecimalPlaces ( 3 ) );
+				}
 				_ = sb.AppendLine ( );
 				_ = sb_t.Append ( "t" );
 				_ = sb_t.Append ( fld );
+				_ = sb_t.Append ( " (∠" + ( f.Degree != null ? f.Degree.ToString ( ) : @"_____" ) + "°)" );
 				_ = sb_t.Append ( eq0 );
 				if ( f.IsInMinutes )
 				{
 					_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 2 ) );
-					_ = sb_t.Append ( " минут" );
+					_ = sb_t.AppendLine ( " минут" );
 				}
 				else
 				{
 					_ = sb_t.Append ( f.Time.ToStringWithDecimalPlaces ( 1 ) );
-					_ = sb_t.Append ( " секунд" );
+					_ = sb_t.AppendLine ( " секунд" );
 				}
-				_ = sb_t.AppendLine ( " (∠" + ( f.Degree != null ? f.Degree.ToString ( ) : @"_____" ) + "°)" );
 			}
 			_ = sb.AppendLine ( );
 			_ = sb.AppendLine ( sb_t.ToString ( ) );

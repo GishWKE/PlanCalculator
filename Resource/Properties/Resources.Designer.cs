@@ -98,6 +98,15 @@ namespace Resource.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Для расчета плана недостаточно данных.
+        /// </summary>
+        public static string Not_Ready {
+            get {
+                return ResourceManager.GetString("Not_Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на минут.
         /// </summary>
         public static string Time_minutes {

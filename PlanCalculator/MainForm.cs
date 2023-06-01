@@ -324,7 +324,7 @@ namespace PlanCalculator
 		{
 			if ( toolStripStatusLabel.Text.IsEmpty ( ) )
 			{
-				return string.Empty;
+				return Resources.Not_Ready;
 			}
 
 			var sb = new StringBuilder ( );
@@ -345,13 +345,14 @@ namespace PlanCalculator
 			_ = sb.Append ( "; n = " );
 			_ = sb.AppendLine ( FieldsCount.Value.ToString ( ) );
 			var axb = new Func<dynamic, dynamic, string> ( ( A, B ) => $@"{A} x {B}" );
-			var diff = true;
+			var diffKB = true;
+			var diffW = !fields.All ( f => f.Weight.Value == fields [ 0 ].Weight.Value );
 			var _axb = "A x B = ";
 			var eq0 = " = ";
 			var eq = $@"){eq0}";
-			if ( fields.Any ( ) && fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value && f.Weight.Value == 1 ) )
+			if ( fields.Any ( ) && fields.All ( f => f.A.Value == A.Value && f.B.Value == B.Value ) )
 			{
-				diff = false;
+				diffKB = false;
 				var ab = axb ( A.Value, B.Value );
 				_ = sb.Append ( _axb );
 				_ = sb.AppendLine ( ab );
@@ -365,11 +366,13 @@ namespace PlanCalculator
 			foreach ( var f in fields )
 			{
 				var fld = f.Text.Replace ( "№", string.Empty );
-				if ( diff )
+				if ( diffKB || diffW )
 				{
 					_ = sb.Append ( "Поле " );
-					_ = sb.Append ( f.Text );
-					_ = sb.Append ( " " );
+					_ = sb.AppendLine ( f.Text );
+				}
+				if ( diffKB )
+				{
 					var ab = axb ( f.A.Value, f.B.Value );
 					_ = sb.Append ( _axb );
 					_ = sb.AppendLine ( ab );
@@ -395,7 +398,7 @@ namespace PlanCalculator
 					_ = sb.Append ( eq0 );
 					_ = sb.Append ( f.L.ToStringWithDecimalPlaces ( 3 ) );
 				}
-				if ( diff )
+				if ( diffW )
 				{
 					_ = sb.AppendLine ( ";" );
 					_ = sb.Append ( "W" );

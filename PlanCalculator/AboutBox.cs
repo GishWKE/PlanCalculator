@@ -16,6 +16,7 @@
 */
 namespace PlanCalculator
 {
+	using System;
 	using System.Diagnostics;
 	using System.Reflection;
 	using System.Windows.Forms;
@@ -31,18 +32,19 @@ namespace PlanCalculator
 			Text = $@"О программе {AssemblyTitle}";
 			labelProductName.Text = AssemblyProduct;
 			labelVersion.Text = $@"Версия {AssemblyVersion}";
-			labelCopyright.Text = AssemblyCopyright;
+			labelCopyright.Text = string.Format ( AssemblyCopyright, DateTime.Now.Year );
 			labelCompanyName.Text = AssemblyCompany;
 			textBoxDescription.Text = AssemblyDescription;
 		}
 
 		#region Методы доступа к атрибутам сборки
+		private object [ ] Attribute ( Type t ) => ass.GetCustomAttributes ( t, false );
 
 		public string AssemblyTitle
 		{
 			get
 			{
-				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyTitleAttribute ), false );
+				var attributes = Attribute ( typeof ( AssemblyTitleAttribute ) );
 				if ( attributes.Length > 0 )
 				{
 					var titleAttribute = ( AssemblyTitleAttribute ) attributes [ 0 ];
@@ -56,42 +58,16 @@ namespace PlanCalculator
 		}
 
 		public string AssemblyVersion => ass.GetName ( ).Version.ToString ( );
-
-		public string AssemblyDescription
+		private T AttributeText<T> ( )
 		{
-			get
-			{
-				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyDescriptionAttribute ), false );
-				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyDescriptionAttribute ) attributes [ 0 ] ).Description;
-			}
+			var attributes = Attribute ( typeof ( T ) );
+			return ( attributes.Length == 0 ) ? default : ( ( T ) attributes [ 0 ] );
 		}
 
-		public string AssemblyProduct
-		{
-			get
-			{
-				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyProductAttribute ), false );
-				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyProductAttribute ) attributes [ 0 ] ).Product;
-			}
-		}
-
-		public string AssemblyCopyright
-		{
-			get
-			{
-				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyCopyrightAttribute ), false );
-				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyCopyrightAttribute ) attributes [ 0 ] ).Copyright;
-			}
-		}
-
-		public string AssemblyCompany
-		{
-			get
-			{
-				var attributes = ass.GetCustomAttributes ( typeof ( AssemblyCompanyAttribute ), false );
-				return ( attributes.Length == 0 ) ? string.Empty : ( ( AssemblyCompanyAttribute ) attributes [ 0 ] ).Company;
-			}
-		}
+		public string AssemblyDescription => AttributeText<AssemblyDescriptionAttribute> ( ).Description;
+		public string AssemblyProduct => AttributeText<AssemblyProductAttribute> ( ).Product;
+		public string AssemblyCopyright => AttributeText<AssemblyCopyrightAttribute> ( ).Copyright;
+		public string AssemblyCompany => AttributeText<AssemblyCompanyAttribute> ( ).Company;
 		#endregion
 
 		private void RTB_LinkClicked ( object sender, LinkClickedEventArgs e ) => Process.Start ( e.LinkText );

@@ -37,7 +37,7 @@ namespace BaseComponents
 		{
 			get; set;
 		}
-		public static implicit operator double? ( DoubleTextBox dtb ) => dtb.Value;
+		public static implicit operator double? ( DoubleTextBox dtb ) => dtb?.Value;
 		public static implicit operator double ( DoubleTextBox dtb ) => ( ( double? ) dtb ).GetValueOrDefault ( 0D );
 		public DoubleTextBox ( ) : base ( @"^-?[,.]?$" ) => InitializeComponent ( );
 	}

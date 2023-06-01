@@ -131,6 +131,9 @@
   <data name="Isc_Num" xml:space="preserve">
     <value>Число изоцентров</value>
   </data>
+  <data name="Not_Ready" xml:space="preserve">
+    <value>Для расчета плана недостаточно данных</value>
+  </data>
   <data name="Time_minutes" xml:space="preserve">
     <value>минут</value>
     <comment>Единица вычислений - минуты</comment>

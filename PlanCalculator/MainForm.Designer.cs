@@ -57,10 +57,15 @@
 			this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.распечататьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.предварителоьныйПросмотрToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.мощностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.таблицыМощностейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ежедневнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.среднемесячнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.очиститьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.panel3 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.P1 = new System.Windows.Forms.Panel();
@@ -75,17 +80,18 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.Distance = new BaseComponents.DoubleTextBox();
 			this.DST = new System.Windows.Forms.Label();
-			this.Devices = new CalculatorComponents.Device();
 			this.AllFields = new System.Windows.Forms.FlowLayoutPanel();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.printDialog1 = new System.Windows.Forms.PrintDialog();
-			this.мощностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.таблицыМощностейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.ежедневнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.среднемесячнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.statusStrip = new System.Windows.Forms.StatusStrip ( );
-			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel ( );
-			( (System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
+			this.statusStrip = new System.Windows.Forms.StatusStrip();
+			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.label5 = new System.Windows.Forms.Label();
+			this.TblShift = new BaseComponents.DoubleTextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.Devices = new CalculatorComponents.Device();
+			this.panel4 = new System.Windows.Forms.Panel();
+			this.Patient = new BaseComponents.MyTextBox();
+			((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.FieldsCount)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.N)).BeginInit();
@@ -94,11 +100,13 @@
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
+			this.panel3.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.P1.SuspendLayout();
 			this.P0.SuspendLayout();
-			this.statusStrip.SuspendLayout ( );
+			this.statusStrip.SuspendLayout();
+			this.panel4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// dateTitle
@@ -120,7 +128,7 @@
 			// 
 			// B
 			// 
-			this.B.Location = new System.Drawing.Point(226, 0);
+			this.B.Location = new System.Drawing.Point(226, 1);
 			this.B.Maximum = new decimal(new int[] {
             20,
             0,
@@ -145,7 +153,7 @@
 			// B_label
 			// 
 			this.B_label.AutoSize = true;
-			this.B_label.Location = new System.Drawing.Point(196, 2);
+			this.B_label.Location = new System.Drawing.Point(196, 3);
 			this.B_label.Name = "B_label";
 			this.B_label.Size = new System.Drawing.Size(23, 13);
 			this.B_label.TabIndex = 2;
@@ -154,7 +162,7 @@
 			// 
 			// A
 			// 
-			this.A.Location = new System.Drawing.Point(30, 0);
+			this.A.Location = new System.Drawing.Point(30, 1);
 			this.A.Maximum = new decimal(new int[] {
             20,
             0,
@@ -179,7 +187,7 @@
 			// A_label
 			// 
 			this.A_label.AutoSize = true;
-			this.A_label.Location = new System.Drawing.Point(0, 2);
+			this.A_label.Location = new System.Drawing.Point(0, 3);
 			this.A_label.Name = "A_label";
 			this.A_label.Size = new System.Drawing.Size(23, 13);
 			this.A_label.TabIndex = 0;
@@ -297,7 +305,7 @@
 			// 
 			this.распечататьToolStripMenuItem.Name = "распечататьToolStripMenuItem";
 			this.распечататьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-			this.распечататьToolStripMenuItem.Size = new System.Drawing.Size(320, 22);
+			this.распечататьToolStripMenuItem.Size = new System.Drawing.Size(322, 22);
 			this.распечататьToolStripMenuItem.Text = "Распечатать";
 			this.распечататьToolStripMenuItem.Click += new System.EventHandler(this.печататьToolStripMenuItem_Click);
 			// 
@@ -306,9 +314,39 @@
 			this.предварителоьныйПросмотрToolStripMenuItem.Name = "предварителоьныйПросмотрToolStripMenuItem";
 			this.предварителоьныйПросмотрToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.P)));
-			this.предварителоьныйПросмотрToolStripMenuItem.Size = new System.Drawing.Size(320, 22);
+			this.предварителоьныйПросмотрToolStripMenuItem.Size = new System.Drawing.Size(322, 22);
 			this.предварителоьныйПросмотрToolStripMenuItem.Text = "Предварительный просмотр";
 			this.предварителоьныйПросмотрToolStripMenuItem.Click += new System.EventHandler(this.предварителоьныйПросмотрToolStripMenuItem_Click);
+			// 
+			// мощностьToolStripMenuItem
+			// 
+			this.мощностьToolStripMenuItem.Name = "мощностьToolStripMenuItem";
+			this.мощностьToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+			this.мощностьToolStripMenuItem.Text = "Мощность";
+			this.мощностьToolStripMenuItem.Click += new System.EventHandler(this.средняяToolStripMenuItem_Click);
+			// 
+			// таблицыМощностейToolStripMenuItem
+			// 
+			this.таблицыМощностейToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ежедневнаяToolStripMenuItem,
+            this.среднемесячнаяToolStripMenuItem});
+			this.таблицыМощностейToolStripMenuItem.Name = "таблицыМощностейToolStripMenuItem";
+			this.таблицыМощностейToolStripMenuItem.Size = new System.Drawing.Size(137, 20);
+			this.таблицыМощностейToolStripMenuItem.Text = "Таблицы мощностей";
+			// 
+			// ежедневнаяToolStripMenuItem
+			// 
+			this.ежедневнаяToolStripMenuItem.Name = "ежедневнаяToolStripMenuItem";
+			this.ежедневнаяToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.ежедневнаяToolStripMenuItem.Text = "Ежедневная";
+			this.ежедневнаяToolStripMenuItem.Click += new System.EventHandler(this.просмотрМощностейToolStripMenuItem_Click);
+			// 
+			// среднемесячнаяToolStripMenuItem
+			// 
+			this.среднемесячнаяToolStripMenuItem.Name = "среднемесячнаяToolStripMenuItem";
+			this.среднемесячнаяToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.среднемесячнаяToolStripMenuItem.Text = "Среднемесячная";
+			this.среднемесячнаяToolStripMenuItem.Click += new System.EventHandler(this.среднемесячнаяToolStripMenuItem_Click);
 			// 
 			// оПрограммеToolStripMenuItem
 			// 
@@ -322,7 +360,7 @@
 			// 
 			this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
 			this.выходToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.выходToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+			this.выходToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
 			this.выходToolStripMenuItem.Text = "Выход";
 			this.выходToolStripMenuItem.Click += new System.EventHandler(this.Exit_Button_Click);
 			// 
@@ -342,6 +380,8 @@
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.Controls.Add(this.panel4);
+			this.splitContainer1.Panel1.Controls.Add(this.panel3);
 			this.splitContainer1.Panel1.Controls.Add(this.panel2);
 			this.splitContainer1.Panel1.Controls.Add(this.panel1);
 			this.splitContainer1.Panel1.Controls.Add(this.P1);
@@ -352,16 +392,28 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.AllFields);
-			this.splitContainer1.Size = new System.Drawing.Size(1084, 437);
+			this.splitContainer1.Size = new System.Drawing.Size(1084, 415);
 			this.splitContainer1.SplitterDistance = 401;
 			this.splitContainer1.TabIndex = 0;
 			// 
+			// panel3
+			// 
+			this.panel3.Controls.Add(this.B);
+			this.panel3.Controls.Add(this.B_label);
+			this.panel3.Controls.Add(this.A_label);
+			this.panel3.Controls.Add(this.A);
+			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel3.Location = new System.Drawing.Point(0, 167);
+			this.panel3.Name = "panel3";
+			this.panel3.Size = new System.Drawing.Size(401, 24);
+			this.panel3.TabIndex = 2;
+			// 
 			// panel2
 			// 
-			this.panel2.Controls.Add(this.B);
-			this.panel2.Controls.Add(this.B_label);
-			this.panel2.Controls.Add(this.A);
-			this.panel2.Controls.Add(this.A_label);
+			this.panel2.Controls.Add(this.FieldsCount);
+			this.panel2.Controls.Add(this.label2);
+			this.panel2.Controls.Add(this.label1);
+			this.panel2.Controls.Add(this.N);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel2.Location = new System.Drawing.Point(0, 147);
 			this.panel2.Name = "panel2";
@@ -370,10 +422,11 @@
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.FieldsCount);
-			this.panel1.Controls.Add(this.label2);
-			this.panel1.Controls.Add(this.N);
-			this.panel1.Controls.Add(this.label1);
+			this.panel1.Controls.Add(this.Dose_label2);
+			this.panel1.Controls.Add(this.D);
+			this.panel1.Controls.Add(this.Dose_label0);
+			this.panel1.Controls.Add(this.Dose_label1);
+			this.panel1.Controls.Add(this.P);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 127);
 			this.panel1.Name = "panel1";
@@ -382,16 +435,14 @@
 			// 
 			// P1
 			// 
-			this.P1.Controls.Add(this.Dose_label2);
-			this.P1.Controls.Add(this.D);
-			this.P1.Controls.Add(this.Dose_label1);
-			this.P1.Controls.Add(this.P);
-			this.P1.Controls.Add(this.Dose_label0);
+			this.P1.Controls.Add(this.label6);
+			this.P1.Controls.Add(this.TblShift);
+			this.P1.Controls.Add(this.label5);
 			this.P1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.P1.Location = new System.Drawing.Point(0, 107);
 			this.P1.Name = "P1";
 			this.P1.Size = new System.Drawing.Size(401, 20);
-			this.P1.TabIndex = 2;
+			this.P1.TabIndex = 3;
 			// 
 			// Dose_label2
 			// 
@@ -487,12 +538,12 @@
 			this.SSD.BackColor = System.Drawing.SystemColors.Window;
 			this.SSD.Correct_tooltip = "Расстояние источник-поверхность";
 			this.SSD.FractionalPlaces = 1;
-			this.SSD.Location = new System.Drawing.Point(112, 0);
+			this.SSD.Location = new System.Drawing.Point(167, 0);
 			this.SSD.MaxLength = 5;
 			this.SSD.Name = "SSD";
 			this.SSD.PlaceHolder = "";
 			this.SSD.ReadOnly = true;
-			this.SSD.Size = new System.Drawing.Size(261, 20);
+			this.SSD.Size = new System.Drawing.Size(206, 20);
 			this.SSD.TabIndex = 3;
 			this.SSD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.SSD.Type = BaseComponents.NumericTextBoxTypes.DOUBLE;
@@ -500,7 +551,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(81, 3);
+			this.label3.Location = new System.Drawing.Point(128, 3);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(33, 13);
 			this.label3.TabIndex = 2;
@@ -512,7 +563,7 @@
 			this.Distance.BackColor = System.Drawing.SystemColors.Window;
 			this.Distance.Correct_tooltip = "Расстояние от точки входа в тело до изоцентра";
 			this.Distance.FractionalPlaces = 1;
-			this.Distance.Location = new System.Drawing.Point(45, 0);
+			this.Distance.Location = new System.Drawing.Point(87, 0);
 			this.Distance.MaxLength = 4;
 			this.Distance.Name = "Distance";
 			this.Distance.PlaceHolder = "";
@@ -527,18 +578,9 @@
 			this.DST.AutoSize = true;
 			this.DST.Location = new System.Drawing.Point(3, 3);
 			this.DST.Name = "DST";
-			this.DST.Size = new System.Drawing.Size(36, 13);
+			this.DST.Size = new System.Drawing.Size(80, 13);
 			this.DST.TabIndex = 0;
-			this.DST.Text = "РИП (";
-			// 
-			// Devices
-			// 
-			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
-			this.Devices.FileName = null;
-			this.Devices.Location = new System.Drawing.Point(0, 0);
-			this.Devices.Name = "Devices";
-			this.Devices.Size = new System.Drawing.Size(401, 87);
-			this.Devices.TabIndex = 0;
+			this.DST.Text = "РИП (вверх на";
 			// 
 			// AllFields
 			// 
@@ -546,7 +588,7 @@
 			this.AllFields.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.AllFields.Location = new System.Drawing.Point(0, 0);
 			this.AllFields.Name = "AllFields";
-			this.AllFields.Size = new System.Drawing.Size(679, 437);
+			this.AllFields.Size = new System.Drawing.Size(679, 415);
 			this.AllFields.TabIndex = 0;
 			// 
 			// printDocument1
@@ -559,49 +601,78 @@
 			this.printDialog1.Document = this.printDocument1;
 			this.printDialog1.ShowHelp = true;
 			// 
-			// мощностьToolStripMenuItem
-			// 
-			this.мощностьToolStripMenuItem.Name = "мощностьToolStripMenuItem";
-			this.мощностьToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-			this.мощностьToolStripMenuItem.Text = "Мощность";
-			this.мощностьToolStripMenuItem.Click += new System.EventHandler(this.средняяToolStripMenuItem_Click);
-			// 
-			// таблицыМощностейToolStripMenuItem
-			// 
-			this.таблицыМощностейToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ежедневнаяToolStripMenuItem,
-            this.среднемесячнаяToolStripMenuItem});
-			this.таблицыМощностейToolStripMenuItem.Name = "таблицыМощностейToolStripMenuItem";
-			this.таблицыМощностейToolStripMenuItem.Size = new System.Drawing.Size(136, 20);
-			this.таблицыМощностейToolStripMenuItem.Text = "Таблицы мощностей";
-			// 
-			// ежедневнаяToolStripMenuItem
-			// 
-			this.ежедневнаяToolStripMenuItem.Name = "ежедневнаяToolStripMenuItem";
-			this.ежедневнаяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.ежедневнаяToolStripMenuItem.Text = "Ежедневная";
-			this.ежедневнаяToolStripMenuItem.Click += new System.EventHandler(this.просмотрМощностейToolStripMenuItem_Click);
-			// 
-			// среднемесячнаяToolStripMenuItem
-			// 
-			this.среднемесячнаяToolStripMenuItem.Name = "среднемесячнаяToolStripMenuItem";
-			this.среднемесячнаяToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.среднемесячнаяToolStripMenuItem.Text = "Среднемесячная";
-			this.среднемесячнаяToolStripMenuItem.Click += new System.EventHandler(this.среднемесячнаяToolStripMenuItem_Click);
-			//
-			// toolStripStatusLabel
-			//
-			this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-			this.toolStripStatusLabel.Dock = DockStyle.Right;
-			this.toolStripStatusLabel.Text = "";
-			this.toolStripStatusLabel.TextAlign = ContentAlignment.MiddleRight;
-			//
 			// statusStrip
-			//
+			// 
+			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+			this.statusStrip.Location = new System.Drawing.Point(0, 439);
 			this.statusStrip.Name = "statusStrip";
-			this.statusStrip.Dock = DockStyle.Bottom;
-			this.statusStrip.RenderMode = ToolStripRenderMode.System;
-			this.statusStrip.Items.Add ( this.toolStripStatusLabel );
+			this.statusStrip.Size = new System.Drawing.Size(1084, 22);
+			this.statusStrip.TabIndex = 2;
+			// 
+			// toolStripStatusLabel
+			// 
+			this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+			this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+			this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(10, 4);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(71, 13);
+			this.label5.TabIndex = 0;
+			this.label5.Text = "в сторону на";
+			// 
+			// TblShift
+			// 
+			this.TblShift.AlwaysPositive = true;
+			this.TblShift.FractionalPlaces = 1;
+			this.TblShift.Location = new System.Drawing.Point(87, 1);
+			this.TblShift.Name = "TblShift";
+			this.TblShift.PlaceHolder = "";
+			this.TblShift.Size = new System.Drawing.Size(36, 20);
+			this.TblShift.TabIndex = 1;
+			this.TblShift.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.TblShift.Type = BaseComponents.NumericTextBoxTypes.DOUBLE;
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(128, 4);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(21, 13);
+			this.label6.TabIndex = 2;
+			this.label6.Text = "см";
+			// 
+			// Devices
+			// 
+			this.Devices.Dock = System.Windows.Forms.DockStyle.Top;
+			this.Devices.FileName = null;
+			this.Devices.Location = new System.Drawing.Point(0, 0);
+			this.Devices.Name = "Devices";
+			this.Devices.Size = new System.Drawing.Size(401, 87);
+			this.Devices.TabIndex = 0;
+			// 
+			// panel4
+			// 
+			this.panel4.Controls.Add(this.Patient);
+			this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel4.Location = new System.Drawing.Point(0, 191);
+			this.panel4.Name = "panel4";
+			this.panel4.Size = new System.Drawing.Size(401, 20);
+			this.panel4.TabIndex = 5;
+			// 
+			// Patient
+			// 
+			this.Patient.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.Patient.Location = new System.Drawing.Point(0, 0);
+			this.Patient.Name = "Patient";
+			this.Patient.PlaceHolder = "ФИО пациента";
+			this.Patient.Size = new System.Drawing.Size(401, 20);
+			this.Patient.TabIndex = 0;
+			this.Patient.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			// 
 			// MainForm
 			// 
@@ -609,14 +680,13 @@
 			this.ClientSize = new System.Drawing.Size(1084, 461);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.menuStrip1);
-			this.Controls.Add ( this.statusStrip );
+			this.Controls.Add(this.statusStrip);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(1100, 500);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(1100, 500);
-			this.Size = new System.Drawing.Size ( 1100, 500 );
 			this.Name = "MainForm";
 			((System.ComponentModel.ISupportInitialize)(this.B)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.A)).EndInit();
@@ -628,6 +698,8 @@
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
+			this.panel3.ResumeLayout(false);
+			this.panel3.PerformLayout();
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
 			this.panel1.ResumeLayout(false);
@@ -636,8 +708,10 @@
 			this.P1.PerformLayout();
 			this.P0.ResumeLayout(false);
 			this.P0.PerformLayout();
-			this.statusStrip.ResumeLayout ( false );
-			this.statusStrip.PerformLayout ( );
+			this.statusStrip.ResumeLayout(false);
+			this.statusStrip.PerformLayout();
+			this.panel4.ResumeLayout(false);
+			this.panel4.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -691,6 +765,12 @@
 		private ToolStripMenuItem среднемесячнаяToolStripMenuItem;
 		private StatusStrip statusStrip;
 		private ToolStripStatusLabel toolStripStatusLabel;
+		private Panel panel3;
+		private Label label6;
+		private DoubleTextBox TblShift;
+		private Label label5;
+		private Panel panel4;
+		private MyTextBox Patient;
 	}
 }
 

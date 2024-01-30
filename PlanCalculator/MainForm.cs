@@ -307,11 +307,13 @@ namespace PlanCalculator
 
 		private void очиститьToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
+			Patient.Clear ( );
 			FieldsCount.Value = 0;
 			D.Value = null;
 			A.Value = 4;
 			B.Value = 4;
 			Distance.Value = null;
+			TblShift.Value = null;
 			Devices.FileName = FileName;
 			P.Value = 90;
 			toolStripStatusLabel.Text = string.Empty;
@@ -328,6 +330,11 @@ namespace PlanCalculator
 			}
 
 			var sb = new StringBuilder ( );
+			if (!Patient.IsEmpty ( ))
+			{
+				_ = sb.AppendLine ( Patient.Text );
+				_ = sb.AppendLine ( );
+			}
 			_ = sb.AppendLine ( ( string ) Devices.Selected [ "Аппарат" ] );
 			_ = sb.Append ( "РИЦ = " );
 			_ = sb.Append ( ( int ) Devices.Selected [ "РИЦ" ] );
@@ -422,13 +429,27 @@ namespace PlanCalculator
 			_ = sb.Append ( Resources.Total_Time );
 			_ = sb.AppendLine ( TimeSpan.FromSeconds ( fields.AsParallel ( ).Sum ( f => f.IsInMinutes ? 60D * f.Time.Value : f.Time.Value ) ).ToString ( @"hh\:mm\:ss" ) );
 
-			_ = sb.AppendLine ( );
-			_ = sb.Append ( "РИП = " );
-			_ = sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
-			_ = sb.AppendLine ( " см" );
+			if (!SSD.IsEmpty ( ))
+			{
+				_ = sb.AppendLine ( );
+				_ = sb.Append ( "РИП = " );
+				_ = sb.Append ( SSD.Value.ToStringWithDecimalPlaces ( 1 ) );
+				_ = sb.AppendLine ( " см" );
+				_ = sb.Append ( "стол вверх на " );
+				_ = sb.Append ( Distance.Value.ToStringWithDecimalPlaces ( 1 ) );
+				_ = sb.AppendLine ( " см" );
+				if (!TblShift.IsEmpty ( ))
+				{
+					_ = sb.Append ( "в сторону на " );
+					_ = sb.Append ( TblShift.Value.ToStringWithDecimalPlaces ( 1 ) );
+					_ = sb.AppendLine ( " см" );
+				}
+			}
 			_ = sb.AppendLine ( );
 			_ = sb.AppendLine ( Text );
-			_ = sb.Append ( "инж.радиолог __________________" );
+			_ = sb.AppendLine ( "инж.радиолог " );
+			_ = sb.AppendLine ( );
+			_ = sb.Append ( "________________________________" );
 			return sb.ToString ( );
 		}
 		private void печататьToolStripMenuItem_Click ( object sender, EventArgs e )
